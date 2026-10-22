@@ -4,7 +4,7 @@
   "version": "0.2.2",
   "description": "The AI Shopping Channel Manager for e-commerce brands: see how AI assistants recommend your products, product by product, and what to change to win the sale.",
   "author": {
-    "name": "Intelligent Motion Inc.",
+    "name": "Intelligent Motion, Inc.",
     "email": "support@slingso.com",
     "url": "https://www.slingso.com"
   },
@@ -25,7 +25,7 @@
         "displayName": "Slingso",
         "shortDescription": "AI Shopping Channel Manager",
         "longDescription": "Shoppers now ask AI assistants which product to choose. Slingso shows an e-commerce brand how those assistants answer for its products: which product each answer recommends, at what price, from which store, and whether it tells the brand's story correctly.\n\nWith Slingso you can:\n- Set up your brand: Slingso reads your site, drafts your Brand Soul and the shopping questions to track, and finds the competitors AI names.\n- See your numbers: Shelf Share, Narrative Accuracy and Purchase Likelihood, for the brand and each product, and how they moved.\n- Compare with the competitors you pin, brand by brand and product by product.\n- Act on opportunities: each one comes with the AI answers behind it, and you approve, revise or dismiss it.\n\nWho it's for: founders and marketing teams at e-commerce brands.\n\nWhat you need: a Slingso account, signed in through this plugin. Checks run in a browser on your computer, or on Slingso's servers.\n\nLimitations: Slingso records what AI assistants answer; it doesn't change those answers directly or place orders. Answers vary by market, so Slingso checks in the market you choose.",
-        "developerName": "Intelligent Motion Inc.",
+        "developerName": "Intelligent Motion, Inc.",
         "category": "Business & Operations",
         "capabilities": [
           "Track how AI shopping assistants recommend your products",
