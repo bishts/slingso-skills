@@ -1,6 +1,6 @@
 {
   "name": "slingso",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Installs the Slingso skill in your favorite AI assistant's skills folder. Prints the steps to connect Slingso.",
   "type": "module",
   "bin": {

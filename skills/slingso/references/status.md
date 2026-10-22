@@ -17,11 +17,11 @@ Five lines at most:
 - Plan: `plan.display_name`; on Growth, add "Slingso analyses every cycle".
 - Setup: done, or "Step N of M: <current step>".
 - Monitoring: AI Shopping Channels, cadence, next run, and who runs the checks: "Slingso runs your checks on its servers" when `schedule.server_checks` is on, else "your AI assistant runs them".
-- Versions: this skill `0.2.0`, the oldest Slingso accepts (`loader_min_version`), the contract version the workspace is pinned to (`skill_version`, or "current").
+- Versions: this skill `0.2.1`, the oldest Slingso accepts (`loader_min_version`), the contract version the workspace is pinned to (`skill_version`, or "current").
 
 ## Updating the skill
 
-When `loader_min_version` is newer than `0.2.0`, or a response says an update is required:
+When `loader_min_version` is newer than `0.2.1`, or a response says an update is required:
 
 The routes are the ones in [prompts/update.md](https://github.com/bishts/slingso-skills/blob/main/prompts/update.md):
 

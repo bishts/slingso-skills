@@ -4,7 +4,7 @@ description: The AI Shopping Channel Manager inside your favorite AI assistant. 
 license: MIT
 compatibility: Needs the Slingso MCP (https://agents.slingso.com/mcp). Monitor and check need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g - Claude in Chrome). Without one, query monitoring can't be automated with good quality, and answers are pasted.
 metadata:
-  version: "0.2.0"
+  version: "0.2.1"
   author: Slingso
 ---
 
@@ -49,7 +49,7 @@ Who runs the checks is the workspace's choice on any plan, not the plan's: the u
 ## Start every session the same way
 
 1. Call `get_session`.
-2. Check the version. This skill is version `0.2.0` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
+2. Check the version. This skill is version `0.2.1` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
 3. Route:
 
 | `get_session` shows | Do |
@@ -63,7 +63,7 @@ Every tool takes `workspace` (the workspace code). Pass the one you routed to on
 
 ## Where you run
 
-Slingso is tested & verified in Claude Code, the Claude desktop app (Cowork and chat), the ChatGPT desktop app and Codex CLI: they drive a browser on the user's own computer, so answers show what the user's market sees. In any other assistant, tell the user once, in a line, that Slingso hasn't been tested & verified there and its data may have gaps or errors. If your browser runs in the cloud, say too that answers may not show their market - they are dependent on your cloud browser's limitations (not Slingso's). This limitation does not apply to server checks (any plan, from a prepaid balance): Slingso runs them on its specially created infrastructure so that you don't have to worry about monitoring, browsers, proxies, captchas, etc - all things that lead to poor data quality.
+Slingso is tested & verified in Claude Code, the Claude desktop app (Cowork and chat), the ChatGPT desktop app, Codex CLI and the Grok desktop app (the Gemini desktop app works but follows the skill loosely): they drive a browser on the user's own computer, so answers show what the user's market sees. In any other assistant, tell the user once, in a line, that Slingso hasn't been tested & verified there and its data may have gaps or errors. If your browser runs in the cloud, say too that answers may not show their market - they are dependent on your cloud browser's limitations (not Slingso's). This limitation does not apply to server checks (any plan, from a prepaid balance): Slingso runs them on its specially created infrastructure so that you don't have to worry about monitoring, browsers, proxies, captchas, etc - all things that lead to poor data quality.
 
 If the user asked for a specific verb, route first, then do the verb. A verb never skips unfinished onboarding, except `status`, `switch`, `check` and `help`. "slingso" or "/slingso" with no verb is `help` once onboarding is finished; before that it is `init`.
 
