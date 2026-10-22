@@ -13,8 +13,8 @@ skill tells the user an untested assistant's data may have gaps.
 |---|---|---|---|---|---|
 | Claude Code | bundled in the plugin (`.mcp.json`); `/mcp` to sign in | the plugin (`.claude-plugin/`) | Playwright (bundled), else Claude in Chrome | at launch, tested | 2026-10-15 |
 | Claude desktop (Cowork and chat) | bundled in the plugin | the plugin | Playwright (bundled), else the built-in browser | tested | 2026-10-19 |
-| ChatGPT desktop | an app in Settings → Apps (Developer mode), `https://agents.slingso.com/mcp` with OAuth | per the setup prompt | the desktop app's browser | tested | 2026-10-19 |
-| Codex CLI | remote HTTP MCP server with OAuth, in its MCP settings | `npx slingso install --dir <its skills folder>` | Playwright (`npx -y @playwright/mcp@0.0.83 --isolated` in its MCP settings) | tested | 2026-10-19 |
+| ChatGPT desktop | runs on Codex: `codex mcp add slingso --url https://agents.slingso.com/mcp`, then `codex mcp login slingso` (adding alone leaves it "Not logged in", with no tools) | Codex skills folder, from the release zip | the desktop app's browser | tested: the setup prompt alone installs and signs in | 2026-10-22 |
+| Codex CLI | `codex mcp add slingso --url https://agents.slingso.com/mcp`, then `codex mcp login slingso` | Codex skills folder, from the release zip | Playwright (`npx -y @playwright/mcp@0.0.83 --isolated` in its MCP settings) | tested | 2026-10-19 |
 | Gemini desktop | custom connector in Settings → Connectors | upload in Settings → Skills | the desktop app's browser | works, follows the skill loosely | 2026-10-19 |
 | Grok desktop | custom connector in Connectors → New connector → Custom, `https://agents.slingso.com/mcp` | per the setup prompt | not yet checked | tested: the setup prompt alone installs it | 2026-10-22 |
 | Cursor, Gemini CLI, OpenCode, GitHub Copilot | remote HTTP MCP server with OAuth, in that tool's MCP settings | `npx slingso install --dir <its skills folder>` | Playwright (`npx -y @playwright/mcp@0.0.83 --isolated` in its MCP settings) | not tested | |

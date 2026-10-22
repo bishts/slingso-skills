@@ -57,7 +57,7 @@ Slingso works best in an assistant that runs on your own computer (a desktop app
 |---|---|---|---|
 | Claude Code | your computer | ✓ | 2026-10-15 |
 | Claude desktop (Cowork and chat) | your computer | ✓ | 2026-10-19 |
-| ChatGPT desktop | your computer | ✓ | 2026-10-19 |
+| ChatGPT desktop | your computer | ✓ (paste the setup prompt) | 2026-10-22 |
 | Codex CLI | your computer | ✓ | 2026-10-19 |
 | Gemini desktop | your computer | works, follows the skill loosely | 2026-10-19 |
 | Grok desktop | your computer | ✓ (paste the setup prompt) | 2026-10-22 |
