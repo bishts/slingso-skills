@@ -81,6 +81,10 @@ Paste [prompts/update.md](prompts/update.md). Slingso tells you in the conversat
 
 Free, Starter and Growth: [slingso.com/pricing](https://www.slingso.com/pricing). Help: [docs.slingso.com](https://docs.slingso.com).
 
+## Publisher
+
+Slingso is a product of Intelligent Motion Inc.
+
 ## License
 
 MIT. See [LICENSE](LICENSE).
