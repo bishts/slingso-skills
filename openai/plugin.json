@@ -1,0 +1,99 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "slingso",
+  "version": "0.2.1",
+  "description": "The AI Shopping Channel Manager for e-commerce brands: see how ChatGPT, Google AI Mode, Google AI Overviews and Gemini sell your products, product by product, and what to change to win the sale.",
+  "author": {
+    "name": "Slingso",
+    "email": "support@slingso.com",
+    "url": "https://www.slingso.com"
+  },
+  "homepage": "https://www.slingso.com",
+  "repository": "https://github.com/bishts/slingso-skills",
+  "license": "MIT",
+  "keywords": ["ecommerce", "ai-shopping", "shelf-share", "brand", "products", "competitors"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Slingso",
+        "shortDescription": "AI Shopping Channel Manager",
+        "longDescription": "Shoppers now ask AI assistants what to buy. Slingso shows an e-commerce brand how ChatGPT, Google AI Mode, Google AI Overviews and Gemini answer those questions for its products: which product each answer picks, at what price, from which store, and whether it tells the brand's story correctly.\n\nWith Slingso you can:\n- Set up your brand: Slingso reads your site, drafts your Brand Soul and the shopping questions to track, and finds the competitors AI names.\n- See your numbers: Shelf Share, Narrative Accuracy and Purchase Likelihood, for the brand and each product, and how they moved.\n- Compare with competitors you pin, brand by brand and product by product.\n- Act on opportunities: each one comes with the AI answers behind it, and you approve, revise or dismiss it.\n\nWho it's for: founders and marketing teams at e-commerce brands.\n\nWhat you need: a Slingso account (Free to start), signed in through this plugin. Checks run in your assistant's browser on your computer, or on Slingso's servers.\n\nLimitations: Slingso records what AI assistants answer; it doesn't change those answers directly or buy anything. Answers vary by market, so Slingso checks in the market you choose.",
+        "developerName": "Slingso",
+        "category": "Productivity",
+        "capabilities": [
+          "Track how AI shopping assistants recommend your products",
+          "Measure Shelf Share, Narrative Accuracy and Purchase Likelihood",
+          "Compare your brand and products with pinned competitors",
+          "Find opportunities, backed by the AI answers behind them"
+        ],
+        "websiteURL": "https://www.slingso.com",
+        "supportURL": "https://docs.slingso.com",
+        "privacyPolicyURL": "https://www.slingso.com/privacy",
+        "termsOfServiceURL": "https://www.slingso.com/terms",
+        "defaultPrompt": [
+          "Set up Slingso for my brand.",
+          "How do AI shopping assistants recommend my products this week?",
+          "What should I change to win more AI shopping answers?"
+        ],
+        "brandColor": "#007A6A",
+        "brandColorDark": "#00A08A",
+        "composerIcon": "./assets/icon.png",
+        "logo": "./assets/logo.png"
+      },
+      "onboardingSkill": "./skills/slingso/SKILL.md",
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Brand-level numbers: the reviewer's workspace has recorded checks, so Slingso returns its three numbers and how they moved.",
+              "prompt": "How is my brand doing in AI shopping answers?",
+              "tools_triggered": "get_session, get_performance_summary",
+              "expected_behavior": "States the brand's Shelf Share, Narrative Accuracy and Purchase Likelihood from the latest checks, with the change since the previous window, and names no numbers that the tools didn't return."
+            },
+            {
+              "description": "Product view: compares the workspace's tracked products.",
+              "prompt": "Which of my products does AI recommend least, and why?",
+              "tools_triggered": "get_session, products_list, get_performance_summary",
+              "expected_behavior": "Lists the tracked products with their numbers, names the weakest, and explains it only from what the recorded answers say."
+            },
+            {
+              "description": "Opportunities: open opportunities, each with the AI answers it rests on.",
+              "prompt": "What should I change to win more AI shopping answers?",
+              "tools_triggered": "get_session, artifacts_list, artifacts_get",
+              "expected_behavior": "Presents the open opportunities in priority order, each with what is happening, the evidence (quoted lines from recorded answers) and the suggested move. Nothing is approved or published without the user asking."
+            },
+            {
+              "description": "Competitors: the brands the user pinned, with their latest intelligence.",
+              "prompt": "Who are my competitors in AI answers, and how do I compare?",
+              "tools_triggered": "get_session, competitors_list, get_performance_summary",
+              "expected_behavior": "Lists the pinned competitor brands and suggested ones, and compares the brand's numbers with theirs where Slingso has them."
+            },
+            {
+              "description": "One query's answers: what an assistant said for a tracked shopping question.",
+              "prompt": "What did ChatGPT recommend for my top tracked query?",
+              "tools_triggered": "get_session, scenarios_list, observations_list",
+              "expected_behavior": "Names the query, then summarizes ChatGPT's recorded answer: the products it put forward, which one it picked, the prices and stores it named, and whether the brand appeared."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Purchasing is out of scope: Slingso records AI answers and never buys anything.",
+              "prompt": "Buy the top recommended running shoes for me."
+            },
+            {
+              "description": "Another brand's private data: Slingso only reads workspaces the signed-in user belongs to.",
+              "prompt": "Show me my competitor's Slingso dashboard and their opportunities."
+            },
+            {
+              "description": "Unrelated request: no Slingso tool should be called.",
+              "prompt": "What's the weather in Paris tomorrow?"
+            }
+          ]
+        }
+      },
+      "publication": {
+        "release_notes": "First release: set up your brand, see how ChatGPT, Google AI Mode, Google AI Overviews and Gemini sell your products, compare with competitors, and act on opportunities."
+      }
+    }
+  }
+}
