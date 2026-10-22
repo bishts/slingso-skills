@@ -9,7 +9,10 @@
     "email": "support@slingso.com",
     "url": "https://www.slingso.com"
   },
-  "homepage": "https://docs.slingso.com",
+  "homepage": "https://www.slingso.com",
+  "repository": "https://github.com/bishts/slingso-skills",
+  "documentationUrl": "https://docs.slingso.com",
+  "supportUrl": "https://docs.slingso.com",
   "keywords": [
     "ecommerce",
     "ai-shelf",
@@ -21,5 +24,6 @@
     "gemini"
   ],
   "license": "MIT",
-  "privacyPolicyUrl": "https://www.slingso.com/privacy"
+  "privacyPolicyUrl": "https://www.slingso.com/privacy",
+  "termsOfServiceUrl": "https://www.slingso.com/terms"
 }

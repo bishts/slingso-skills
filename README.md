@@ -71,7 +71,7 @@ Slingso works best in an assistant that runs on your own computer (a desktop app
 - **Playwright** (the `@playwright/mcp` server, pinned to version 0.0.83, in isolated mode), when a check runs in your assistant. It opens a fresh, signed-out browser on your computer and visits public AI assistant pages (chatgpt.com, google.com, gemini.google.com), types each tracked question and reads the answer. The facts it extracts go to the Slingso MCP. It never signs in to your accounts, buys anything or changes a setting.
 - **Nothing else.** The plugin reads no credentials or files from your computer and sends data nowhere besides the Slingso MCP.
 
-Privacy policy: https://www.slingso.com/privacy. Support: support@slingso.com.
+[Privacy policy](https://www.slingso.com/privacy) · [Terms](https://www.slingso.com/terms) · [Support](https://docs.slingso.com) · support@slingso.com
 
 ## Updating
 
