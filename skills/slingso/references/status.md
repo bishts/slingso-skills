@@ -17,11 +17,11 @@ Five lines at most:
 - Plan: `plan.display_name`; on Growth, add "Slingso analyses every cycle".
 - Setup: done, or "Step N of M: <current step>".
 - Monitoring: AI Shopping Channels, cadence, next run, and who runs the checks: "Slingso runs your checks on its servers" when `schedule.server_checks` is on, else "your AI assistant runs them".
-- Versions: this skill `0.2.1`, the oldest Slingso accepts (`loader_min_version`), the contract version the workspace is pinned to (`skill_version`, or "current").
+- Versions: this skill `0.2.2`, the oldest Slingso accepts (`loader_min_version`), the contract version the workspace is pinned to (`skill_version`, or "current").
 
 ## Updating the skill
 
-When `loader_min_version` is newer than `0.2.1`, or a response says an update is required:
+When `loader_min_version` is newer than `0.2.2`, or a response says an update is required:
 
 The routes are the ones in [prompts/update.md](https://github.com/bishts/slingso-skills/blob/main/prompts/update.md):
 
@@ -29,7 +29,7 @@ The routes are the ones in [prompts/update.md](https://github.com/bishts/slingso
 |---|---|
 | Claude Code plugin (marketplace `slingso`) | `/plugin marketplace update slingso`, then update the slingso plugin from `/plugin` (Installed tab), then start a new session |
 | A plugin added in Customize (Cowork, claude.ai, the Claude desktop app) | Customize → Plugins, find the Slingso marketplace, Check for updates (or turn on Sync automatically) |
-| A skill folder (copied by hand, or with `npx slingso install`) | replace the `slingso` folder with `skills/slingso` from the latest release (https://github.com/bishts/slingso-skills/releases), or `npx slingso update`; ask before overwriting files the user edited |
+| A skill folder (copied in by hand or from the release zip) | replace the `slingso` folder with `skills/slingso` from the latest release (https://github.com/bishts/slingso-skills/releases); ask before overwriting files the user edited |
 
 Reconnecting the Slingso MCP refreshes its tools, not the skill's files: it is not an update.
 

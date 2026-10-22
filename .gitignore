@@ -1,3 +1,6 @@
 dist/
 node_modules/
 .DS_Store
+
+# The browser-choice fixture links the real skill in at eval time (scripts/link-eval-fixture.sh).
+eval-fixtures/browser-choice/skills

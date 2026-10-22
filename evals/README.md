@@ -68,5 +68,6 @@ Add `--trust-plugin` in CI. Results land in `evals/results/` (ignored by git). A
 Mocks only stand in for servers the plugin declares, and a user's own MCP servers never load in a run. `eval-fixtures/browser-choice/` is the same skill with Playwright and Claude in Chrome declared (never started, every tool mocked), for one case: the user asks for Playwright, and the skill must not touch Claude in Chrome.
 
 ```bash
+scripts/link-eval-fixture.sh
 claude plugin eval eval-fixtures/browser-choice --runs 1 --ablation none --no-publish --trust-plugin
 ```

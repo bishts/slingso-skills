@@ -13,8 +13,8 @@ never leaves Slingso and never comes here.
 
 ## Rules
 
-- `skills/slingso/` is the one source. Never copy it per assistant; add a manifest or
-  an installer entry instead.
+- `skills/slingso/` is the one source. Never copy it per assistant; add a manifest
+  instead (`.claude-plugin/`, `openai/`).
 - Tool names and arguments must match the server's `tools/list`
   (`evals/mocks/slingso/_tools.json` holds the current one).
 - Never write a number the server computes (Shelf Share, Narrative Accuracy, Purchase
@@ -27,8 +27,9 @@ never leaves Slingso and never comes here.
 
 ## Releasing
 
-1. Bump `metadata.version` in `SKILL.md`, `version` in `.claude-plugin/plugin.json`
-   and `installer/package.json` together.
+1. Bump `metadata.version` in `SKILL.md` (and the version line under "Check the
+   version"), `references/status.md`, `version` in `.claude-plugin/plugin.json` and
+   `openai/plugin.json` together.
 2. `scripts/build-zip.sh --check` (it refuses mismatched versions).
 3. Run the evals: `claude plugin eval . --runs 1 --ablation none --no-publish`.
 4. Update `CHANGELOG.md`, tag `vX.Y.Z`, attach the zip to the GitHub release.
@@ -38,5 +39,5 @@ deploys it.
 
 ## Tests
 
-- `cd installer && npm test`
+- `claude plugin validate .`
 - Evals: see [evals/README.md](evals/README.md).

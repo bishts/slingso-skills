@@ -3,6 +3,11 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.2.2 (2026-10-22)
+
+- The npx installer is gone: it was never published, so nothing should point at it. A skill folder updates from the release zip.
+- The plugin carries its icon, license, support email and privacy policy URL for the Claude directory; Playwright is described by name and version, not as a command line.
+
 ## 0.2.1 (2026-10-22)
 
 - Before the first browser run in a workspace, the skill says what the browser does (public assistant pages, signed out, never signs in, buys or changes a setting), that the app may ask permission to control it, and that Slingso's servers can run the checks instead, from a prepaid balance.

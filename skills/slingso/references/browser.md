@@ -6,7 +6,7 @@
 
 1. **The one the user names.** "Use Playwright" means the Playwright browser tools, not Claude in Chrome; "use my Chrome" means Claude in Chrome. Never swap it for another.
 2. **Otherwise Playwright, first.** It opens a fresh browser on the user's own computer, signed out, with nothing of theirs in it, so each answer shows what a shopper in their market sees. The Slingso plugin brings it; elsewhere it is the `@playwright/mcp` server. If its browser is missing, install it with its install tool, then go on.
-3. **No Playwright:** the Claude desktop app's built-in browser, then Claude in Chrome. Claude in Chrome drives the user's own working window, with their sign-ins and tabs: use new tabs only, never theirs. Once per workspace, offer Playwright: "Monitoring runs best in Playwright, a fresh browser on your computer. Add it?" In Claude Code: `claude mcp add playwright -- npx -y @playwright/mcp@0.0.83 --isolated`; elsewhere, the same server in the assistant's MCP settings.
+3. **No Playwright:** the Claude desktop app's built-in browser, then Claude in Chrome. Claude in Chrome drives the user's own working window, with their sign-ins and tabs: use new tabs only, never theirs. Once per workspace, offer Playwright: "Monitoring runs best in Playwright, a fresh browser on your computer. Add it?" It is the `@playwright/mcp` server, version 0.0.83, run with `--isolated`: add it in the assistant's MCP settings (in Claude Code, with `claude mcp add`).
 4. **A browser in the cloud** (an assistant that browses from its own servers): answers show the server's location, not the user's market. Say so once and offer the paste route.
 5. **None** (claude.ai on the web without the desktop app, mobile): use the paste route below.
 

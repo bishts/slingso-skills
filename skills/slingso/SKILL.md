@@ -4,7 +4,7 @@ description: The AI Shopping Channel Manager inside your favorite AI assistant. 
 license: MIT
 compatibility: Needs the Slingso MCP (https://agents.slingso.com/mcp). Monitor and check need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g - Claude in Chrome). Without one, query monitoring can't be automated with good quality, and answers are pasted.
 metadata:
-  version: "0.2.1"
+  version: "0.2.2"
   author: Slingso
 ---
 
@@ -49,7 +49,7 @@ Who runs the checks is the workspace's choice on any plan, not the plan's: the u
 ## Start every session the same way
 
 1. Call `get_session`.
-2. Check the version. This skill is version `0.2.1` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
+2. Check the version. This skill is version `0.2.2` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
 3. Route:
 
 | `get_session` shows | Do |

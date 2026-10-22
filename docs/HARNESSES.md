@@ -17,7 +17,7 @@ skill tells the user an untested assistant's data may have gaps.
 | Codex CLI | `codex mcp add slingso --url https://agents.slingso.com/mcp`, then `codex mcp login slingso` | Codex skills folder, from the release zip | Playwright (`npx -y @playwright/mcp@0.0.83 --isolated` in its MCP settings) | tested | 2026-10-19 |
 | Gemini desktop | custom connector in Settings → Connectors | upload in Settings → Skills | the desktop app's browser | works, follows the skill loosely | 2026-10-19 |
 | Grok desktop | custom connector in Connectors → New connector → Custom, `https://agents.slingso.com/mcp` | per the setup prompt | not yet checked | tested: the setup prompt alone installs it | 2026-10-22 |
-| Cursor, Gemini CLI, OpenCode, GitHub Copilot | remote HTTP MCP server with OAuth, in that tool's MCP settings | `npx slingso install --dir <its skills folder>` | Playwright (`npx -y @playwright/mcp@0.0.83 --isolated` in its MCP settings) | not tested | |
+| Cursor, Gemini CLI, OpenCode, GitHub Copilot | remote HTTP MCP server with OAuth, in that tool's MCP settings | the release zip, unpacked into its skills folder | Playwright (`npx -y @playwright/mcp@0.0.83 --isolated` in its MCP settings) | not tested | |
 | claude.ai | custom connector, `https://agents.slingso.com/mcp` | upload `slingso-skill-<version>.zip` | Claude in Chrome | not tested | |
 | Perplexity | its own app and connector model | | cloud browser | later | |
 
@@ -41,7 +41,7 @@ Cloud-browser assistants (ChatGPT, Gemini app, Perplexity) and claude.ai on its 
 ## Adding an assistant
 
 1. Confirm the assistant's skills folder in its own docs.
-2. Add it to `installer/src/harnesses.js` with its next steps.
+2. Add its route to the setup prompt (`prompts/setup.md`, mirrored in the Rails app and the docs).
 3. Run the loop above end to end, from the market the answers should show, then add a row here with the date.
 4. List it in the README.
 
@@ -51,5 +51,5 @@ Cloud-browser assistants (ChatGPT, Gemini app, Perplexity) and claude.ai on its 
 |---|---|
 | `skills/slingso/` | every assistant: `SKILL.md` and `references/` |
 | `.claude-plugin/`, `.mcp.json` | Claude Code and Claude desktop: skill and MCP in one install |
-| `installer/` | assistants that read a skills folder (`npx slingso install`) |
+| `scripts/build-openai-plugin.sh` | the ChatGPT and Codex plugin package, from `openai/` |
 | `scripts/build-zip.sh` | the claude.ai upload, attached to each release |
