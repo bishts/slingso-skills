@@ -6,12 +6,19 @@
   "description": "The AI Shopping Channel Manager, inside your favorite AI assistant. See how ChatGPT, Google AI Mode, Google AI Overviews and Gemini sell your products, product by product, and what to change.",
   "author": {
     "name": "Slingso",
+    "email": "support@slingso.com",
     "url": "https://www.slingso.com"
   },
   "homepage": "https://docs.slingso.com",
-  "keywords": ["ecommerce", "ai-shelf", "shopping-channel", "shelf-share", "chatgpt", "google-ai-mode", "google-ai-overviews", "gemini"],
-  "documentationUrl": "https://docs.slingso.com",
-  "supportUrl": "https://docs.slingso.com",
-  "privacyPolicyUrl": "https://www.slingso.com/privacy",
-  "termsOfServiceUrl": "https://www.slingso.com/terms"
+  "keywords": [
+    "ecommerce",
+    "ai-shelf",
+    "shopping-channel",
+    "shelf-share",
+    "chatgpt",
+    "google-ai-mode",
+    "google-ai-overviews",
+    "gemini"
+  ],
+  "license": "MIT"
 }

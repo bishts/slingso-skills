@@ -25,8 +25,10 @@ trap 'rm -rf "$stage"' EXIT
 cp "$src/plugin.json" "$src/mcp.json" "$stage/"
 mkdir -p "$stage/skills" "$stage/assets"
 cp -R "$root/skills/slingso" "$stage/skills/slingso"
-cp "$src/assets/icon.png" "$stage/assets/icon.png"
-cp "$src/assets/icon.png" "$stage/assets/logo.png"
+# The icon isn't kept in this repo (the Claude directory holds plugin images
+# for review); it is the one the Slingso site serves.
+curl -fsSL -o "$stage/assets/icon.png" https://www.slingso.com/slingso-icon-512.png
+cp "$stage/assets/icon.png" "$stage/assets/logo.png"
 
 mkdir -p "$dist"
 out="$dist/slingso-openai-plugin-$version.zip"
