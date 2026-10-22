@@ -65,6 +65,14 @@ Slingso works best in an assistant that runs on your own computer (a desktop app
 | claude.ai | the web | not yet tested | |
 | Perplexity | the cloud | not yet tested | |
 
+## What this plugin runs and sends
+
+- **The Slingso MCP** at `https://agents.slingso.com/mcp`. You sign in with your email (OAuth). It holds your workspace: your brand and products, the shopping questions you track, the answers your checks record, and the opportunities drawn from them. The assistant reads and writes these only through its tools.
+- **Playwright** (`npx -y @playwright/mcp@0.0.83 --isolated`, pinned), when a check runs in your assistant. It opens a fresh, signed-out browser on your computer and visits public AI assistant pages (chatgpt.com, google.com, gemini.google.com), types each tracked question and reads the answer. The facts it extracts go to the Slingso MCP. It never signs in to your accounts, buys anything or changes a setting.
+- **Nothing else.** The plugin reads no credentials or files from your computer and sends data nowhere besides the Slingso MCP.
+
+Privacy policy: https://www.slingso.com/privacy. Support: support@slingso.com.
+
 ## Updating
 
 Paste [prompts/update.md](prompts/update.md). Slingso tells you in the conversation when your copy is too old.
