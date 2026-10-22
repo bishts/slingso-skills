@@ -1,0 +1,138 @@
+{
+  "data": {
+    "skill_version": "2026.10.1",
+    "schema_version": "v4",
+    "fields": {
+      "boolean": [
+        "response_found",
+        "brand_appeared",
+        "brand_recommended",
+        "target_product_appeared",
+        "target_product_recommended"
+      ],
+      "list": [
+        "products",
+        "retailers",
+        "competitors",
+        "citation_urls",
+        "destination_urls",
+        "promotions",
+        "pricing_signals",
+        "certifications",
+        "brand_confused_with",
+        "factual_claims",
+        "factual_errors",
+        "brand_key_attributes_conveyed",
+        "target_product_attributes_cited"
+      ],
+      "refused": [
+        "pl_score",
+        "na_score",
+        "pl_reasoning",
+        "na_reasoning"
+      ],
+      "product_row": {
+        "required": [
+          "brand",
+          "rank"
+        ],
+        "boolean": [
+          "top_pick",
+          "ours",
+          "target",
+          "dismissed"
+        ],
+        "string": [
+          "product",
+          "url",
+          "price",
+          "offer",
+          "buy_path"
+        ],
+        "sentiment": [
+          "positive",
+          "neutral",
+          "negative"
+        ],
+        "price_framing": [
+          "budget",
+          "mid",
+          "premium"
+        ],
+        "claims": {
+          "claim": "string",
+          "verdict": [
+            "supported",
+            "contradicted",
+            "unsupported"
+          ]
+        }
+      },
+      "stage_buckets": {
+        "awareness": [
+          "placeholder_a",
+          "placeholder_b",
+          "absent"
+        ],
+        "research": [
+          "placeholder_a",
+          "placeholder_b",
+          "absent"
+        ],
+        "comparison": [
+          "placeholder_a",
+          "placeholder_b",
+          "absent"
+        ],
+        "validation": [
+          "placeholder_a",
+          "placeholder_b",
+          "absent"
+        ],
+        "purchase": [
+          "placeholder_a",
+          "placeholder_b",
+          "absent"
+        ]
+      },
+      "glossary": {
+        "response_found": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "brand_appeared": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "brand_recommended": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "target_product_appeared": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "target_product_recommended": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "products": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "stage_bucket": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "retailers": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "competitors": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "citation_urls": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "destination_urls": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "promotions": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "pricing_signals": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "certifications": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "brand_confused_with": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "factual_claims": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "factual_errors": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "brand_key_attributes_conveyed": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "target_product_attributes_cited": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime"
+      },
+      "row_glossary": {
+        "rank": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "top_pick": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "ours": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "target": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "dismissed": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "price": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "offer": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "buy_path": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "url": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "claims": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime"
+      },
+      "rules": [
+        "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "Record facts only; the server computes every metric."
+      ]
+    },
+    "note": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime"
+  }
+}

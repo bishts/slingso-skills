@@ -1,0 +1,343 @@
+{
+ "data": {
+  "session_token": "anl-55d2",
+  "run_id": 931,
+  "resumed": false,
+  "expires_at": "2026-10-14T12:00:00Z",
+  "start_at": "2026-10-06T00:00:00Z",
+  "monitor_run_ids": [
+   929
+  ],
+  "observation_count": 6,
+  "page": 1,
+  "pages": 1,
+  "scenarios": {
+   "12": {
+    "query": "best running shoes for flat feet",
+    "stage": "comparison"
+   },
+   "15": {
+    "query": "stridewell arch runner review",
+    "stage": "comparison"
+   },
+   "18": {
+    "query": "where to buy stridewell arch runner",
+    "stage": "comparison"
+   },
+   "21": {
+    "query": "running shoes with wide toe box for flat feet",
+    "stage": "comparison"
+   }
+  },
+  "observations": [
+   {
+    "id": 5401,
+    "observed_at": "2026-10-13T09:01Z",
+    "data": {
+     "scenario_id": 12,
+     "provider": "chatgpt",
+     "response_found": true,
+     "brand_appeared": true,
+     "products": [
+      {
+       "rank": 1,
+       "brand": "Brooks",
+       "product": "Adrenaline GTS 24",
+       "top_pick": true,
+       "price": "$140"
+      },
+      {
+       "rank": 2,
+       "brand": "Hoka",
+       "product": "Arahi 7",
+       "price": "$145"
+      },
+      {
+       "rank": 3,
+       "brand": "ASICS",
+       "product": "Gel-Kayano 31",
+       "price": "$129"
+      },
+      {
+       "rank": 4,
+       "brand": "Stridewell",
+       "product": "Arch Runner",
+       "top_pick": false,
+       "ours": true,
+       "target": true,
+       "price": "$120",
+       "claims": [
+        {
+         "claim": "runs narrow",
+         "verdict": "contradicted"
+        },
+        {
+         "claim": "built-in arch cradle",
+         "verdict": "supported"
+        }
+       ]
+      }
+     ],
+     "citation_urls": []
+    }
+   },
+   {
+    "id": 5402,
+    "observed_at": "2026-10-13T09:02Z",
+    "data": {
+     "scenario_id": 12,
+     "provider": "gemini_web",
+     "response_found": true,
+     "brand_appeared": false,
+     "products": [
+      {
+       "rank": 1,
+       "brand": "Brooks",
+       "product": "Adrenaline GTS 24",
+       "top_pick": true,
+       "price": "$140"
+      },
+      {
+       "rank": 2,
+       "brand": "ASICS",
+       "product": "Gel-Kayano 31",
+       "price": "$129"
+      },
+      {
+       "rank": 3,
+       "brand": "Saucony",
+       "product": "Guide 17",
+       "price": "$140"
+      }
+     ],
+     "citation_urls": []
+    }
+   },
+   {
+    "id": 5403,
+    "observed_at": "2026-10-13T09:03Z",
+    "data": {
+     "scenario_id": 12,
+     "provider": "google_ai_mode",
+     "response_found": true,
+     "brand_appeared": true,
+     "products": [
+      {
+       "rank": 1,
+       "brand": "Brooks",
+       "product": "Adrenaline GTS 24",
+       "top_pick": true
+      },
+      {
+       "rank": 2,
+       "brand": "Hoka",
+       "product": "Arahi 7"
+      },
+      {
+       "rank": 3,
+       "brand": "Stridewell",
+       "product": "Arch Runner",
+       "top_pick": false,
+       "ours": true,
+       "target": true,
+       "price": "$120",
+       "claims": [
+        {
+         "claim": "runs narrow, size up",
+         "verdict": "contradicted"
+        }
+       ]
+      }
+     ],
+     "citation_urls": []
+    }
+   },
+   {
+    "id": 5404,
+    "observed_at": "2026-10-13T09:04Z",
+    "data": {
+     "scenario_id": 15,
+     "provider": "chatgpt",
+     "response_found": true,
+     "brand_appeared": true,
+     "products": [
+      {
+       "rank": 1,
+       "brand": "Stridewell",
+       "product": "Arch Runner",
+       "top_pick": false,
+       "ours": true,
+       "target": true,
+       "price": "$120",
+       "claims": [
+        {
+         "claim": "runs narrow",
+         "verdict": "contradicted"
+        },
+        {
+         "claim": "good for flat feet",
+         "verdict": "supported"
+        }
+       ]
+      }
+     ],
+     "citation_urls": []
+    }
+   },
+   {
+    "id": 5405,
+    "observed_at": "2026-10-13T09:05Z",
+    "data": {
+     "scenario_id": 18,
+     "provider": "gemini_web",
+     "response_found": true,
+     "brand_appeared": true,
+     "products": [
+      {
+       "rank": 1,
+       "brand": "Stridewell",
+       "product": "Arch Runner",
+       "top_pick": false,
+       "ours": true,
+       "target": true,
+       "price": "$120",
+       "buy_path": "stridewell.example",
+       "claims": [
+        {
+         "claim": "sold at stridewell.example",
+         "verdict": "supported"
+        }
+       ]
+      }
+     ],
+     "citation_urls": []
+    }
+   },
+   {
+    "id": 5406,
+    "observed_at": "2026-10-13T09:06Z",
+    "data": {
+     "scenario_id": 21,
+     "provider": "chatgpt",
+     "response_found": true,
+     "brand_appeared": false,
+     "products": [
+      {
+       "rank": 1,
+       "brand": "Altra",
+       "product": "Paradigm 7",
+       "top_pick": true,
+       "price": "$170"
+      },
+      {
+       "rank": 2,
+       "brand": "Topo",
+       "product": "Ultrafly 5",
+       "price": "$150"
+      }
+     ],
+     "citation_urls": []
+    }
+   }
+  ],
+  "readings": {
+   "brand": {
+    "shelf_share": 0.08,
+    "purchase_likelihood": 0.22,
+    "narrative_accuracy": 0.61,
+    "competitors": [
+     {
+      "label": "Brooks",
+      "shelf_share": 0.31,
+      "purchase_likelihood": 0.41,
+      "narrative_accuracy": null
+     }
+    ]
+   },
+   "products": [
+    {
+     "product_id": 7,
+     "name": "Arch Runner",
+     "shelf_share": 0.08,
+     "purchase_likelihood": 0.22,
+     "narrative_accuracy": 0.61,
+     "competitors": []
+    }
+   ]
+  },
+  "memory": {
+   "brand_soul": "Running shoes for flat and low-arched feet. Arch Runner: built-in arch cradle; wide toe box (true to size, roomy fit); $120. Sold at stridewell.example and REI. We never name competitors on our own site.",
+   "brand_memory": "# Brand Memory\n\n- Arch Runner shows up mid-list on flat-feet queries; Brooks Adrenaline is the default top pick.\n- Assistants rarely mention the wide toe box.",
+   "brand_memory_lock_version": 7,
+   "beliefs": [],
+   "watchlist": [],
+   "feedback": [],
+   "outcomes": [],
+   "recurrence": [],
+   "channel_intel": [],
+   "recent_facts": [],
+   "brand_name": "Stridewell",
+   "scenario_count": 10,
+   "providers": [
+    "chatgpt",
+    "google_ai_mode",
+    "gemini_web"
+   ],
+   "pending_evidence": [
+    {
+     "at": "2026-10-09T15:20:11.000000Z",
+     "section": "feedback",
+     "line": "Rejected 'Add a comparison table vs Brooks to the product page': we never name competitors on our site."
+    },
+    {
+     "at": "2026-10-11T08:02:45.000000Z",
+     "section": "outcomes",
+     "line": "Published 'Flat feet FAQ' at https://stridewell.example/pages/flat-feet-faq."
+    }
+   ]
+  },
+  "contract": {
+   "version": "a2",
+   "opportunity": {
+    "artifact_type": "opportunity",
+    "required": [
+     "title",
+     "body",
+     "action_dimension"
+    ],
+    "action_dimension": [
+     "content",
+     "product",
+     "reviews",
+     "editorial",
+     "community",
+     "creator",
+     "pr",
+     "price",
+     "distribution",
+     "promotion"
+    ],
+    "priority": [
+     "high",
+     "medium",
+     "low"
+    ],
+    "priority_in": "metadata.priority",
+    "evidence": {
+     "required": true,
+     "shape": [
+      {
+       "observation_id": "an id from the window",
+       "quote": "a short line from that answer"
+      }
+     ]
+    }
+   },
+   "rules": [
+    "EVAL STAND-IN: the real rules are served with get_analysis_window as contract at runtime.",
+    "EVAL STAND-IN: placeholder rule one.",
+    "EVAL STAND-IN: placeholder rule two."
+   ]
+  }
+ }
+}

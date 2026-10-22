@@ -1,0 +1,104 @@
+{
+ "tools": [
+  {
+   "name": "browser_navigate",
+   "description": "playwright browser navigate",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "url"
+    ]
+   }
+  },
+  {
+   "name": "browser_snapshot",
+   "description": "playwright browser snapshot",
+   "inputSchema": {
+    "type": "object",
+    "properties": {}
+   }
+  },
+  {
+   "name": "browser_type",
+   "description": "playwright browser type",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "element": {
+      "type": "string"
+     },
+     "ref": {
+      "type": "string"
+     },
+     "text": {
+      "type": "string"
+     },
+     "submit": {
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "text"
+    ]
+   }
+  },
+  {
+   "name": "browser_click",
+   "description": "playwright browser click",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "element": {
+      "type": "string"
+     },
+     "ref": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  {
+   "name": "browser_wait_for",
+   "description": "playwright browser wait for",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "time": {
+      "type": "number"
+     },
+     "text": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  {
+   "name": "browser_press_key",
+   "description": "playwright browser press key",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "key": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "key"
+    ]
+   }
+  },
+  {
+   "name": "browser_close",
+   "description": "playwright browser close",
+   "inputSchema": {
+    "type": "object",
+    "properties": {}
+   }
+  }
+ ]
+}

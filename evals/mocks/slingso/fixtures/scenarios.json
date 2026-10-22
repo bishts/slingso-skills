@@ -1,0 +1,114 @@
+{
+ "data": [
+  {
+   "id": 101,
+   "query": "why do my feet hurt after running",
+   "stage": "awareness",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "why do my feet hurt after running",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 102,
+   "query": "how do I know if I have flat feet",
+   "stage": "awareness",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "how do I know if I have flat feet",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 103,
+   "query": "what running shoes help with flat feet",
+   "stage": "research",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "what running shoes help with flat feet",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 104,
+   "query": "stability vs neutral running shoes for low arches",
+   "stage": "research",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "stability vs neutral running shoes for low arches",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 105,
+   "query": "best running shoes for flat feet",
+   "stage": "comparison",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "best running shoes for flat feet",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 106,
+   "query": "Brooks Adrenaline vs Stridewell Arch Runner",
+   "stage": "comparison",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "Brooks Adrenaline vs Stridewell Arch Runner",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 107,
+   "query": "is the Stridewell Arch Runner good for flat feet",
+   "stage": "validation",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "is the Stridewell Arch Runner good for flat feet",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 108,
+   "query": "stridewell arch runner review",
+   "stage": "validation",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "stridewell arch runner review",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 109,
+   "query": "where to buy stridewell arch runner",
+   "stage": "purchase",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "where to buy stridewell arch runner",
+   "created_at": "2026-10-06T10:05:00Z"
+  },
+  {
+   "id": 110,
+   "query": "stridewell arch runner discount code",
+   "stage": "purchase",
+   "geo": "us",
+   "status": "active",
+   "product_id": 7,
+   "persona_id": null,
+   "name": "stridewell arch runner discount code",
+   "created_at": "2026-10-06T10:05:00Z"
+  }
+ ]
+}

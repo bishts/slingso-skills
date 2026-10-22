@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "slingso",
+  "displayName": "Slingso",
+  "version": "0.2.0",
+  "description": "The AI Shopping Channel Manager, inside your favorite AI assistant. See how ChatGPT, Google AI Mode, Google AI Overviews and Gemini sell your products, product by product, and what to change.",
+  "author": {
+    "name": "Slingso",
+    "url": "https://www.slingso.com"
+  },
+  "homepage": "https://docs.slingso.com",
+  "keywords": ["ecommerce", "ai-shelf", "shopping-channel", "shelf-share", "chatgpt", "google-ai-mode", "google-ai-overviews", "gemini"],
+  "documentationUrl": "https://docs.slingso.com",
+  "supportUrl": "https://docs.slingso.com",
+  "privacyPolicyUrl": "https://www.slingso.com/privacy",
+  "termsOfServiceUrl": "https://www.slingso.com/terms"
+}

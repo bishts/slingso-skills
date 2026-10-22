@@ -1,0 +1,1 @@
+{"data":{"brand_memory":"# Brand Memory\n\n- Arch Runner shows up mid-list on flat-feet queries; Brooks Adrenaline is the default top pick.\n- Assistants rarely mention the wide toe box.","brand_memory_lock_version":7,"pending_evidence":[]}}

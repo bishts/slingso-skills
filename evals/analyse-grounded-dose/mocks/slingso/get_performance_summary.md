@@ -1,0 +1,1 @@
+{"data": {"days": 30, "shelf_share": {"value": 0.25, "delta": 0.0, "trend": "flat"}, "purchase_likelihood": {"value": 0.3, "delta": 0.0, "trend": "flat"}, "narrative_accuracy": {"value": 0.55, "delta": 0.0, "trend": "flat"}, "competitors": []}}

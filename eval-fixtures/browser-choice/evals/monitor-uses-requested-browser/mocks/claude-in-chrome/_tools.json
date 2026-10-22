@@ -1,0 +1,96 @@
+{
+ "tools": [
+  {
+   "name": "tabs_context_mcp",
+   "description": "claude-in-chrome tabs context mcp",
+   "inputSchema": {
+    "type": "object",
+    "properties": {}
+   }
+  },
+  {
+   "name": "tabs_create_mcp",
+   "description": "claude-in-chrome tabs create mcp",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "type": "string"
+     }
+    }
+   }
+  },
+  {
+   "name": "navigate",
+   "description": "claude-in-chrome navigate",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "url": {
+      "type": "string"
+     },
+     "tabId": {
+      "type": "number"
+     }
+    },
+    "required": [
+     "url"
+    ]
+   }
+  },
+  {
+   "name": "read_page",
+   "description": "claude-in-chrome read page",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "tabId": {
+      "type": "number"
+     }
+    }
+   }
+  },
+  {
+   "name": "get_page_text",
+   "description": "claude-in-chrome get page text",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "tabId": {
+      "type": "number"
+     }
+    }
+   }
+  },
+  {
+   "name": "computer",
+   "description": "claude-in-chrome computer",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "action": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "action"
+    ]
+   }
+  },
+  {
+   "name": "find",
+   "description": "claude-in-chrome find",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "query": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "query"
+    ]
+   }
+  }
+ ]
+}

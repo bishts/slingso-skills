@@ -1,0 +1,18 @@
+id: brand_absent
+assistant: gemini_web
+stage: awareness
+query: how do I know if I have flat feet
+brand: Stridewell
+target_product: Arch Runner
+brand_soul: |
+  # Stridewell
+  Running shoes for flat and low-arched feet, designed in Portland.
+answer: |
+  You can check for flat feet at home with the wet test: wet the sole of your foot, stand on a piece of cardboard or a dark towel, and look at the print. If you see almost the whole sole, with little or no curve on the inner side, you likely have flat feet. Other signs: your feet tire quickly, your arches or heels ache after standing, or your shoes wear down on the inside edge. A podiatrist can confirm it with a quick exam.
+
+  Sources: Cleveland Clinic, "Flat Feet (Pes Planus)" (https://my.clevelandclinic.org/health/diseases/flat-feet)
+expect:
+  response_found: true
+  brand_appeared: false
+  products: []
+  citations: ["clevelandclinic.org"]

@@ -1,0 +1,5 @@
+{
+  "name": "slingso",
+  "version": "0.2.0",
+  "description": "Eval fixture only: the Slingso skill with two browser servers declared, so a case can mock both. Never published."
+}

@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "slingso": { "type": "http", "url": "https://agents.slingso.com/mcp" },
+    "playwright": { "command": "npx", "args": ["-y", "@playwright/mcp@0.0.83", "--isolated"] },
+    "claude-in-chrome": { "command": "npx", "args": ["--yes", "claude-in-chrome-placeholder"] }
+  }
+}

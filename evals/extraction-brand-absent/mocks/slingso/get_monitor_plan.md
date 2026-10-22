@@ -1,0 +1,1 @@
+{"data":{"runs_on":"your_assistant","assistants":["gemini_web"],"cadence":"weekly","next_run_at":"2026-10-12T08:00:00Z","schema_version":"v4","items":[{"scenario_id":102,"product_id":7,"stage":"awareness","assistant":"gemini_web","geo":"us","query":"how do I know if I have flat feet"}]}}

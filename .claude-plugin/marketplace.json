@@ -1,0 +1,16 @@
+{
+  "name": "slingso",
+  "description": "Slingso: the AI Shopping Channel Manager skill and MCP, inside your favorite AI assistant.",
+  "owner": {
+    "name": "Slingso",
+    "url": "https://www.slingso.com"
+  },
+  "plugins": [
+    {
+      "name": "slingso",
+      "source": "./",
+      "description": "The AI Shopping Channel Manager, inside your favorite AI assistant. See how ChatGPT, Google AI Mode, Google AI Overviews and Gemini sell your products, product by product, and what to change.",
+      "category": "marketing"
+    }
+  ]
+}

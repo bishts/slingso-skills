@@ -1,0 +1,33 @@
+id: brand_ranked
+assistant: chatgpt
+stage: research
+query: best running shoes for flat feet
+brand: Stridewell
+target_product: Arch Runner
+brand_soul: |
+  # Stridewell
+  Running shoes for flat and low-arched feet, designed in Portland.
+  ## Product truths
+  - Arch Runner: built-in arch cradle; wide toe box (true to size, roomy fit); 8 mm drop; $120.
+  - Sold at stridewell.example and REI.
+key_attributes: ["built-in arch cradle", "wide toe box", "8 mm drop"]
+answer: |
+  For flat feet, look for stability shoes with firm medial support.
+
+  1. **Brooks Adrenaline GTS 24**: my top pick for most runners with flat feet. GuideRails keep the knee aligned. Around $140.
+  2. **Hoka Arahi 7**: lightweight stability without a rigid post. $145.
+  3. **ASICS Gel-Kayano 31**: plush, maximum support, and often on sale at Running Warehouse for $129.
+  4. **Stridewell Arch Runner**: a newer option with a built-in arch cradle. Reviewers mention it runs narrow. $120 at stridewell.example.
+
+  Sources: Runner's World, "Best Running Shoes for Flat Feet" (https://www.runnersworld.com/gear/best-shoes-for-flat-feet); RTINGS, "The 6 Best Running Shoes for Flat Feet" (https://www.rtings.com/running-shoes/reviews/best/flat-feet)
+expect:
+  response_found: true
+  brand_appeared: true
+  products:
+    - { brand: Brooks, product: Adrenaline GTS 24, rank: 1, top_pick: true, price: "140" }
+    - { brand: Hoka, product: Arahi 7, rank: 2, price: "145" }
+    - { brand: ASICS, product: Gel-Kayano 31, rank: 3, price: "129" }
+    - { brand: Stridewell, product: Arch Runner, rank: 4, ours: true, price: "120", claims: ["arch cradle", "narrow"] }
+  citations: ["runnersworld.com", "rtings.com"]
+  attributes_cited: ["built-in arch cradle"]
+  attributes_not_cited: ["wide toe box", "8 mm drop"]

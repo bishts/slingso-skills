@@ -1,0 +1,21 @@
+id: stridewell
+description: >
+  Six answers for a running-shoe brand: assistants say its shoe "runs narrow"
+  against a Brand Soul that says wide toe box; it is missing from Gemini
+  and from a "wide toe box" query; memory carries a house rule against naming
+  competitors on the brand's site and a freshly published FAQ.
+window: stridewell_window.json
+expect:
+  min_opportunities: 1
+  max_opportunities: 6
+  must_address:
+    - id: the "runs narrow" claim
+      match: "narrow|size up|toe box"
+      dimensions: [content, product]
+  forbid:
+    - match: "comparison (table|chart|page)|(compare|vs\\.?|versus) (brooks|hoka|asics)"
+      unless_negated: true
+      why: "recommends naming competitors on the brand's site (a house rule says never)"
+  memory_must_include:
+    - "compet"
+    - "flat-feet-faq"

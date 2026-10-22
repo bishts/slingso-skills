@@ -1,0 +1,1 @@
+{"data": {"id": 7, "name": "Stridewell Arch Runner", "url": "https://stridewell.example/products/arch-runner", "status": "active", "price": "120.00", "category": "running shoes", "key_attributes": ["built-in arch cradle", "wide toe box", "8 mm drop"], "public_profile_id": 5512}}

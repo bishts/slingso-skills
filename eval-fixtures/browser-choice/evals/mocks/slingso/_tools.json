@@ -1,0 +1,2573 @@
+{
+ "tools": [
+  {
+   "name": "get_session",
+   "title": "Get session",
+   "description": "Who you are (with your timezone as utc_offset, null until you give one), every workspace you belong to (role, plan, setup state), the default workspace, the markets Slingso serves, the plans (name, price, tagline, for = who it suits, includes = what it contains; checkout = paid through a Stripe link; present these as written), start_url (choosing a plan on the web, for when a workspace can't be created here), and the version contract (server_version, loader_min_version). Call this first.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {},
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get session",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "set_default_workspace",
+   "title": "Switch workspace",
+   "description": "Make a workspace your default (\"switch to X\").",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Switch workspace",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "workspace_create",
+   "title": "Create workspace",
+   "description": "Start a workspace for someone who has none yet (get_session shows no workspaces). Every workspace starts on Free and is ready at once; the plan is chosen at onboarding's plan step (workspace_choose_plan), after the person has seen what Slingso finds. Asked again while it is still onboarding, it returns the same workspace. One Free workspace per person.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "geo": {
+      "description": "The market as a two-letter country code, e.g. us or gb (default us).",
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+     }
+    },
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Create workspace",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "workspace_get",
+   "title": "Get workspace",
+   "description": "The workspace: name, website, market, plan, schedule, setup state and Brand Soul.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get workspace",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "workspace_update",
+   "title": "Update workspace",
+   "description": "Change the workspace's name or website. Owners only.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "name": {
+      "type": "string",
+      "minLength": 1
+     },
+     "website": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Update workspace",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "set_brand_soul",
+   "title": "Set Brand Soul",
+   "description": "Replace the workspace's Brand Soul with the full new text (read it first with workspace_get).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "brand_soul": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The complete Brand Soul text."
+     }
+    },
+    "required": [
+     "workspace",
+     "brand_soul"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Set Brand Soul",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "set_schedule",
+   "title": "Set schedule",
+   "description": "The monitor schedule: which AI Shopping Channels, how often and when (a day and a time in the user's timezone), who runs the checks (the user's assistant, or Slingso's servers with server_checks, on any plan), and whether to email the owner a reminder at that time. With server checks on, the time is when Slingso runs them. Returns next_run_at in UTC and in the user's offset.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "assistants": {
+      "description": "AI Shopping Channels from the plan's catalogue, e.g. chatgpt, google_ai_mode, google_aio, gemini_web.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+       "type": "string",
+       "minLength": 1
+      }
+     },
+     "cadence": {
+      "type": "string",
+      "enum": [
+       "daily",
+       "weekly",
+       "monthly"
+      ]
+     },
+     "day": {
+      "description": "weekly: a weekday, e.g. monday; monthly: a day of the month, 1-28. Daily has none.",
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "integer",
+        "minimum": -9007199254740991,
+        "maximum": 9007199254740991
+       }
+      ]
+     },
+     "time": {
+      "description": "HH:MM, 24-hour, in utc_offset (or the user's saved offset).",
+      "type": "string",
+      "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$"
+     },
+     "utc_offset": {
+      "type": "string",
+      "pattern": "^UTC[+-]\\d{2}:\\d{2}$",
+      "description": "The user's timezone as a fixed UTC offset, e.g. UTC+05:30 or UTC-04:00. Saved on the user."
+     },
+     "remind": {
+      "description": "true: email the workspace owner at the scheduled time to run the checks in their assistant. Refused while server checks are on: there's nothing to remind.",
+      "type": "boolean"
+     },
+     "server_checks": {
+      "description": "true: Slingso's servers run the checks at the scheduled time, paid per run from the prepaid balance (any plan; refused until there is a balance, added on the billing page). false: the user's assistant runs them, free.",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Set schedule",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "workspace_start_site",
+   "title": "Read the brand's site",
+   "description": "Start the Site step: Slingso reads the brand's website once and drafts five brand-level queries, one per shopping stage (setup_state.proposal.brand_queries); the Brand Soul is drafted right after (brand_soul_pending is true until it lands). It doesn't look for a hero product: the person gives its page in the brand step. Beside it, Slingso asks Google AI Mode for the brand's top competitors in that market, never waited on. Then poll workspace_get until setup_state.site.status is ready (setup_state.proposal is filled) or failed (the error says what to fix; setup_state.site.retryable true means the same read can simply be started again). setup_state.competitor_discovery.status (running, ready, failed) tracks the competitors separately; when ready setup_state.proposal.competitors holds up to 5, each a name with its website (url) from Google's answer.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "url": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The brand's website, e.g. https://yourbrand.com."
+     },
+     "geo": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2,
+      "description": "The market to monitor, as the user chose it from get_session's markets (e.g. us, gb, in). Ask; never guess."
+     }
+    },
+    "required": [
+     "workspace",
+     "url",
+     "geo"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Read the brand's site",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "complete_setup_step",
+   "title": "Complete setup step",
+   "description": "Mark an onboarding step done once its records are written, so setup resumes at the next step. Steps: site; brand (Brand Soul, the brand-level queries with no product_id, up to 5 competitor brands pinned, and the hero product added by its page with products_create; refused with soul_pending while the Brand Soul is drafting, and until there is a hero); product (the hero's queries, scenarios_create with its product_id; completing brand drafts them into setup_state.proposal.product_queries, and product is refused with drafting until they land); plan (keeps the current plan; to change it use workspace_choose_plan); schedule; results. Completing product starts the first check on Slingso's servers (every plan, all the setup queries on ChatGPT and Google AI Mode); follow it with setup_progress. results completes only once that check has finished.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "step": {
+      "type": "string",
+      "enum": [
+       "site",
+       "brand",
+       "product",
+       "plan",
+       "schedule",
+       "results"
+      ],
+      "description": "The onboarding step to mark complete."
+     }
+    },
+    "required": [
+     "workspace",
+     "step"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Complete setup step",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "workspace_choose_plan",
+   "title": "Choose plan",
+   "description": "Onboarding's plan step, after showing what Slingso has so far and get_session.plans (for, includes). diy_free keeps the workspace on Free and completes the step. diy_paid (Starter) or diy_paid_autopilot (Growth) charges nothing here and takes no card: it returns a checkout_url, a Stripe page the person opens and pays on themselves, completes the step, and setup carries on meanwhile; the plan changes when the payment lands (setup_state.plan.status pending, then paid). Only the owner can choose a paid plan.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "plan": {
+      "type": "string",
+      "enum": [
+       "diy_free",
+       "diy_paid",
+       "diy_paid_autopilot"
+      ],
+      "description": "diy_free = Free, diy_paid = Starter, diy_paid_autopilot = Growth."
+     }
+    },
+    "required": [
+     "workspace",
+     "plan"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Choose plan",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "setup_progress",
+   "title": "Setup progress",
+   "description": "A small read for the wait while the first check runs (poll about every 30 seconds): the current setup step, the first check's answers in of planned, the analysis status, the competitor discovery (status, and the competitors once ready, each a name with its website), and, while it runs, one fact with its lead-in and the AI Shelf Index line.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Setup progress",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "products_list",
+   "title": "List products",
+   "description": "The workspace's tracked products (the plan sets how many: get_session plans).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "active",
+       "inactive"
+      ],
+      "description": "active, or inactive to pause it (history is kept)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List products",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "products_get",
+   "title": "Get product",
+   "description": "One tracked product. On Growth it carries competitor_intelligence: each pinned competitor product's latest price, sellers, rating and when the next update lands (otherwise available: false and the plan that unlocks it).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "product_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The product id."
+     }
+    },
+    "required": [
+     "workspace",
+     "product_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get product",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "products_create",
+   "title": "Track products",
+   "description": "Start tracking products by their product-page URL. Each row is accepted or rejected with its reason.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "items": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "url": {
+         "type": "string",
+         "minLength": 1,
+         "description": "The product page URL, on the brand's own site (the workspace website's domain or a subdomain)."
+        },
+        "name": {
+         "type": "string"
+        }
+       },
+       "required": [
+        "url"
+       ]
+      },
+      "description": "1 to 25 rows per call; split longer lists across calls."
+     }
+    },
+    "required": [
+     "workspace",
+     "items"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Track products",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "products_update",
+   "title": "Pause or resume product",
+   "description": "Pause (inactive) or resume (active) a product. History is kept.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "product_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The product id."
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "active",
+       "inactive"
+      ],
+      "description": "active, or inactive to pause it (history is kept)."
+     }
+    },
+    "required": [
+     "workspace",
+     "product_id",
+     "status"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Pause or resume product",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "personas_list",
+   "title": "List personas",
+   "description": "The shopper personas: context for analysis on every plan; on Growth Slingso asks the queries as them.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List personas",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "personas_get",
+   "title": "Get persona",
+   "description": "One persona.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "persona_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The persona id."
+     }
+    },
+    "required": [
+     "workspace",
+     "persona_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get persona",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "personas_create",
+   "title": "Create personas",
+   "description": "Add shopper personas: who the shopper is and how they decide. On Growth Slingso asks the queries as them on its servers (server checks, from the balance); on other plans they're context for analysis.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "items": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "name": {
+         "type": "string",
+         "minLength": 1
+        },
+        "description": {
+         "type": "string",
+         "minLength": 1,
+         "description": "Who this shopper is, in a sentence or two."
+        },
+        "demographics": {
+         "type": "object",
+         "propertyNames": {
+          "type": "string"
+         },
+         "additionalProperties": {}
+        }
+       },
+       "required": [
+        "name",
+        "description"
+       ]
+      },
+      "description": "1 to 25 rows per call; split longer lists across calls."
+     }
+    },
+    "required": [
+     "workspace",
+     "items"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Create personas",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "personas_update",
+   "title": "Pause or resume persona",
+   "description": "Pause (inactive) or resume (active) a persona.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "persona_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The persona id."
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "active",
+       "inactive"
+      ],
+      "description": "active, or inactive to pause it (history is kept)."
+     }
+    },
+    "required": [
+     "workspace",
+     "persona_id",
+     "status"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Pause or resume persona",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "scenarios_list",
+   "title": "List queries",
+   "description": "The shopper queries (scenarios) the workspace monitors.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "active",
+       "inactive"
+      ],
+      "description": "active, or inactive to pause it (history is kept)."
+     },
+     "product_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The product id."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List queries",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "scenarios_get",
+   "title": "Get query",
+   "description": "One monitored query.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "scenario_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The scenario id."
+     }
+    },
+    "required": [
+     "workspace",
+     "scenario_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get query",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "scenarios_history",
+   "title": "Query history",
+   "description": "One query over time: its Shelf Share, Purchase Likelihood and Narrative Accuracy, each assistant's latest answer, the answers themselves and the competitors that showed up. The same reading as the query's page on the dashboard.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "scenario_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The scenario id."
+     },
+     "days": {
+      "description": "Window in days (default 30).",
+      "anyOf": [
+       {
+        "type": "number",
+        "const": 7
+       },
+       {
+        "type": "number",
+        "const": 14
+       },
+       {
+        "type": "number",
+        "const": 30
+       },
+       {
+        "type": "number",
+        "const": 90
+       }
+      ]
+     },
+     "limit": {
+      "description": "Answers to return (default 50).",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 200
+     }
+    },
+    "required": [
+     "workspace",
+     "scenario_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Query history",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "scenarios_create",
+   "title": "Add queries",
+   "description": "Add shopper queries to monitor, each with its stage and at most one persona (none: an anonymous shopper). A query never changes once added: to ask it as another persona, pause it and add it again.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "items": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "query": {
+         "type": "string",
+         "minLength": 1,
+         "description": "What a shopper would type."
+        },
+        "stage": {
+         "type": "string",
+         "enum": [
+          "awareness",
+          "research",
+          "comparison",
+          "validation",
+          "purchase"
+         ],
+         "description": "The shopper's stage for this query."
+        },
+        "product_id": {
+         "type": "integer",
+         "exclusiveMinimum": 0,
+         "maximum": 9007199254740991,
+         "description": "The product id."
+        },
+        "persona_id": {
+         "type": "integer",
+         "exclusiveMinimum": 0,
+         "maximum": 9007199254740991,
+         "description": "The persona id."
+        }
+       },
+       "required": [
+        "query",
+        "stage"
+       ]
+      },
+      "description": "1 to 25 rows per call; split longer lists across calls."
+     }
+    },
+    "required": [
+     "workspace",
+     "items"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Add queries",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "scenarios_update",
+   "title": "Pause or resume query",
+   "description": "Pause (inactive) or resume (active) a query. History is kept.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "scenario_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The scenario id."
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "active",
+       "inactive"
+      ],
+      "description": "active, or inactive to pause it (history is kept)."
+     }
+    },
+    "required": [
+     "workspace",
+     "scenario_id",
+     "status"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Pause or resume query",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "competitors_list",
+   "title": "List competitors",
+   "description": "Pinned competitors: brand pins (up to 5) and product pins (up to 5 for each of your products), including suggested, pending (being read) and refused ones (refusal says why). Each row carries its latest intelligence (or null) where the plan includes it: brand promotions, claims and retailers on Starter and up; product prices and sellers on Growth.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "pinned",
+       "suggested",
+       "pending",
+       "refused"
+      ]
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List competitors",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "competitors_pin",
+   "title": "Pin competitors",
+   "description": "Pin competitor brands, or competitor products for one of your products (product_id). Each item is identified by its url: the brand's website, or the product's page on any store (the brand's own site, Amazon, Target …). A product's page on a brand pin pins its brand. Returns at once: a competitor Slingso already knows is pinned; any other is pending while Slingso reads its site, then pinned or refused (competitors_list shows which, with the reason).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "items": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "url": {
+         "type": "string",
+         "minLength": 1,
+         "description": "The brand's website, or the product's page on any store."
+        },
+        "name": {
+         "description": "The brand or product name, if known (helps read an unfamiliar page).",
+         "type": "string"
+        },
+        "product_id": {
+         "type": "integer",
+         "exclusiveMinimum": 0,
+         "maximum": 9007199254740991,
+         "description": "The product (yours) this product pin belongs to id."
+        },
+        "brand": {
+         "description": "For a product pin: the competitor product's brand.",
+         "type": "string"
+        }
+       },
+       "required": [
+        "url"
+       ]
+      },
+      "description": "1 to 25 rows per call; split longer lists across calls."
+     }
+    },
+    "required": [
+     "workspace",
+     "items"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Pin competitors",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "competitors_unpin",
+   "title": "Unpin competitor",
+   "description": "Remove a pin, or dismiss a suggestion.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "pin_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The pin id."
+     }
+    },
+    "required": [
+     "workspace",
+     "pin_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Unpin competitor",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "competitors_suggest",
+   "title": "Suggest competitors",
+   "description": "Propose competitors for a person to pin or dismiss. Starter and up. Give a url when you have one; a name alone is accepted here.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "items": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "url": {
+         "description": "The brand's website, or the product's page on any store.",
+         "type": "string"
+        },
+        "name": {
+         "description": "The competitor brand or product name.",
+         "type": "string"
+        },
+        "product_id": {
+         "type": "integer",
+         "exclusiveMinimum": 0,
+         "maximum": 9007199254740991,
+         "description": "The product (yours) this product pin belongs to id."
+        },
+        "brand": {
+         "description": "For a product pin: the competitor product's brand.",
+         "type": "string"
+        }
+       }
+      },
+      "description": "1 to 25 rows per call; split longer lists across calls."
+     }
+    },
+    "required": [
+     "workspace",
+     "items"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Suggest competitors",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "members_list",
+   "title": "List members",
+   "description": "Who is in the workspace, with their role.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List members",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "members_invite",
+   "title": "Invite member",
+   "description": "Invite someone by email. Owners only; they get an accept link.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "email": {
+      "type": "string",
+      "format": "email",
+      "pattern": "^(?:[A-Za-z0-9_'+\\-]+\\.)*[A-Za-z0-9_'+\\-]*[A-Za-z0-9_+-]@(?:[A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+     },
+     "role": {
+      "default": "editor",
+      "type": "string",
+      "enum": [
+       "editor",
+       "viewer"
+      ]
+     }
+    },
+    "required": [
+     "workspace",
+     "email"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Invite member",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "observations_create",
+   "title": "Record observations",
+   "description": "Record a batch of Monitor answers on your claimed run (lease_token from claim_work). Send each batch as you go, then call complete_run after the last one. Rejected rows come back with their reason.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "lease_token": {
+      "type": "string",
+      "minLength": 1
+     },
+     "items": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "scenario_id": {
+         "type": "integer",
+         "exclusiveMinimum": 0,
+         "maximum": 9007199254740991,
+         "description": "The scenario id."
+        },
+        "assistant": {
+         "type": "string",
+         "minLength": 1,
+         "description": "The assistant that answered, e.g. chatgpt."
+        },
+        "captured_at": {
+         "type": "string",
+         "description": "ISO 8601 time, e.g. 2026-10-13T09:00:00Z."
+        },
+        "schema_version": {
+         "type": "string",
+         "minLength": 1,
+         "description": "The extraction schema version you captured under (from slingso://extraction_schema)."
+        },
+        "key_attributes_version": {
+         "description": "Echo get_monitor_plan's key_attributes.version: only then do the attribute lists you marked count.",
+         "type": "string"
+        },
+        "answer": {
+         "type": "string",
+         "minLength": 1,
+         "description": "The answer's full text."
+        },
+        "extraction": {
+         "type": "object",
+         "propertyNames": {
+          "type": "string"
+         },
+         "additionalProperties": {},
+         "description": "Facts per the extraction contract (get_extraction_schema): products in answer order, claims, flags."
+        },
+        "citations": {
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "title": {
+            "type": "string"
+           },
+           "url": {
+            "type": "string"
+           },
+           "source": {
+            "type": "string"
+           }
+          },
+          "required": [
+           "url"
+          ],
+          "additionalProperties": {}
+         }
+        }
+       },
+       "required": [
+        "scenario_id",
+        "assistant",
+        "captured_at",
+        "schema_version",
+        "answer",
+        "extraction"
+       ],
+       "additionalProperties": {}
+      },
+      "description": "1 to 25 rows per call; split longer lists across calls."
+     }
+    },
+    "required": [
+     "workspace",
+     "lease_token",
+     "items"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Record observations",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "observations_list",
+   "title": "List observations",
+   "description": "Recorded observations, newest first, with filters. Page with before_id = next_cursor.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "type": {
+      "description": "Observation type, e.g. llm_query.",
+      "type": "string"
+     },
+     "run_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The run id."
+     },
+     "scenario_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The scenario id."
+     },
+     "assistant": {
+      "type": "string"
+     },
+     "since": {
+      "type": "string",
+      "description": "ISO 8601 time, e.g. 2026-10-13T09:00:00Z."
+     },
+     "until": {
+      "type": "string",
+      "description": "ISO 8601 time, e.g. 2026-10-13T09:00:00Z."
+     },
+     "before_id": {
+      "description": "Page backwards from this id (next_cursor).",
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+     },
+     "limit": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 1000
+     },
+     "include_answer": {
+      "description": "Include each answer's full text (large).",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List observations",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "observations_export",
+   "title": "Export observations",
+   "description": "Export every recorded answer (observations) as CSV or JSON to analyse locally.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "as": {
+      "default": "json",
+      "type": "string",
+      "enum": [
+       "csv",
+       "json"
+      ]
+     },
+     "type": {
+      "description": "Observation type, e.g. llm_query.",
+      "type": "string"
+     },
+     "run_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The run id."
+     },
+     "scenario_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The scenario id."
+     },
+     "assistant": {
+      "type": "string"
+     },
+     "since": {
+      "type": "string",
+      "description": "ISO 8601 time, e.g. 2026-10-13T09:00:00Z."
+     },
+     "until": {
+      "type": "string",
+      "description": "ISO 8601 time, e.g. 2026-10-13T09:00:00Z."
+     },
+     "before_id": {
+      "description": "Page backwards from this id (next_cursor).",
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991
+     },
+     "limit": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 1000
+     },
+     "include_answer": {
+      "description": "Include each answer's full text (large).",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Export observations",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "artifacts_list",
+   "title": "List opportunities",
+   "description": "Opportunities (and reports), newest first, without bodies. An opportunity is open, done (with published_url when it went live) or dismissed.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "artifact_type": {
+      "type": "string",
+      "enum": [
+       "opportunity",
+       "content",
+       "report"
+      ]
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "open",
+       "done",
+       "dismissed"
+      ]
+     },
+     "dimension": {
+      "type": "string",
+      "enum": [
+       "content",
+       "product",
+       "reviews",
+       "editorial",
+       "community",
+       "creator",
+       "pr",
+       "price",
+       "distribution",
+       "promotion"
+      ],
+      "description": "The lever the opportunity pulls."
+     },
+     "roots": {
+      "description": "Only thread roots (opportunities), not legacy child artifacts.",
+      "type": "boolean"
+     },
+     "limit": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 200
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List opportunities",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "artifacts_get",
+   "title": "Get artifact",
+   "description": "One artifact with its body; an opportunity also carries its evidence (each answer's assistant, query and quoted line).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "artifact_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The artifact id."
+     }
+    },
+    "required": [
+     "workspace",
+     "artifact_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get artifact",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "artifacts_create",
+   "title": "Create opportunities",
+   "description": "Write opportunities (or reports) from an analysis session (session_token from get_analysis_window). Every opportunity needs an action_dimension and its evidence (observation ids from the window, each with a quoted line).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "session_token": {
+      "type": "string",
+      "minLength": 1
+     },
+     "items": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "artifact_type": {
+         "type": "string",
+         "enum": [
+          "opportunity",
+          "content",
+          "report"
+         ]
+        },
+        "title": {
+         "type": "string",
+         "minLength": 1
+        },
+        "body": {
+         "type": "string",
+         "minLength": 1
+        },
+        "action_dimension": {
+         "description": "Required for an opportunity.",
+         "type": "string",
+         "enum": [
+          "content",
+          "product",
+          "reviews",
+          "editorial",
+          "community",
+          "creator",
+          "pr",
+          "price",
+          "distribution",
+          "promotion"
+         ]
+        },
+        "parent_id": {
+         "type": "integer",
+         "exclusiveMinimum": 0,
+         "maximum": 9007199254740991,
+         "description": "The parent artifact id."
+        },
+        "evidence": {
+         "description": "Required for an opportunity: the answers it rests on, from the analysis window.",
+         "type": "array",
+         "items": {
+          "type": "object",
+          "properties": {
+           "observation_id": {
+            "type": "integer",
+            "exclusiveMinimum": 0,
+            "maximum": 9007199254740991,
+            "description": "The observation id."
+           },
+           "quote": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A short line quoted from that answer."
+           }
+          },
+          "required": [
+           "observation_id",
+           "quote"
+          ]
+         }
+        },
+        "metadata": {
+         "description": "e.g. { priority }.",
+         "type": "object",
+         "propertyNames": {
+          "type": "string"
+         },
+         "additionalProperties": {}
+        }
+       },
+       "required": [
+        "artifact_type",
+        "title",
+        "body"
+       ],
+       "additionalProperties": {}
+      },
+      "description": "1 to 25 rows per call; split longer lists across calls."
+     }
+    },
+    "required": [
+     "workspace",
+     "session_token",
+     "items"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Create opportunities",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "artifacts_get_brief",
+   "title": "Get drafting brief",
+   "description": "Everything needed to draft for an opportunity: its evidence, the thread (drafts posted so far are messages of type draft), the brand's own site facts (Brand Soul, products' key attributes), the grounding rules and standing feedback.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "artifact_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The opportunity id."
+     }
+    },
+    "required": [
+     "workspace",
+     "artifact_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get drafting brief",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "artifacts_dismiss",
+   "title": "Dismiss opportunity",
+   "description": "Close an opportunity the brand won't act on. A reason teaches the agent not to propose it again.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "artifact_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The opportunity id."
+     },
+     "reason": {
+      "description": "Why not, in the user's words.",
+      "type": "string"
+     }
+    },
+    "required": [
+     "workspace",
+     "artifact_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Dismiss opportunity",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "artifacts_done",
+   "title": "Mark done",
+   "description": "Close an opportunity as done. Pass the live url when content was published, so Monitor tracks it.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "artifact_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The opportunity id."
+     },
+     "url": {
+      "description": "The published page (https).",
+      "type": "string",
+      "format": "uri"
+     },
+     "note": {
+      "description": "What was done, e.g. for a PR, price or reviews action.",
+      "type": "string"
+     }
+    },
+    "required": [
+     "workspace",
+     "artifact_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Mark done",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "threads_list",
+   "title": "List threads",
+   "description": "The inbox: threads that need you (mentions first) and recent ones, with your unread comments.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List threads",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "threads_get",
+   "title": "Get thread",
+   "description": "One thread: the opportunity and every message, drafts included (type draft). Opening it marks it read for you (mark_read: false to peek).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "thread_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The thread (its root artifact) id."
+     },
+     "mark_read": {
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "workspace",
+     "thread_id"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get thread",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "threads_comment",
+   "title": "Comment on thread",
+   "description": "Post a comment for teammates on a thread. kind \"draft\" posts a full draft to the opportunity's thread instead; posting it is the hand-off (no approval step). @name mentions a member; a full email settles any doubt.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "thread_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The thread (its root artifact) id."
+     },
+     "body": {
+      "type": "string",
+      "minLength": 1
+     },
+     "mentions": {
+      "description": "Member user ids to mention explicitly.",
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991
+      }
+     },
+     "kind": {
+      "description": "Default comment. draft: body is the full drafted content; a redraft is another draft.",
+      "type": "string",
+      "enum": [
+       "comment",
+       "draft"
+      ]
+     }
+    },
+    "required": [
+     "workspace",
+     "thread_id",
+     "body"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Comment on thread",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "memory_read",
+   "title": "Read memory",
+   "description": "The brand's memory (Brand Memory with its lock_version, beliefs, watchlist, feedback, outcomes) and the evidence waiting to be distilled.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Read memory",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "memory_update",
+   "title": "Update memory",
+   "description": "Write memory on an analysis session: update_brand_memory (full text + the lock_version you read), add_belief, confirm_watchlist_item, expire_watchlist_item, propose_house_rule (waits for a person). A stale lock_version is refused with the current one: re-read, merge, retry once.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "session_token": {
+      "type": "string",
+      "minLength": 1
+     },
+     "items": {
+      "minItems": 1,
+      "maxItems": 25,
+      "type": "array",
+      "items": {
+       "type": "object",
+       "properties": {
+        "action": {
+         "type": "string",
+         "enum": [
+          "update_brand_memory",
+          "add_belief",
+          "confirm_watchlist_item",
+          "expire_watchlist_item",
+          "propose_house_rule"
+         ]
+        },
+        "body": {
+         "description": "update_brand_memory: the full new Brand Memory text.",
+         "type": "string"
+        },
+        "lock_version": {
+         "description": "update_brand_memory: the lock_version you read; a stale one is refused.",
+         "type": "integer",
+         "minimum": 0,
+         "maximum": 9007199254740991
+        },
+        "distilled_through": {
+         "description": "update_brand_memory: the pending_evidence marker you distilled.",
+         "type": [
+          "string",
+          "number"
+         ]
+        },
+        "statement": {
+         "description": "add_belief / confirm_watchlist_item: the belief, in one sentence.",
+         "type": "string"
+        },
+        "evidence": {},
+        "id": {
+         "description": "confirm_/expire_watchlist_item: the watchlist item id.",
+         "type": "integer",
+         "exclusiveMinimum": 0,
+         "maximum": 9007199254740991
+        },
+        "reason": {
+         "description": "expire_watchlist_item: why it closed.",
+         "type": "string"
+        },
+        "rule": {
+         "description": "propose_house_rule: the rule, one sentence, in the brand's terms. A person approves it before it applies.",
+         "type": "string"
+        }
+       },
+       "required": [
+        "action"
+       ],
+       "additionalProperties": {}
+      },
+      "description": "1 to 25 rows per call; split longer lists across calls."
+     }
+    },
+    "required": [
+     "workspace",
+     "session_token",
+     "items"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Update memory",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "house_rules_list",
+   "title": "List house rules",
+   "description": "The brand's house rules: approved ones (every analysis follows them) and ones the agent proposed that wait for a person.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "status": {
+      "type": "string",
+      "enum": [
+       "proposed",
+       "approved"
+      ]
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "List house rules",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "house_rules_teach",
+   "title": "Teach a house rule",
+   "description": "Save a house rule the person states, in one sentence. It applies from the next analysis and does not expire.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "rule": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 500,
+      "description": "The rule, one sentence, in the person's words."
+     }
+    },
+    "required": [
+     "workspace",
+     "rule"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Teach a house rule",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "house_rules_decide",
+   "title": "Approve or dismiss a house rule",
+   "description": "A person's decision on a house rule the agent proposed. Approved, it applies from the next analysis; dismissed, it is gone.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "house_rule_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The house rule id."
+     },
+     "decision": {
+      "type": "string",
+      "enum": [
+       "approve",
+       "dismiss"
+      ]
+     }
+    },
+    "required": [
+     "workspace",
+     "house_rule_id",
+     "decision"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Approve or dismiss a house rule",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "get_briefing",
+   "title": "Get briefing",
+   "description": "What needs you (mentions first), new opportunities, the metric trend, Monitor due or overdue, house rules waiting for a person, the latest competitor intelligence with when it next updates, and who ran what.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get briefing",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "get_performance_summary",
+   "title": "Get performance summary",
+   "description": "Shelf Share, Narrative Accuracy and Purchase Likelihood (value, change, trend) for the brand and its pinned competitors.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "days": {
+      "description": "Window in days (default 30).",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 365
+     },
+     "product_id": {
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 9007199254740991,
+      "description": "The product id."
+     },
+     "assistant": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get performance summary",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "get_monitor_plan",
+   "title": "Get Monitor plan",
+   "description": "The query × assistant pairs due now, as bare queries; where Monitor runs (your assistant or the server); and key_attributes: the brand's and each product's key attributes. An extraction marks which of those an answer conveyed, and every observation echoes key_attributes.version.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get Monitor plan",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "claim_work",
+   "title": "Claim Monitor run",
+   "description": "Open (or resume) this workspace's Monitor run. Returns the lease_token and the pairs already done.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Claim Monitor run",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "complete_run",
+   "title": "Complete Monitor run",
+   "description": "Close the Monitor run after the last observations batch is accepted.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "lease_token": {
+      "type": "string",
+      "minLength": 1
+     }
+    },
+    "required": [
+     "workspace",
+     "lease_token"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Complete Monitor run",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "get_analysis_window",
+   "title": "Open analysis",
+   "description": "Open (or resume) an analysis session and read its answers page by page: the session_token, observation_count, page and pages, and the page's answers as facts with their scenarios. Page 1 also carries memory (with pending evidence), readings (Slingso's numbers for this window), contract (what every opportunity and the Brand Memory write must meet) and sufficiency: the answers, checks and days since the last analysis and whether that is enough for a meaningful analysis. When sufficiency.enough is false, tell the user before analysing (it's an early read) and ask whether to go ahead. Read every page before reasoning.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "page": {
+      "description": "Which page of answers (default 1).",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991
+     },
+     "limit": {
+      "description": "Answers per page (default 25, max 50).",
+      "type": "integer",
+      "exclusiveMinimum": 0,
+      "maximum": 50
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Open analysis",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "complete_analysis",
+   "title": "Complete analysis",
+   "description": "Close the analysis session and advance the window.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "session_token": {
+      "type": "string",
+      "minLength": 1
+     },
+     "summary": {
+      "type": "string"
+     }
+    },
+    "required": [
+     "workspace",
+     "session_token"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Complete analysis",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "get_balance",
+   "title": "Get balance",
+   "description": "The prepaid balance behind server checks (any plan), and top-up options. Owners only.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get balance",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "get_expertise",
+   "title": "Get contract versions",
+   "description": "The served contracts: the workspace's pinned skill version, the versions Slingso serves, and the extraction schema and analysis contract each holds.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get contract versions",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "workspace_set_skill_version",
+   "title": "Set skill version",
+   "description": "Move the workspace's pinned skill version (the extraction schema and analysis contract Slingso serves it): onto a new release, or back to an earlier one after a bad release. Pick from get_expertise's versions. Editors and owners.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "version": {
+      "type": "string",
+      "minLength": 1,
+      "description": "A version get_expertise lists, e.g. 2026.10.1."
+     }
+    },
+    "required": [
+     "workspace",
+     "version"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Set skill version",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "get_extraction_schema",
+   "title": "Get extraction schema",
+   "description": "The extraction contract to capture monitoring answers under: field shapes, what each field means, the stage vocabulary and the rules (the workspace's pinned version).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "version": {
+      "description": "A skill version; default: the workspace's pin.",
+      "type": "string"
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Get extraction schema",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  }
+ ]
+}

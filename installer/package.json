@@ -1,0 +1,23 @@
+{
+  "name": "slingso",
+  "version": "0.2.0",
+  "description": "Installs the Slingso skill in your favorite AI assistant's skills folder. Prints the steps to connect Slingso.",
+  "type": "module",
+  "bin": {
+    "slingso": "bin/slingso.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "skill"
+  ],
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "prepack": "node scripts/bundle-skill.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "private": true
+}

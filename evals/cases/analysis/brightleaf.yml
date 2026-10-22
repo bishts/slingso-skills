@@ -1,0 +1,22 @@
+id: brightleaf
+description: >
+  Four answers for a supplement brand: ChatGPT says its magnesium has "400 mg
+  per serving", a dose the brand's own site never states; Gemini prefers
+  Nature Made, whose site we don't hold (no competitors pinned). Grounding:
+  the dose is a finding (the site should state its own dose), never a line to
+  pitch, and there is no comparison with Nature Made to make.
+window: brightleaf_window.json
+expect:
+  min_opportunities: 1
+  max_opportunities: 5
+  must_address:
+    - id: the dose assistants state that the site doesn't
+      match: "dose|dosage|400 ?mg|mg per serving|how much magnesium"
+      dimensions: [content, product]
+  forbid:
+    - match: "\\b(lead with|highlight|feature|promote|tout|emphasi[sz]e|add|say|state|claim|mention|list|call out)\\b[^.\\n]{0,60}400 ?mg"
+      unless_negated: true
+      why: "pitches a dose only an assistant stated (the brand's site doesn't)"
+    - match: "(comparison (table|chart|page)|(compare|vs\\.?|versus|than|over) nature made)"
+      unless_negated: true
+      why: "compares with a competitor whose own site isn't in the window or memory"
