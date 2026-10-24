@@ -25,17 +25,18 @@ Add `--trust-plugin` in CI. Results land in `evals/results/` (ignored by git). A
 
 | Case | What it holds the skill to |
 |---|---|
-| `onboarding-no-workspace` | `get_session` first; the short overview once ("does the thinking"); `workspace_create` with no plan; then one question, the website and the market together; no plan question yet; never "credits" |
-| `onboarding-site-and-market-one-message` | `slingso init` at the Site step asks for the website and the market together in one message, listing the served markets, no guess; no site read before the answer |
-| `onboarding-market-given` | a named market goes to `workspace_start_site` as `geo`, and the one line about a browser run showing its location's answers |
-| `onboarding-brand-in-one` | resumes at the brand step ("2 of 6"): what the site read found, then Brand Soul, the five brand queries and the proposed competitors in one message, one question that "yes" answers and that asks for the hero's page; nothing written before it |
-| `onboarding-brand-competitors` | brand step: brand-level rivals from the proposal (with Google's websites) plus the brand a proposed query names; a retailer is never proposed; no website from memory; nothing pinned or completed before "yes" |
-| `onboarding-product-unbranded-queries` | product step after Slingso couldn't draft the hero's queries: the skill drafts five, one per stage; awareness and research queries never name the brand or its products; nothing written yet |
-| `onboarding-edit-a-query` | editability at the product step: number 3 of the hero's drafted queries replaced, the kept four and the new one created with a stage and the hero's `product_id`, the old wording never written, Brand Soul left alone, `product` completed after the write, then the plan step with one question |
-| `onboarding-plan-choice` | plan step, the user picks Starter: `workspace_choose_plan` with `diy_paid`, the monthly fee stated with the Stripe link, nothing charged here, then the schedule step with one question |
-| `onboarding-schedule-default` | the schedule step (while the first check runs on the server): the user picks, first which assistants (ChatGPT, Google AI Mode, Google AI Overviews, Gemini), listed by name as a choice, never counted, never one yes/no on the whole schedule; no facts between steps; one question; nothing set yet |
-| `onboarding-schedule-timezone` | assistants already named, timezone unknown: in Claude Code the skill reads `date +%z` and folds the offset into the when question (weekly, Monday 09:00 suggested) (run with `--allow-tools Bash`) |
-| `onboarding-ends-on-results` | the last step: the first check ran on Slingso's servers; the skill presents its numbers and opportunities, completes `results`, never claims a browser run |
+| `onboarding-no-workspace` | `get_session` first; the short overview once; `workspace_create` with no plan; then one question, the website, the market and the hero product's page together; no plan question, no site read yet; never "credits" |
+| `onboarding-site-and-market-one-message` | `slingso init` at the Site step asks for the website, the market and the hero product's page together in one message, listing the served markets, no guess; no site read before the answer |
+| `onboarding-market-given` | the website and the market given, the hero missing: one question for the hero's page only, the market never asked again; no site read yet |
+| `onboarding-site-all-three` | all three given: `workspace_start_site` with the named market as `geo` and the hero's page as `product_url`; no browser-location note (the first check runs on Slingso's servers) |
+| `onboarding-confirm-in-one` | resumes at the confirm step ("2 of 3"): one line of what the site read found, then the ten drafted queries numbered with stages, the competitors and Brand Soul in a line, in one message; one question that "yes" answers; nothing written before it |
+| `onboarding-confirm-competitors` | confirm step: brand-level rivals from the proposal (with Google's websites) plus the brand a drafted query names; a retailer is never proposed; no website from memory; nothing pinned or completed before "yes" |
+| `onboarding-confirm-unbranded-queries` | confirm step after Slingso couldn't draft the hero's queries: the skill drafts five, one per stage; awareness and research queries never name the brand or its products; nothing written yet |
+| `onboarding-edit-a-query` | editability at the confirm step: the hero's third query replaced, the brand's and the hero's kept queries and the new one created with a stage (the hero's with its `product_id`), the old wording never written, competitors pinned, Brand Soul left alone, `confirm` completed after the writes, then the first check followed; no plan or schedule step |
+| `onboarding-ends-on-results` | the last step: the first check runs on Slingso's servers; `setup_progress` read with each `cursor` passed back as `since`, each new answer and the tally narrated; then its numbers and opportunities, `results` completed once it is done, never a browser run |
+| `plan-upgrade-after-setup` | setup done, the user picks Starter: `workspace_choose_plan` with `diy_paid`, the monthly fee stated with the Stripe link, nothing charged here, no setup step reopened |
+| `schedule-change-assistants` | setup done, the user changes which assistants run: ChatGPT, Google AI Mode, Google AI Overviews, Gemini listed by name with which are on, never counted, never one yes/no on the whole schedule; no facts; one question; nothing set yet |
+| `schedule-change-timezone` | setup done with no schedule (no timezone was known), assistants named: in Claude Code the skill reads `date +%z` and folds the offset into the when question (weekly, Monday 09:00 suggested) (run with `--allow-tools Bash`) |
 | `help-lists-verbs` | `/slingso help` lists the verbs grouped, one line on what the plan walls off, calls nothing but `get_session` |
 | `free-never-suggests` | Free never calls `competitors_suggest` and never pins names the user didn't give; the one-line wall |
 | `stale-skill-version` | `loader_min_version` newer than the skill: stop, say how to update, no briefing |
@@ -49,7 +50,7 @@ Add `--trust-plugin` in CI. Results land in `evals/results/` (ignored by git). A
 ## Fixtures
 
 - `mocks/slingso/_tools.json`: the Slingso server's real `tools/list` response (names, descriptions, input schemas, annotations; 58 tools). Refresh it when the server's tools change, then copy the suite mocks into `eval-fixtures/browser-choice/` (its README has the command).
-- Every plan's assistant catalogue is `chatgpt`, `google_ai_mode`, `google_aio`, `gemini_web`; onboarding's steps are `site`, `brand`, `product`, `plan`, `schedule`, `results`.
+- Every plan's assistant catalogue is `chatgpt`, `google_ai_mode`, `google_aio`, `gemini_web`; onboarding's steps are `site`, `confirm`, `results`.
 - `cases/extraction/*.yml`, `cases/analysis/`: the parity cases Slingso grades its own extractor and analysis on; the `extraction-*` and `analyse-*` cases use their answers and window verbatim. Brand domains use `.example`.
 - `mocks/slingso/fixtures/extraction_schema.json`: a stand-in for the extraction schema. It keeps the field names and shapes the skill's playbook uses; the glossary, stage vocabulary and rules are placeholders. The real schema is served by `get_extraction_schema` at runtime.
 - `mocks/slingso/fixtures/analysis_window.json`: the window. Its `contract` is a stand-in: the version, required fields, `action_dimension` values and evidence shape are real; the rules are placeholders. The real contract comes with `get_analysis_window` at runtime.

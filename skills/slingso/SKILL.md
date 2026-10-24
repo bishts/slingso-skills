@@ -54,7 +54,7 @@ Who runs the checks is the workspace's choice on any plan, not the plan's: the u
 
 | `get_session` shows | Do |
 |---|---|
-| no workspace | Onboarding (every workspace starts on Free; the plan is step 4): [references/init.md](references/init.md) |
+| no workspace | Onboarding (every workspace starts on Free; plans come with the first results): [references/init.md](references/init.md) |
 | a workspace whose `setup_state.complete` is false | Resume onboarding at `setup_state.current`: [references/init.md](references/init.md) |
 | one finished workspace | `get_briefing`, then answer what the user asked: [references/brief.md](references/brief.md) |
 | several workspaces | Use `default_workspace`. If there is none, ask which one (one question). [references/switch.md](references/switch.md) |
@@ -104,7 +104,7 @@ When the user's words match no verb, answer from the briefing and the read tools
 - **Use this assistant's own interface.** Everything here says what to show and ask, never how it looks. Show it the way this assistant does best, following its own conventions: whatever it has for choices, tables, charts, documents, links and progress. Fall back to plain text only where it has nothing better.
 - **One question per turn.** Ask one thing, then wait.
 - **Every question has a default.** Phrase it so "yes" accepts it: "Keep these 10 queries?" not "Which queries do you want?"
-- **State progress.** "Step 3 of 6: Your hero product." "Batch 2 sent: 50 of 120 answers recorded."
+- **State progress.** "Step 2 of 3: confirm what Slingso drafted." "Batch 2 sent: 50 of 120 answers recorded."
 - **Errors carry the fix.** Slingso's error messages say what to do. Relay the message in one plain sentence, not the code. Never show raw JSON or status codes.
 - **Never name the machinery.** No tool names, field names, endpoints or error codes in what the user reads. Say what happened and what to do ("Slingso is reading their sites"), never how ("competitors_pin returned pending").
 - **Never invent data.** No made-up numbers, answers, citations, competitors or URLs. If a tool returns nothing, say so. Numbers come from `get_performance_summary` and `get_briefing` only.

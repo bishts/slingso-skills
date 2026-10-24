@@ -50,7 +50,7 @@
   {
    "name": "workspace_create",
    "title": "Create workspace",
-   "description": "Start a workspace for someone who has none yet (get_session shows no workspaces). Every workspace starts on Free and is ready at once; the plan is chosen at onboarding's plan step (workspace_choose_plan), after the person has seen what Slingso finds. Asked again while it is still onboarding, it returns the same workspace. One Free workspace per person.",
+   "description": "Start a workspace for someone who has none yet (get_session shows no workspaces). Every workspace starts on Free and is ready at once; the plans are offered with the first results (workspace_choose_plan), after the person has seen what Slingso finds. Asked again while it is still onboarding, it returns the same workspace. One Free workspace per person.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -253,7 +253,7 @@
   {
    "name": "workspace_start_site",
    "title": "Read the brand's site",
-   "description": "Start the Site step: Slingso reads the brand's website once and drafts five brand-level queries, one per shopping stage (setup_state.proposal.brand_queries); the Brand Soul is drafted right after (brand_soul_pending is true until it lands). It doesn't look for a hero product: the person gives its page in the brand step. Beside it, Slingso asks Google AI Mode for the brand's top competitors in that market, never waited on. Then poll workspace_get until setup_state.site.status is ready (setup_state.proposal is filled) or failed (the error says what to fix; setup_state.site.retryable true means the same read can simply be started again). setup_state.competitor_discovery.status (running, ready, failed) tracks the competitors separately; when ready setup_state.proposal.competitors holds up to 5, each a name with its website (url) from Google's answer.",
+   "description": "Start the Site step with all three answers: the website, the market and the hero product's page (on the website's own domain). Slingso reads the website once and drafts five brand-level queries, one per shopping stage (setup_state.proposal.brand_queries); the Brand Soul is drafted right after (brand_soul_pending is true until it lands); then the hero is tracked from its page and its five queries drafted (setup_state.product_draft.status running, then ready, with setup_state.proposal.product_queries). Nothing is asked of an assistant until the confirm step. Beside it, Slingso asks Google AI Mode for the brand's top competitors in that market, never waited on. Then poll workspace_get until setup_state.site.status is ready (setup_state.proposal is filled) or failed (the error says what to fix; setup_state.site.retryable true means the same read can simply be started again; on Free the refusal attempts_exhausted means its reads are used). While running on a busy day, setup_state.site.queued_ahead and setup_state.site.progress give the place in line: relay it and keep polling. setup_state.competitor_discovery.status (running, ready, failed) tracks the competitors separately; when ready setup_state.proposal.competitors holds up to 5, each a name with its website (url) from Google's answer.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -272,12 +272,18 @@
       "minLength": 2,
       "maxLength": 2,
       "description": "The market to monitor, as the user chose it from get_session's markets (e.g. us, gb, in). Ask; never guess."
+     },
+     "product_url": {
+      "type": "string",
+      "minLength": 1,
+      "description": "The hero product's page on the brand's own site, e.g. https://yourbrand.com/products/hero."
      }
     },
     "required": [
      "workspace",
      "url",
-     "geo"
+     "geo",
+     "product_url"
     ],
     "$schema": "http://json-schema.org/draft-07/schema#"
    },
@@ -286,7 +292,7 @@
     "readOnlyHint": false,
     "destructiveHint": false,
     "idempotentHint": false,
-    "openWorldHint": false
+    "openWorldHint": true
    },
    "execution": {
     "taskSupport": "forbidden"
@@ -295,7 +301,7 @@
   {
    "name": "complete_setup_step",
    "title": "Complete setup step",
-   "description": "Mark an onboarding step done once its records are written, so setup resumes at the next step. Steps: site; brand (Brand Soul, the brand-level queries with no product_id, up to 5 competitor brands pinned, and the hero product added by its page with products_create; refused with soul_pending while the Brand Soul is drafting, and until there is a hero); product (the hero's queries, scenarios_create with its product_id; completing brand drafts them into setup_state.proposal.product_queries, and product is refused with drafting until they land); plan (keeps the current plan; to change it use workspace_choose_plan); schedule; results. Completing product starts the first check on Slingso's servers (every plan, all the setup queries on ChatGPT and Google AI Mode); follow it with setup_progress. results completes only once that check has finished.",
+   "description": "Mark an onboarding step done once its records are written, so setup resumes at the next step. Steps: site; confirm (after the user confirms what Slingso drafted: the brand-level queries with no product_id and the hero's queries with its product_id written with scenarios_create, Brand Soul edits with set_brand_soul, competitor brands with competitors_pin; refused until the hero has queries, with drafting while Slingso drafts them; it doesn't wait for the Brand Soul); results. Completing confirm sets the default schedule (weekly, Monday 09:00 in the user's saved offset, email reminder) and starts the first check on Slingso's servers (every plan, all the setup queries on ChatGPT and Google AI Mode); follow it with setup_progress. Completing confirm again after a failed check tries it again. results completes only once that check has finished.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -308,13 +314,14 @@
       "type": "string",
       "enum": [
        "site",
+       "confirm",
+       "results",
        "brand",
        "product",
        "plan",
-       "schedule",
-       "results"
+       "schedule"
       ],
-      "description": "The onboarding step to mark complete."
+      "description": "The onboarding step to mark complete: site, confirm or results. brand, product, plan and schedule are older names, still accepted."
      }
     },
     "required": [
@@ -337,7 +344,7 @@
   {
    "name": "workspace_choose_plan",
    "title": "Choose plan",
-   "description": "Onboarding's plan step, after showing what Slingso has so far and get_session.plans (for, includes). diy_free keeps the workspace on Free and completes the step. diy_paid (Starter) or diy_paid_autopilot (Growth) charges nothing here and takes no card: it returns a checkout_url, a Stripe page the person opens and pays on themselves, completes the step, and setup carries on meanwhile; the plan changes when the payment lands (setup_state.plan.status pending, then paid). Only the owner can choose a paid plan.",
+   "description": "Choose a plan, offered after the first results with get_session.plans (for, includes); not a setup step and it never moves setup. diy_free keeps the workspace on Free. diy_paid (Starter) or diy_paid_autopilot (Growth) charges nothing here and takes no card: it returns a checkout_url, a Stripe page the person opens and pays on themselves; the plan changes when the payment lands (setup_state.plan.status pending, then paid). Only the owner can choose a paid plan.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -376,7 +383,7 @@
   {
    "name": "setup_progress",
    "title": "Setup progress",
-   "description": "A small read for the wait while the first check runs (poll about every 30 seconds): the current setup step, the first check's answers in of planned, the analysis status, the competitor discovery (status, and the competitors once ready, each a name with its website), and, while it runs, one fact with its lead-in and the AI Shelf Index line.",
+   "description": "A small read for the wait while the first check runs: the current setup step, the first check's answers in of planned, answers (each answer read since `since`: assistant, query, stage, picks = the top three products it recommended, you = whether the brand was recommended, its rank, top pick), tally (answers so far, with_you, leader = the brand recommended most) and cursor (pass it back as since next time to get only new answers), the analysis status, the competitor discovery (status, and the competitors once ready, each a name with its website), and, while it runs, one fact with its lead-in and the AI Shelf Index line. On a busy day a check still waiting its turn carries first_check.queued_ahead and a progress line to relay as written; it is in line, not stuck.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -384,6 +391,10 @@
       "type": "string",
       "pattern": "^[a-zA-Z0-9]{6}$",
       "description": "The workspace's 6-character code (from get_session)."
+     },
+     "since": {
+      "description": "The cursor the previous setup_progress returned: only answers read after it come back. Omit on the first read.",
+      "type": "string"
      }
     },
     "required": [

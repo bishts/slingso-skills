@@ -2,5 +2,5 @@
 type: llm
 weight: 2
 ---
-PASS if the reply confirms the queries are saved (the new one in place of number 3), says the first check is now running on Slingso's servers, and moves to the plan step: the plans with Free first (name, price, who it's for), ending with exactly one question such as "Stay on Free, or pick Starter or Growth?".
-FAIL if it asks to confirm the queries again, rewrites Brand Soul or the product, offers to run a check in a browser, picks a plan for the user, or asks more than one question.
+PASS if the reply confirms the queries are saved (the new one in place of "what running shoes help with flat feet"), says the first check is now running on Slingso's servers, and follows it (for example its progress, 0 of 20 answers in, or the fact with its source).
+FAIL if it asks to confirm the queries again, rewrites Brand Soul or the product, offers to run a check in a browser, asks the user to choose a plan or a schedule, or asks more than one question.

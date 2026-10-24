@@ -4,12 +4,14 @@ The one place for when the monitor runs: which AI Shopping Channels, how often, 
 
 ## When
 
-"Monitor weekly", "every Monday at 9", "add Gemini", "remind me by email", "stop reminding me", "I'm in UTC-04:00 now", "run my checks on your servers", "slingso schedule", or onboarding's `schedule` step.
+"Monitor weekly", "every Monday at 9", "add Gemini", "remind me by email", "stop reminding me", "I'm in UTC-04:00 now", "run my checks on your servers", "slingso schedule". Setup sets the first schedule itself when it knows the user's timezone (weekly, Monday 09:00, with a reminder); set or change it here.
 
 ## Calls, in order
 
 1. `workspace_get` → `schedule` (`assistants`, `cadence`, `day`, `time`, `utc_offset`, `remind`, `server_checks`, `next_run_at_local`) and `plan.assistants_catalogue`. `get_session` → `user.utc_offset`.
-2. Show the schedule in the user's time, with every assistant on the plan and which are on: "Available: ChatGPT, Google AI Mode, Google AI Overviews, Gemini. On: ChatGPT and Gemini, every Monday at 09:00 (UTC+05:30), with a reminder email." Ask one question with the change as default. The user can switch assistants on or off any time. In onboarding's `schedule` step the user picks instead: which assistants, then when ([init.md](init.md)).
+2. Show the schedule in the user's time, with every assistant on the plan and which are on: "Available: ChatGPT, Google AI Mode, Google AI Overviews, Gemini. On: ChatGPT and Gemini, every Monday at 09:00 (UTC+05:30), with a reminder email." Name the assistants; never count them. Ask one question with the change as default. The user can switch assistants on or off any time.
+   - No schedule yet (`cadence` null) or the user asks to change when: suggest weekly on Monday at 09:00, or daily, monthly, another day or time.
+   - Timezone: if `user.utc_offset` is null, propose the offset you can tell: in Claude Code, run `date +%z` (+0530 is UTC+05:30); elsewhere, the user's local time if you know it. Fold it into the question so the answer confirms it; the user can change it. If you can't tell, ask for it inside that question ("…at 09:00 your time? Which timezone, for example UTC+05:30?").
 3. `set_schedule` with what changed:
    - `assistants` from the catalogue;
    - `cadence`: `daily`, `weekly` or `monthly`;

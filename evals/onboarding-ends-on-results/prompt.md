@@ -1,7 +1,7 @@
 ---
-description: Onboarding's last step. The first check ran on Slingso's servers while setup went on; it is done. The skill presents the numbers and the opportunities it found, finishes setup, and never runs a monitor in a browser.
+description: Onboarding's last step, while the first check runs on Slingso's servers (16 of 20 answers in). The skill follows it with setup_progress, passing back each cursor as since, narrates each new answer and the tally, then presents the numbers and the opportunities, finishes setup, and never runs a monitor in a browser.
 tags: [onboarding, results]
-max_turns: 20
+max_turns: 25
 timeout_seconds: 600
 allowed_tools: [Read, Glob, Grep, Skill]
 ---
