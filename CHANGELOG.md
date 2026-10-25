@@ -3,6 +3,15 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.3.0 (2026-10-25)
+
+Needs Slingso's server from 2026-10-25 or later (setup asks for the hero product's page with the website).
+
+- Onboarding in three steps: the website, the market and the hero product's page in one message; then everything Slingso drafted (queries, competitors, Brand Soul) confirmed in one message; then the first check.
+- Nothing runs on an assistant until the user confirms. Confirming starts the first check and sets a weekly schedule, Monday at 09:00 in the user's timezone, with an email reminder.
+- The first check is narrated live: each answer as it arrives (who was recommended, and where the brand stands), with a running tally.
+- Plans and the schedule come after the first results, not during setup.
+
 ## 0.2.2 (2026-10-22)
 
 - The npx installer is gone: it was never published, so nothing should point at it. A skill folder updates from the release zip.

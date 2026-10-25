@@ -37,6 +37,20 @@ never leaves Slingso and never comes here.
 The Slingso server serves one tagged release, so a tag reaches users when Slingso
 deploys it.
 
+## Keep in sync with Slingso and the MCP server
+
+This repo, the Slingso app (Rails, the `/internal/mcp` API) and the MCP server
+(`bishts/slingso-mcp`) ship as one product and must always match:
+
+- A change to a tool's name, input or behaviour lands in all three in the same piece
+  of work: Rails, the MCP server's tool schema and description, and every reference
+  here that uses it (plus `evals/mocks/slingso/_tools.json`).
+- When the skill changes, cut a release tag. The MCP server serves the skill from the
+  tag named in its `config/skills_dir`, so a change reaches no one until the server
+  points at the new tag.
+- Deploy order: Rails, then the MCP server with its `skills_dir` moved to the new tag.
+- A release that needs a newer server says so at the top of its changelog entry.
+
 ## Tests
 
 - `claude plugin validate .`
