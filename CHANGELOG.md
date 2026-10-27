@@ -3,6 +3,10 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.3.1 (2026-10-27)
+
+- A site that isn't an online store no longer leaves a stuck workspace: Slingso deletes the empty workspace and says why, and the skill starts a new one and asks for the store's website, market and hero page again.
+
 ## 0.3.0 (2026-10-25)
 
 Needs Slingso's server from 2026-10-25 or later (setup asks for the hero product's page with the website).

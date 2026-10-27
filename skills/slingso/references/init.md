@@ -40,7 +40,8 @@ Steps run in this order, on every plan: `site`, `confirm`, `results`. Nothing is
 2. `workspace_start_site` with `url`, `geo` (the market's code) and `product_url`. A product page off the brand's own site is refused with the rule: relay it and ask for another.
 3. While `setup_state.site.status` is `running`: "Slingso is reading your site and drafting your queries. This takes a minute or two." Check again with `workspace_get`, at most every 30 seconds. When `setup_state.site.progress` is present (Slingso is busy and the read is waiting its turn), relay it as written instead, and keep waiting: a read in line is not stuck.
 4. `ready`: `complete_setup_step` `site` if it is not done yet, then go to confirm.
-5. `failed`: relay `setup_state.site.error`. If `setup_state.site.retryable` is true, offer to try again; on yes, `workspace_start_site` with the same values. Otherwise (for example, the site doesn't look like an online store) offer to try another URL. If `workspace_start_site` refuses with `attempts_exhausted` (Free's site reads are used), relay its message as written and offer nothing else.
+5. `failed`: relay `setup_state.site.error`. If `setup_state.site.retryable` is true, offer to try again; on yes, `workspace_start_site` with the same values. Otherwise offer to try another URL.
+6. If `workspace_get` refuses with `site_refused`, the site isn't an online store and Slingso deleted the empty workspace: relay its message, `workspace_create` a new one, and ask the three questions of step 1 again. If `workspace_start_site` refuses with `attempts_exhausted` (Free's site reads are used), relay its message as written and offer nothing else.
 
 Never re-run a site read that is `ready`.
 
