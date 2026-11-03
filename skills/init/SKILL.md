@@ -1,6 +1,6 @@
 ---
 name: init
-description: The Slingso init command. set up a brand in Slingso (its website, market and hero product, then a look at what Slingso drafts, then the first check), or resume or redo a setup step. Use when the user says "slingso init", wants to set up Slingso or onboard a brand to track it in the AI Shopping Channel (ChatGPT, Google AI Mode, Google AI Overviews, Gemini).
+description: The Slingso init command. Set up a brand in Slingso (its website, market and hero product, then a look at what Slingso drafts, then the first check), or resume or redo a setup step. Use when the user says "slingso init", wants to set up Slingso or onboard a brand to track it in the AI Shopping Channel (ChatGPT, Google AI Mode, Google AI Overviews, Gemini).
 license: MIT
 compatibility: Needs the Slingso core skill (slingso) and the Slingso MCP (https://agents.slingso.com/mcp). Monitor and check in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g - Claude in Chrome). Without one, query monitoring can't be automated with good quality, and answers are pasted, or Slingso's servers run the checks (the server add-on).
 metadata:

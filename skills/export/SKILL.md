@@ -1,6 +1,6 @@
 ---
 name: export
-description: The Slingso export command. every answer Slingso recorded, as CSV or JSON. Use when the user says "slingso export" or wants Slingso's recorded AI Shopping Channel answers as a file.
+description: The Slingso export command. Every answer Slingso recorded, as CSV or JSON. Use when the user says "slingso export" or wants Slingso's recorded AI Shopping Channel answers as a file.
 license: MIT
 compatibility: Needs the Slingso core skill (slingso) and the Slingso MCP (https://agents.slingso.com/mcp). Monitor and check in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g - Claude in Chrome). Without one, query monitoring can't be automated with good quality, and answers are pasted, or Slingso's servers run the checks (the server add-on).
 metadata:

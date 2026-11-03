@@ -1,6 +1,6 @@
 ---
 name: monitor
-description: The Slingso monitor command. ask the AI Shopping Channel (ChatGPT, Google AI Mode, Google AI Overviews, Gemini) every tracked query and record the answers product by product, in the user's browser or now on Slingso's servers. Use when the user says "slingso monitor", "run my Slingso checks" or the Slingso monitor is due.
+description: The Slingso monitor command. Ask the AI Shopping Channel (ChatGPT, Google AI Mode, Google AI Overviews, Gemini) every tracked query and record the answers product by product, in the user's browser or now on Slingso's servers. Use when the user says "slingso monitor", "run my Slingso checks" or the Slingso monitor is due.
 license: MIT
 compatibility: Needs the Slingso core skill (slingso) and the Slingso MCP (https://agents.slingso.com/mcp). Monitor and check in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g - Claude in Chrome). Without one, query monitoring can't be automated with good quality, and answers are pasted, or Slingso's servers run the checks (the server add-on).
 metadata:
