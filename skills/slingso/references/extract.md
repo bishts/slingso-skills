@@ -14,6 +14,8 @@ You are a careful reader, not a judge. Write down what the answer says, in the o
 
 One row per distinct product the answer offers, in the answer's order. A brand offered as a pick without a product name gets a row too.
 
+A row is a product someone can buy by its maker's name. Not rows: stores and marketplaces (they go in `retailers`), ingredients and product types ("retinol", "air fryer"), a category the answer compares against even when the query names it ("a standard pressure cooker", "a regular stability shoe"), and placeholders for no brand ("Generic", "Unbranded", "Other brands"). An answer with no buyable product has no rows.
+
 - `rank`: its position, from 1.
 - `top_pick`: true only for the one product the answer names as its first choice. Many answers have none.
 - `ours`: the row is the workspace's brand. `target`: it is the scenario's product (the plan item's `product_id`).
