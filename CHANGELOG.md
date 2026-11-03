@@ -13,6 +13,7 @@ Needs the newer Slingso server: the Slingso app and the MCP server from this rel
 - `monitor` with the add-on offers to run now on Slingso's servers and narrates the answers as they arrive; `check` runs a tracked query there, and offers to track an untracked one or check it in the browser without recording.
 - `analyse`: an early read is fewer than 100 new answers; when Slingso is already analysing, the skill says the opportunities will be in the inbox shortly and stops; with the add-on, an analysis in the assistant is an extra look. Opportunities say who found them (Slingso or your assistant).
 - `brief` shows when Slingso's next analysis is due. Competitor suggestions work on every plan, Free included. Schedules are daily or weekly.
+- Extraction: a category the answer compares against ("a standard pressure cooker") or a placeholder ("Generic", "Other brands") is never a product row.
 
 ## 0.3.1 (2026-10-27)
 
