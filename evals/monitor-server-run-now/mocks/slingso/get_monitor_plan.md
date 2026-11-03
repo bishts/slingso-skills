@@ -1,0 +1,1 @@
+{"data": {"runs_on": "server", "assistants": ["chatgpt", "google_ai_mode"], "cadence": "weekly", "next_run_at": "2026-11-09T03:30:00Z", "schema_version": "v4", "key_attributes": {"version": "ka7f3a9c2e10", "brand": ["running shoes for flat feet", "designed in Portland"], "products": {"7": ["built-in arch cradle", "wide toe box", "8 mm drop"]}}, "items": []}}

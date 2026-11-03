@@ -24,7 +24,49 @@ In every answer:
 - **Narrative Accuracy:** every claim about your product checked against your own site.
 - **Who took your spot:** every rival the answer puts forward instead.
 
-Say `slingso` and a verb: `init`, `monitor`, `check`, `analyse`, `brief`, `review`, `draft`, `pin`, `teach`, `schedule`, `status` and the rest. The full list is in [SKILL.md](skills/slingso/SKILL.md).
+Who does the work is your choice, on any plan: your assistant (free), or Slingso's servers with the server add-on (Monitor on your schedule and Analyse every 7 days once there are 100 new answers, paid per run from a prepaid balance). Create always happens in your assistant.
+
+## Commands
+
+Say `slingso` and a command (`slingso monitor`). In the Claude plugin each one is also its own slash command (`/slingso:monitor`). The core skill, [skills/slingso](skills/slingso/SKILL.md), holds them all, so a single-skill install works the same.
+
+### Set up
+
+| Command | Does |
+|---|---|
+| `init` | Sets up your brand: website, market and hero product, then the first check. |
+| `competitors` | Who you're up against: suggestions, pins and their intelligence. |
+| `teach` | Saves a house rule every analysis and draft follows. |
+
+### Monitor
+
+| Command | Does |
+|---|---|
+| `check` | Asks one query across the AI Shopping Channel, now. |
+| `monitor` | Runs every query due, in your browser or now on Slingso's servers. |
+| `brief` | The briefing, your Shelf Share and what the AI Shopping Channel says. |
+
+### Analyse
+
+| Command | Does |
+|---|---|
+| `analyse` | Finds the opportunities in the new answers. |
+
+### Create
+
+| Command | Does |
+|---|---|
+| `create` | Writes or revises what an opportunity needs. |
+| `review` | Decides on opportunities and records what went live. |
+
+### Settings
+
+| Command | Does |
+|---|---|
+| `schedule` | When the monitor runs, who does the work, and the balance. |
+| `export` | Every recorded answer, as CSV or JSON. |
+
+Also: `status`, `switch`, `invite` and `help` (`slingso help` lists them all).
 
 ## Install
 
@@ -45,7 +87,7 @@ Run `/mcp` and sign in to Slingso. The plugin also brings Playwright, the browse
 
 ### Any other assistant
 
-Paste [prompts/setup.md](prompts/setup.md) into your assistant. It installs what it can and walks you through the rest.
+Paste [prompts/setup.md](prompts/setup.md) into your assistant. It installs what it can and walks you through the rest. A skills folder needs only `skills/slingso` (the release zip); the command folders beside it are optional shortcuts.
 
 ## Tested in
 
@@ -68,7 +110,7 @@ Slingso works best in an assistant that runs on your own computer (a desktop app
 ## What this plugin runs and sends
 
 - **The Slingso MCP** at `https://agents.slingso.com/mcp`. You sign in with your email (OAuth). It holds your workspace: your brand and products, the shopping questions you track, the answers your checks record, and the opportunities drawn from them. The assistant reads and writes these only through its tools.
-- **Playwright** (the `@playwright/mcp` server, pinned to version 0.0.83, in isolated mode), when a check runs in your assistant. It opens a fresh, signed-out browser on your computer and visits public AI assistant pages (chatgpt.com, google.com, gemini.google.com), types each tracked question and reads the answer. The facts it extracts go to the Slingso MCP. It never signs in to your accounts, buys anything or changes a setting.
+- **Playwright** (the `@playwright/mcp` server, pinned to version 0.0.83, in isolated mode), when a check runs in your assistant (not when Slingso's servers run it). It opens a fresh, signed-out browser on your computer and visits public AI assistant pages (chatgpt.com, google.com, gemini.google.com), types each tracked question and reads the answer. The facts it extracts go to the Slingso MCP. It never signs in to your accounts, buys anything or changes a setting.
 - **Nothing else.** The plugin reads no credentials or files from your computer and sends data nowhere besides the Slingso MCP.
 
 [Privacy policy](https://www.slingso.com/privacy) · [Terms](https://www.slingso.com/terms) · [Support](https://docs.slingso.com) · support@slingso.com

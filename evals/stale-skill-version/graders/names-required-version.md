@@ -1,4 +1,4 @@
 ---
 type: regex
-pattern: "0\\.3\\.0"
+pattern: "0\\.5\\.0"
 ---

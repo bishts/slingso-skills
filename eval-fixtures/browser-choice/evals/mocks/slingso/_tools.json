@@ -3,7 +3,7 @@
   {
    "name": "get_session",
    "title": "Get session",
-   "description": "Who you are (with your timezone as utc_offset, null until you give one), every workspace you belong to (role, plan, setup state), the default workspace, the markets Slingso serves, the plans (name, price, tagline, for = who it suits, includes = what it contains; checkout = paid through a Stripe link; present these as written), start_url (choosing a plan on the web, for when a workspace can't be created here), and the version contract (server_version, loader_min_version). Call this first.",
+   "description": "Who you are (with your timezone as utc_offset, null until you give one), every workspace you belong to (role, plan, setup state), the default workspace, the markets Slingso serves, the plans (name, price, tagline, for = who it suits, includes = what it contains; checkout = paid through a Stripe link; present these as written), server_addon (Slingso's servers running Monitor and Analyse on any plan: price_per_run_usd, analyse_every_days, analyse_min_answers, includes; present as written), start_url (choosing a plan on the web, for when a workspace can't be created here), and the version contract (server_version, loader_min_version). Call this first.",
    "inputSchema": {
     "type": "object",
     "properties": {},
@@ -176,7 +176,7 @@
   {
    "name": "set_schedule",
    "title": "Set schedule",
-   "description": "The monitor schedule: which AI Shopping Channels, how often and when (a day and a time in the user's timezone), who runs the checks (the user's assistant, or Slingso's servers with server_checks, on any plan), and whether to email the owner a reminder at that time. With server checks on, the time is when Slingso runs them. Returns next_run_at in UTC and in the user's offset.",
+   "description": "The monitor schedule: which AI Shopping Channels, how often (daily or weekly) and when (a weekday for weekly, and a time in the user's timezone), who runs the checks (the user's assistant, or Slingso's servers with server_checks, on any plan), and whether to email the owner a reminder at that time. With server checks on, the time is when Slingso runs them, and Slingso also analyses every 7 days once there are 100 new answers (no extra charge). Returns next_run_at in UTC and in the user's offset.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -198,12 +198,11 @@
       "type": "string",
       "enum": [
        "daily",
-       "weekly",
-       "monthly"
+       "weekly"
       ]
      },
      "day": {
-      "description": "weekly: a weekday, e.g. monday; monthly: a day of the month, 1-28. Daily has none.",
+      "description": "weekly only: a weekday, e.g. monday. Daily has none.",
       "anyOf": [
        {
         "type": "string"
@@ -230,7 +229,7 @@
       "type": "boolean"
      },
      "server_checks": {
-      "description": "true: Slingso's servers run the checks at the scheduled time, paid per run from the prepaid balance (any plan; refused until there is a balance, added on the billing page). false: the user's assistant runs them, free.",
+      "description": "true: Slingso's servers run the checks at the scheduled time and analyse every 7 days once there are 100 new answers, paid per run from the prepaid balance (any plan; refused until there is a balance, added on the billing page). false: the user's assistant runs them, free.",
       "type": "boolean"
      }
     },
@@ -253,7 +252,7 @@
   {
    "name": "workspace_start_site",
    "title": "Read the brand's site",
-   "description": "Start the Site step with all three answers: the website, the market and the hero product's page (on the website's own domain). Slingso reads the website once and drafts five brand-level queries, one per shopping stage (setup_state.proposal.brand_queries); the Brand Soul is drafted right after (brand_soul_pending is true until it lands); then the hero is tracked from its page and its five queries drafted (setup_state.product_draft.status running, then ready, with setup_state.proposal.product_queries). Nothing is asked of an assistant until the confirm step. Beside it, Slingso asks Google AI Mode for the brand's top competitors in that market, never waited on. Then poll workspace_get until setup_state.site.status is ready (setup_state.proposal is filled) or failed (the error says what to fix; setup_state.site.retryable true means the same read can simply be started again; on Free the refusal attempts_exhausted means its reads are used). While running on a busy day, setup_state.site.queued_ahead and setup_state.site.progress give the place in line: relay it and keep polling. setup_state.competitor_discovery.status (running, ready, failed) tracks the competitors separately; when ready setup_state.proposal.competitors holds up to 5, each a name with its website (url) from Google's answer.",
+   "description": "Start the Site step with all three answers: the website, the market and the hero product's page (on the website's own domain). Slingso reads the website once and drafts five brand-level queries, one per shopping stage (setup_state.proposal.brand_queries); the Brand Soul is drafted right after (brand_soul_pending is true until it lands); then the hero is tracked from its page and its five queries drafted (setup_state.product_draft.status running, then ready, with setup_state.proposal.product_queries). Nothing is asked of an assistant until the confirm step. Beside it, Slingso asks Google AI Mode for the brand's top competitors in that market, never waited on. Then poll workspace_get until setup_state.site.status is ready (setup_state.proposal is filled) or failed (the error says what to fix; setup_state.site.retryable true means the same read can simply be started again; on Free the refusal attempts_exhausted means its reads are used). A site that isn't an online store deletes the empty workspace: the next call on its code fails with site_refused; relay the message, then workspace_create a new workspace and ask for the store's website. While running on a busy day, setup_state.site.queued_ahead and setup_state.site.progress give the place in line: relay it and keep polling. setup_state.competitor_discovery.status (running, ready, failed) tracks the competitors separately; when ready setup_state.proposal.competitors holds up to 5, each a name with its website (url) from Google's answer.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -1136,7 +1135,7 @@
   {
    "name": "competitors_suggest",
    "title": "Suggest competitors",
-   "description": "Propose competitors for a person to pin or dismiss. Starter and up. Give a url when you have one; a name alone is accepted here.",
+   "description": "Propose competitors for a person to pin or dismiss. Give a url when you have one; a name alone is accepted here.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -1524,7 +1523,7 @@
   {
    "name": "artifacts_list",
    "title": "List opportunities",
-   "description": "Opportunities (and reports), newest first, without bodies. An opportunity is open, done (with published_url when it went live) or dismissed.",
+   "description": "Opportunities (and reports), newest first, without bodies. An opportunity is open, done (with published_url when it went live) or dismissed, and says who found it (found_by: slingso or your_assistant).",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -1592,7 +1591,7 @@
   {
    "name": "artifacts_get",
    "title": "Get artifact",
-   "description": "One artifact with its body; an opportunity also carries its evidence (each answer's assistant, query and quoted line).",
+   "description": "One artifact with its body; an opportunity also carries its evidence (each answer's assistant, query and quoted line) and who found it (found_by: slingso or your_assistant).",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -2226,7 +2225,7 @@
   {
    "name": "get_briefing",
    "title": "Get briefing",
-   "description": "What needs you (mentions first), new opportunities, the metric trend, Monitor due or overdue, house rules waiting for a person, the latest competitor intelligence with when it next updates, and who ran what.",
+   "description": "What needs you (mentions first), new opportunities (each with found_by), the metric trend, Monitor due or overdue, house rules waiting for a person, the latest competitor intelligence with when it next updates, who ran what, and analysis: where it runs (server or your_assistant), the last one (when, found_by) and the server's next one (new answers of the 100 needed, enough, due_at; null without server checks).",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -2383,9 +2382,80 @@
    }
   },
   {
+   "name": "run_server_checks",
+   "title": "Run server checks now",
+   "description": "Start an extra check on Slingso's servers now: only when the workspace has server checks on, charged per run from the balance, recorded like a scheduled run. Every active query, or only the given tracked queries (scenario_ids). Returns status (started, or running when a server run is already in progress and nothing new started), planned, assistants and cost_usd. Read its progress with get_run_progress.",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "scenario_ids": {
+      "description": "Only these tracked queries. Omit for every active query.",
+      "minItems": 1,
+      "type": "array",
+      "items": {
+       "type": "integer",
+       "exclusiveMinimum": 0,
+       "maximum": 9007199254740991,
+       "description": "The scenario id."
+      }
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Run server checks now",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
+   "name": "get_run_progress",
+   "title": "Server run progress",
+   "description": "The latest server Monitor run (scheduled or run now): status (none, queued, running, completed, failed), source, planned and recorded, answers (each answer read since `since`: assistant, query, stage, picks = the top three products it recommended, you = whether the brand was recommended, its rank, top pick), tally (answers so far, with_you, leader = the brand recommended most) and cursor (pass it back as since next time to get only new answers).",
+   "inputSchema": {
+    "type": "object",
+    "properties": {
+     "workspace": {
+      "type": "string",
+      "pattern": "^[a-zA-Z0-9]{6}$",
+      "description": "The workspace's 6-character code (from get_session)."
+     },
+     "since": {
+      "description": "The cursor the previous get_run_progress returned: only answers read after it come back. Omit on the first read.",
+      "type": "string"
+     }
+    },
+    "required": [
+     "workspace"
+    ],
+    "$schema": "http://json-schema.org/draft-07/schema#"
+   },
+   "annotations": {
+    "title": "Server run progress",
+    "readOnlyHint": true,
+    "openWorldHint": false
+   },
+   "execution": {
+    "taskSupport": "forbidden"
+   }
+  },
+  {
    "name": "get_analysis_window",
    "title": "Open analysis",
-   "description": "Open (or resume) an analysis session and read its answers page by page: the session_token, observation_count, page and pages, and the page's answers as facts with their scenarios. Page 1 also carries memory (with pending evidence), readings (Slingso's numbers for this window), contract (what every opportunity and the Brand Memory write must meet) and sufficiency: the answers, checks and days since the last analysis and whether that is enough for a meaningful analysis. When sufficiency.enough is false, tell the user before analysing (it's an early read) and ask whether to go ahead. Read every page before reasoning.",
+   "description": "Open (or resume) an analysis session and read its answers page by page: the session_token, observation_count, page and pages, and the page's answers as facts with their scenarios. Page 1 also carries memory (with pending evidence), readings (Slingso's numbers for this window), contract (what every opportunity and the Brand Memory write must meet) and sufficiency: the new answers since the last analysis against the 100 needed (responses, needed, enough, missing). When sufficiency.enough is false, tell the user before analysing (it's an early read) and ask whether to go ahead. With server checks on, an analysis here is a look: it reads the same answers as Slingso's next server analysis and doesn't move the server's clock. Refused with analysis_running while Slingso's server analysis is running. Read every page before reasoning.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -2426,7 +2496,7 @@
   {
    "name": "complete_analysis",
    "title": "Complete analysis",
-   "description": "Close the analysis session and advance the window.",
+   "description": "Close the analysis session and advance the window (with server checks on, the server's window stays where it is).",
    "inputSchema": {
     "type": "object",
     "properties": {

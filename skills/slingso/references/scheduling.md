@@ -1,6 +1,6 @@
 # Scheduling: a task in the user's own AI assistant (optional)
 
-The schedule itself lives in Slingso ([schedule.md](schedule.md)): the day, the time and the "Remind me" email. With server checks off, the user's AI assistant runs the monitor; where the surface can run a scheduled task, you may offer one as an extra, so the monitor runs on its own at that time. With server checks on (any plan), Slingso runs it on its servers; no task is needed.
+The schedule itself lives in Slingso ([schedule.md](schedule.md)): the day, the time and the "Remind me" email. Without the server add-on, the user's AI assistant runs the monitor; where the surface can run a scheduled task, you may offer one as an extra, so the monitor runs on its own at that time. With the server add-on on (any plan), Slingso monitors and analyses on its servers; no task is needed.
 
 Offer it once, after the schedule is set, only on a surface that can do it. Never present it as the reminder setting.
 

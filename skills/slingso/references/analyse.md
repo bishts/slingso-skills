@@ -3,14 +3,14 @@
 ## When
 
 - "slingso analyse", "what should we do", after a monitor run, or a scheduled task.
-- On Growth too. Slingso's servers also analyse on the plan's cycle; an on-demand analysis looks only at what is new and doesn't stop the scheduled one.
+- With the server add-on on, Slingso also analyses on its own servers every 7 days once there are 100 new answers. An analysis here is an extra look: it reads the same new answers as Slingso's next analysis and never moves its schedule. Say that once, in a line, before you start.
 
 ## Calls, in order
 
 1. `get_analysis_window` (page 1). Keep `session_token`, `contract`, `memory`, `readings` and `sufficiency`: only page 1 carries them. Each page also has answers as facts (`observations`: `id`, `scenario_id`, `provider`, what the answer said) and their queries (`scenarios`).
 2. Read every page (`page: 2` up to `pages`) before you reason.
 3. Nothing new (`observation_count` is 0 and `memory.pending_evidence` is empty): say "Nothing new since the last analysis.", `complete_analysis` with summary "nothing new", and offer `monitor` if it is due.
-3a. Too little to go on (`sufficiency.enough` is false): before reasoning, tell the user in two lines what the analysis would rest on and what's missing, from `sufficiency` (for example: "This would be an early read: 10 answers from 1 check over 1 day. A meaningful analysis needs 5 days since the last one, 5 checks for every query and 100 new answers."). Then ask: analyse now as an early read, or wait? Go ahead if they say so; a scheduled task goes ahead without asking. Below the bar, every opportunity's body opens with "Early read:", and its confidence stays low.
+3a. Too little to go on (`sufficiency.enough` is false: fewer than 100 new answers since the last analysis): before reasoning, tell the user in one line, from `sufficiency` (for example: "This would be an early read: 64 new answers since the last analysis; a full one needs 100."). Then ask: analyse now as an early read, or wait? Go ahead if they say so; a scheduled task goes ahead without asking. Below the bar, every opportunity's body opens with "Early read:", and its confidence stays low.
 4. `artifacts_list` (`status: open`, `roots: true`): the open opportunities. Never propose one that is already open; if new evidence strengthens it, say so in your summary.
 5. Reason (the method below), then write the opportunities with `artifacts_create`, up to 25 per call:
 
@@ -22,7 +22,9 @@
 ```
 
 6. Fold memory with `memory_update` (below).
-7. `complete_analysis` with `session_token` and a one-paragraph `summary`. This advances the window.
+7. `complete_analysis` with `session_token` and a one-paragraph `summary`. Without the add-on this advances the window; with it, Slingso's own analysis window stays where it is.
+
+Opportunities written here are recorded as found in your assistant; Slingso's own are found by Slingso.
 
 `contract` is what every opportunity and the memory write must meet, pinned to this workspace. Meet it exactly; the rest of this page is how.
 
@@ -78,7 +80,7 @@ No request folds memory on the server; this session does.
 
 ## Tell the user
 
-One line per new opportunity, highest priority first: title and kind. Then one question: "Draft the content ones now?" (only when `content` or `product` ones exist; default yes). With teammates (`members_list` shows more than one), ask instead: "Leave them for the team to review?"
+One line per new opportunity, highest priority first: title and kind, found in your assistant. Then one question: "Draft the content ones now?" (only when `content` or `product` ones exist; default yes). With teammates (`members_list` shows more than one), ask instead: "Leave them for the team to review?"
 
 ## Walls
 
@@ -86,6 +88,7 @@ None. Every plan can analyse in its own AI assistant.
 
 ## If it fails
 
+- Slingso is analysing this workspace now (refused as already running): say "Slingso is analysing now. The opportunities will be in your inbox in a few minutes." and stop. Don't retry; offer to go through them once they land ([review.md](review.md)).
 - The session expired: `get_analysis_window` again (it resumes when it can), then resend what wasn't accepted.
 - An opportunity refused: the message names what's missing. Fix that item and resend it.
 - Role: "Only an editor or the owner can run an analysis."

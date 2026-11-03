@@ -1,8 +1,8 @@
-# help: the verbs
+# help: the commands
 
 ## When
 
-"slingso help", "/slingso help", "/slingso" with no verb (after onboarding), "what can slingso do?".
+"slingso help", "/slingso help", "/slingso" with no command (after onboarding), "what can slingso do?".
 
 ## Calls
 
@@ -10,35 +10,27 @@
 
 ## Tell the user
 
-The verbs as one short table, grouped like SKILL.md, a few words each:
+The commands as one short table, grouped, a few words each:
 
-| Group | Verb | Does |
+| Group | Command | Does |
 |---|---|---|
-| Setup | `init` | set up your brand |
+| Set up | `init` | set up your brand |
+| | `competitors` | who you're up against: suggestions and pins |
 | | `teach` | a house rule in one sentence |
-| | `pin` | a competitor, by link |
-| | `invite` | a teammate |
-| Observe | `check` | one query across the AI Shopping Channel, now |
-| | `monitor` | run everything due |
-| | `shelf` | Shelf Share and Purchase Likelihood |
-| | `narrative` | what the AI Shopping Channel says about you |
-| | `brief` | the briefing |
-| Reason | `analyse` | find opportunities |
-| | `competitors` | the comparison set |
-| Act | `review` | decide on opportunities and drafts |
-| | `draft` | write what an opportunity needs |
-| | `revise` | redo a draft with a note |
-| | `published` | record what went live |
-| System | `status` | workspace, plan, versions |
-| | `switch` | change workspace |
-| | `schedule` | when the monitor runs, and who runs it |
+| Monitor | `check` | one query across the AI Shopping Channel, now |
+| | `monitor` | run everything due, or run now on Slingso's servers |
+| | `brief` | the briefing, your shelf and what the AI Shopping Channel says |
+| Analyse | `analyse` | find opportunities |
+| Create | `create` | write or revise what an opportunity needs |
+| | `review` | decide on opportunities, record what went live |
+| Settings | `schedule` | when the monitor runs, who does the work, the balance |
 | | `export` | every recorded answer, as CSV or JSON |
-| | `balance` | the prepaid balance for server checks |
-| | `help` | this list |
 
-Then one line naming what the plan walls off, from `get_session`'s plan, only if anything: on Free, "Teammates and more products come with Starter; Slingso's own analysis every cycle comes with Growth. Slingso can run your checks on any plan, from a balance." On Starter, "Slingso's own analysis every cycle comes with Growth." Nothing more about plans.
+Then one line: "Also: `status`, `switch`, `invite`, `help`." Say them as "slingso <command>"; in the Claude plugin each of the eleven is also its own slash command (`/slingso:monitor`).
 
-End with one suggested next verb, from `get_session` alone: onboarding unfinished → `init`; otherwise skip the suggestion (do not call anything else to find one).
+Then one line naming what the plan walls off, from `get_session`'s plan, only if anything: on Free, "Teammates and more products come with Starter." On Starter, "Persona simulation and daily intelligence come with Growth." Add, once, on any plan: "Slingso's servers can monitor and analyse for you on any plan, from a balance." Nothing more about plans.
+
+End with one suggested next command, from `get_session` alone: onboarding unfinished → `init`; otherwise skip the suggestion (do not call anything else to find one).
 
 ## Walls
 

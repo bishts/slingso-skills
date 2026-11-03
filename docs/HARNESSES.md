@@ -22,7 +22,8 @@ skill tells the user an untested assistant's data may have gaps.
 | Perplexity | its own app and connector model | | cloud browser | later | |
 
 Without a browser, `check` falls back to asking you to paste an answer, and
-`monitor` waits until one is available.
+`monitor` waits until one is available, unless Slingso's servers run the checks
+(the server add-on), which needs no browser.
 
 ## Test next
 
@@ -49,7 +50,8 @@ Cloud-browser assistants (ChatGPT, Gemini app, Perplexity) and claude.ai on its 
 
 | Path | For |
 |---|---|
-| `skills/slingso/` | every assistant: `SKILL.md` and `references/` |
+| `skills/slingso/` | every assistant: the core skill, `SKILL.md` and `references/`; works on its own |
+| `skills/<command>/` | the plugins (Claude, OpenAI) and the MCP server's skill catalog: one thin skill per command (`/slingso:monitor` …), each pointing at the core |
 | `.claude-plugin/`, `.mcp.json` | Claude Code and Claude desktop: skill and MCP in one install |
-| `scripts/build-openai-plugin.sh` | the ChatGPT and Codex plugin package, from `openai/` |
-| `scripts/build-zip.sh` | the claude.ai upload, attached to each release |
+| `scripts/build-openai-plugin.sh` | the ChatGPT and Codex plugin package, from `openai/`, with every skill |
+| `scripts/build-zip.sh` | the claude.ai upload (the core skill only), attached to each release |

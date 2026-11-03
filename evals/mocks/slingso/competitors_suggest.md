@@ -1,4 +1,1 @@
----
-error: true
----
-{"error":{"code":"requires_diy_paid","message":"Competitor proposals come with Starter. You can still pin competitors you know."}}
+{"data":[{"index":0,"ok":true,"data":{"id":71,"status":"suggested"}}],"accepted":1,"rejected":0}

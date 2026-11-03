@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Builds the ChatGPT / Codex plugin ZIP for OpenAI's plugin directory
 # (developers.openai.com/plugins/deploy/submission): the portable layout,
-# with plugin.json and mcp.json at the root, the skill under skills/ and the
+# with plugin.json and mcp.json at the root, every skill (the core and the
+# command skills) under skills/ and the
 # icons under assets/. Output: dist/slingso-openai-plugin-<version>.zip
 #
 #   scripts/build-openai-plugin.sh            build
@@ -24,7 +25,9 @@ stage="$(mktemp -d)"
 trap 'rm -rf "$stage"' EXIT
 cp "$src/plugin.json" "$src/mcp.json" "$stage/"
 mkdir -p "$stage/skills" "$stage/assets"
-cp -R "$root/skills/slingso" "$stage/skills/slingso"
+for dir in "$root"/skills/*/; do
+  cp -R "$dir" "$stage/skills/$(basename "$dir")"
+done
 # The icon isn't kept in this repo (the Claude directory holds plugin images
 # for review); it is the one the Slingso site serves.
 curl -fsSL -o "$stage/assets/icon.png" https://www.slingso.com/slingso-icon-512.png

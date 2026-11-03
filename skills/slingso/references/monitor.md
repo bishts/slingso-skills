@@ -2,13 +2,26 @@
 
 ## When
 
-- "slingso monitor", "run the monitor", a scheduled task, or the briefing says monitoring is due.
+- "slingso monitor", "run the monitor", "run my checks now", a scheduled task, or the briefing says monitoring is due.
 
-Onboarding's first check runs on Slingso's servers, on every plan ([init.md](init.md)); this verb is for the checks after it.
+Onboarding's first check runs on Slingso's servers, on every plan ([init.md](init.md)); this command is for the checks after it.
 
-## With server checks on: report, do not run
+## With server checks on: run now on Slingso's servers
 
-`get_monitor_plan`. If `runs_on` is `server`, Slingso runs the checks on its own servers. Do not open a browser. Report from `get_briefing` (`monitor.last_run`, `monitor.next_run_at`) and `get_performance_summary`: when it last ran, what moved, when it runs next. Offer `analyse` if there are new runs since the last analysis.
+`get_monitor_plan`. If `runs_on` is `server`, the server add-on is on: Slingso monitors on its own servers, in the workspace's market. Do not open a browser.
+
+1. One line from `get_briefing`'s `monitor`: when Slingso last ran and when it runs next. Then offer an extra run now, with the estimate (queries × assistants × personas × $0.015; counts from `scenarios_list` and `workspace_get`): "Run all 12 queries now on Slingso's servers? About $0.36 from the balance." If the user already asked to run now, that is the yes: skip the question. In a scheduled task, don't run; report and stop. If the user only wanted to know where things stand, add what moved (`get_performance_summary`) and stop.
+2. On yes: `run_server_checks`, with no `scenario_ids` for every active query, or the `scenario_ids` of the tracked queries the user chose (`scenarios_list`).
+   - `started`: "Started: 24 runs, $0.36 from the balance." (`planned`, `cost_usd`).
+   - `running`: a server run is already going; nothing new started and nothing charged. Say so and follow that one.
+3. Follow it with `get_run_progress` about every 20 seconds, passing the `cursor` it last returned as `since`, until `status` is `completed` or `failed`; don't stop after a few reads. Each time:
+   - For each new item in `answers`, one line: "<assistant>, '<query>': <picks, joined>. You: <top pick | #rank | not recommended>." Quote the picks as written; never add products of your own.
+   - Then the tally in one line: "You were recommended in <with_you> of <answers> answers. <leader.brand> was in <leader.answers>."
+   - No new answers: one line, "<recorded> of <planned> answers in." `queued`: it is waiting its turn on Slingso's servers, not stuck; keep following it.
+4. `completed`: the numbers from `get_performance_summary` (never compute them) and what moved, in two lines. Slingso analyses on its own once there are 100 new answers; offer an extra look only if the user wants opportunities now ([analyse.md](analyse.md)).
+5. `failed`: relay its message; the next run is on schedule.
+
+Refusals carry the fix; relay it in one line: server checks were turned off meanwhile (offer the browser run below), the balance doesn't cover the run (with the billing page link, https://www.slingso.com/workspace/<code>/billing), or a query isn't tracked (track it first, see [check.md](check.md)).
 
 ## Otherwise: run it in the browser
 
@@ -16,7 +29,7 @@ Onboarding's first check runs on Slingso's servers, on every plan ([init.md](ini
 
 1. `get_monitor_plan`. Note `schema_version`, `key_attributes` and `items` (each is one query on one assistant). No items: "Nothing is due. Next run: <next_run_at>." Stop, unless the user asks to run anyway; then use `check` for single queries.
 2. Read [extract.md](extract.md) and `get_extraction_schema` for this workspace's pinned version: the contract every row meets. Never use a copy from memory or from an earlier session.
-3. Pick the browser per [browser.md](browser.md): the one the user asked for, else Playwright. No browser: offer the paste route there, or server checks (any plan, from a prepaid balance: [balance.md](balance.md)). Before the workspace's first browser run, say once: "A run in your browser shows what your browser's location sees, so run it from <market> (or a VPN there)."
+3. Pick the browser per [browser.md](browser.md): the one the user asked for, else Playwright. No browser: offer the paste route there, or the server add-on (any plan, from a prepaid balance: [schedule.md](schedule.md)). Before the workspace's first browser run, say once: "A run in your browser shows what your browser's location sees, so run it from <market> (or a VPN there)."
 4. `claim_work`. Keep `lease_token`. If `resumed` is true, skip every pair in `done[]`: those answers are already stored.
 5. State the scope and ask once (skip the question in a scheduled run): "12 queries on 3 assistants: 36 answers, about 20 minutes. Start?"
 
@@ -76,7 +89,7 @@ A run can be hundreds of answers. Never hold them all.
 
 ## Walls
 
-None. With server checks on, `monitor` reports instead of running (above).
+None. With server checks on, `monitor` runs on Slingso's servers instead of the browser (above).
 
 ## If it fails
 

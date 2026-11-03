@@ -10,7 +10,7 @@
 4. **A browser in the cloud** (an assistant that browses from its own servers): answers show the server's location, not the user's market. Say so once and offer the paste route.
 5. **None** (claude.ai on the web without the desktop app, mobile): use the paste route below.
 
-The first time a workspace's checks use a browser, before you open it, tell the user in two lines: "Slingso asks ChatGPT, Google and Gemini your queries in a browser on your computer: a fresh window, signed out, public pages only. It types each query, reads the answer, and never signs in, buys anything or changes a setting. Your app may ask whether to let me control the browser: allow it for this run. Rather not use your computer? Slingso can run them on its servers, from a prepaid balance." Then go on; don't repeat it in later runs.
+The first time a workspace's checks use a browser, before you open it, tell the user in two lines: "Slingso asks ChatGPT, Google and Gemini your queries in a browser on your computer: a fresh window, signed out, public pages only. It types each query, reads the answer, and never signs in, buys anything or changes a setting. Your app may ask whether to let me control the browser: allow it for this run. Rather not use your computer? Slingso can run them on its servers, from a prepaid balance (the server add-on)." Then go on; don't repeat it in later runs.
 
 Before the first query, confirm the browser tools are there. If none are: "I can't open a browser here. I can give you the queries to paste, or Slingso can run them on its servers, from a prepaid balance. Paste them yourself?"
 

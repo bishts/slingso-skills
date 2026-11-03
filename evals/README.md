@@ -38,19 +38,22 @@ Add `--trust-plugin` in CI. Results land in `evals/results/` (ignored by git). A
 | `plan-upgrade-after-setup` | setup done, the user picks Starter: `workspace_choose_plan` with `diy_paid`, the monthly fee stated with the Stripe link, nothing charged here, no setup step reopened |
 | `schedule-change-assistants` | setup done, the user changes which assistants run: ChatGPT, Google AI Mode, Google AI Overviews, Gemini listed by name with which are on, never counted, never one yes/no on the whole schedule; no facts; one question; nothing set yet |
 | `schedule-change-timezone` | setup done with no schedule (no timezone was known), assistants named: in Claude Code the skill reads `date +%z` and folds the offset into the when question (weekly, Monday 09:00 suggested) (run with `--allow-tools Bash`) |
-| `help-lists-verbs` | `/slingso help` lists the verbs grouped, one line on what the plan walls off, calls nothing but `get_session` |
-| `free-never-suggests` | Free never calls `competitors_suggest` and never pins names the user didn't give; the one-line wall |
+| `help-lists-commands` | `/slingso help` lists the commands grouped (Set up, Monitor, Analyse, Create, Settings), one line on what the plan walls off, calls nothing but `get_session` |
+| `competitors-suggest-on-free` | suggestions work on Free: the brands the recorded answers name, never the skill's own picks; nothing pinned before the user says yes; no Starter wall |
 | `stale-skill-version` | `loader_min_version` newer than the skill: stop, say how to update, no briefing |
+| `monitor-server-run-now` | server checks on, the user asks to run now: `run_server_checks` once, never a browser run; `get_run_progress` followed with each `cursor` passed back as `since`, each answer and the tally narrated |
 | `check-unframed` | no browser: the paste route, the query exactly as written, nothing recorded, no invented answers |
 | `extraction-brand-ranked` | extraction against the served schema: rows in answer order, top pick, ours, claims on the right row, citations, the full answer, no scores; `claim_work` before the batch, `complete_run` once, after it |
 | `extraction-brand-absent` | an answer with no products records an empty shelf; nothing invented |
 | `analyse-opportunities` | opportunities carry `action_dimension` and their `evidence` (observation ids with quoted lines), respect the rejection feedback in memory, use the server's numbers; Brand Memory written with the read `lock_version` and `distilled_through`; the session closed last |
 | `analyse-grounded-dose` | grounding: a dose only an assistant stated is a finding, never a pitch; assistants quoted as assistants; no comparison without the rival's site; evidence on every opportunity |
+| `analyse-analysis-running` | Slingso's server analysis is running: the skill says the opportunities will be in the inbox shortly and stops; no retry loop, nothing written, no error code |
 | `analyse-stale-memory` | a 409 on Brand Memory → `memory_read`, merge (keep the other session's line and this session's learning), retry once with the new `lock_version`, still close the session |
 
 ## Fixtures
 
-- `mocks/slingso/_tools.json`: the Slingso server's real `tools/list` response (names, descriptions, input schemas, annotations; 58 tools). Refresh it when the server's tools change, then copy the suite mocks into `eval-fixtures/browser-choice/` (its README has the command).
+- `mocks/slingso/_tools.json`: the Slingso server's real `tools/list` response (names, descriptions, input schemas, annotations; 60 tools). Refresh it when the server's tools change, then copy the suite mocks into `eval-fixtures/browser-choice/` (its README has the command).
+- `get_session` mocks carry the plans with `entity_resolution` true on every plan and `server_addon`, as Slingso serves them.
 - Every plan's assistant catalogue is `chatgpt`, `google_ai_mode`, `google_aio`, `gemini_web`; onboarding's steps are `site`, `confirm`, `results`.
 - `cases/extraction/*.yml`, `cases/analysis/`: the parity cases Slingso grades its own extractor and analysis on; the `extraction-*` and `analyse-*` cases use their answers and window verbatim. Brand domains use `.example`.
 - `mocks/slingso/fixtures/extraction_schema.json`: a stand-in for the extraction schema. It keeps the field names and shapes the skill's playbook uses; the glossary, stage vocabulary and rules are placeholders. The real schema is served by `get_extraction_schema` at runtime.

@@ -13,8 +13,14 @@ never leaves Slingso and never comes here.
 
 ## Rules
 
-- `skills/slingso/` is the one source. Never copy it per assistant; add a manifest
-  instead (`.claude-plugin/`, `openai/`).
+- `skills/slingso/` is the one source: the core skill, with every command's full
+  reference. Never copy it per assistant; add a manifest instead (`.claude-plugin/`,
+  `openai/`).
+- Every other folder in `skills/` is a command skill (`skills/monitor/` …): frontmatter
+  `name` equal to the folder, a description that names Slingso and the command, and a
+  thin body that points at the core skill and its reference, both as a relative link and
+  as `skill://slingso/…` (the MCP server serves each folder as `skill://<name>/`, where a
+  relative link across skills doesn't resolve). Never copy rules into them.
 - Tool names and arguments must match the server's `tools/list`
   (`evals/mocks/slingso/_tools.json` holds the current one).
 - Never write a number the server computes (Shelf Share, Narrative Accuracy, Purchase
@@ -27,10 +33,11 @@ never leaves Slingso and never comes here.
 
 ## Releasing
 
-1. Bump `metadata.version` in `SKILL.md` (and the version line under "Check the
-   version"), `references/status.md`, `version` in `.claude-plugin/plugin.json` and
-   `openai/plugin.json` together.
-2. `scripts/build-zip.sh --check` (it refuses mismatched versions).
+1. Bump `metadata.version` in `skills/slingso/SKILL.md` (and the "This skill is
+   version" line), every command skill's `metadata.version`, `references/status.md`,
+   `version` in `.claude-plugin/plugin.json` and `openai/plugin.json` together.
+2. `scripts/build-zip.sh --check` (it refuses mismatched versions, a command skill
+   whose name isn't its folder, and broken links in the core skill).
 3. Run the evals: `claude plugin eval . --runs 1 --ablation none --no-publish`.
 4. Update `CHANGELOG.md`, tag `vX.Y.Z`, attach the zip to the GitHub release.
 

@@ -3,6 +3,17 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.4.0 (2026-11-03)
+
+Needs the newer Slingso server: the Slingso app and the MCP server from this release (server run now and its progress, the server add-on in the session, the briefing's analysis, daily or weekly schedules).
+
+- Commands, each its own skill in the plugin (`/slingso:init`, `/slingso:monitor`, …): Set up (`init`, `competitors`, `teach`), Monitor (`check`, `monitor`, `brief`), Analyse (`analyse`), Create (`create`, `review`), Settings (`schedule`, `export`). Each points at the core skill, `skills/slingso`, which still holds everything and works on its own. `status`, `switch`, `invite` and `help` stay in the core.
+- Folded: `shelf` and `narrative` into `brief`; `draft` and `revise` into `create`; `published` into `review`; `pin` into `competitors`; `balance` into `schedule`. The old words still work.
+- The server add-on, on any plan: Slingso monitors on the schedule in the workspace's market and analyses every 7 days once there are 100 new answers, $0.015 a run, analysis included. Create always happens in the assistant. Plans and the add-on are presented from the session as written; Growth no longer analyses every cycle on its own.
+- `monitor` with the add-on offers to run now on Slingso's servers and narrates the answers as they arrive; `check` runs a tracked query there, and offers to track an untracked one or check it in the browser without recording.
+- `analyse`: an early read is fewer than 100 new answers; when Slingso is already analysing, the skill says the opportunities will be in the inbox shortly and stops; with the add-on, an analysis in the assistant is an extra look. Opportunities say who found them (Slingso or your assistant).
+- `brief` shows when Slingso's next analysis is due. Competitor suggestions work on every plan, Free included. Schedules are daily or weekly.
+
 ## 0.3.1 (2026-10-27)
 
 - A site that isn't an online store no longer leaves a stuck workspace: Slingso deletes the empty workspace and says why, and the skill starts a new one and asks for the store's website, market and hero page again.
