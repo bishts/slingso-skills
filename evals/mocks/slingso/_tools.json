@@ -1000,7 +1000,7 @@
   {
    "name": "competitors_list",
    "title": "List competitors",
-   "description": "Pinned competitors: brand pins (up to 5) and product pins (up to 5 for each of your products), including suggested, pending (being read) and refused ones (refusal says why). Each row carries its intelligence (null until first read): brand promotions, claims and retailers; product prices and sellers; on every plan, weekly on Free and Starter, daily on Growth.",
+   "description": "Pinned competitors: brand pins (up to 5) and product pins (up to 5 for each of your products), including suggested, pending (being read) and refused ones (refusal says why). Each row carries its intelligence (null until first read): brand promotions, claims, retailers and the ads it ran in AI answers in the last 30 days (where, what they said and offered, where they send the shopper); product prices and sellers; on every plan, weekly on Free and Starter, daily on Growth.",
    "inputSchema": {
     "type": "object",
     "properties": {

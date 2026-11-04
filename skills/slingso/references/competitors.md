@@ -19,6 +19,7 @@ One command for who the brand is up against: the pinned set and their intelligen
 
 - The pinned set with their numbers beside yours, one line each. A pending pin: "reading their site". A refused one: its reason, once, with the fix.
 - Brand intelligence: promotions and retailers, only what changed.
+- Ads a pinned brand ran in AI answers (`intelligence.ads`): where it ran, the headline and offer, and where it sends the shopper. Newest first; say "no ads seen" only when asked.
 - Product intelligence: price by seller, discounts, stock and rating for pinned competitor products, only what changed.
 - When asked how fresh it is: `captured_at`, and `next_update_at` for when it next changes (weekly on Free and Starter, daily on Growth).
 - Unpinned brands that keep appearing: name up to three and offer one pin, default yes: "Pin Brand X?"

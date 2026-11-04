@@ -8,6 +8,7 @@ and the release tag.
 Needs the newer Slingso server (competitor intelligence on every plan).
 
 - Competitor intelligence on every plan: pinned brands' promotions, claims and retailers, and pinned products' prices at every seller, discounts, stock and rating. Weekly on Free and Starter, daily on Growth. The "comes with Starter / Growth" walls are gone; `next_update_at` is when the plan's reading next changes.
+- Ads: a pinned brand's intelligence carries the ads it ran in AI answers in the last 30 days (where, the headline and offer, where they send the shopper).
 
 ## 0.4.0 (2026-11-03)
 
