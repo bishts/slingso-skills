@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "slingso",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "The AI Shopping Channel Manager for e-commerce brands: see how AI assistants recommend your products, product by product, and what to change to win the sale.",
   "author": {
     "name": "Intelligent Motion, Inc.",

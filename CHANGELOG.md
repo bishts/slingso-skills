@@ -3,6 +3,12 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.4.1 (2026-11-04)
+
+Needs the newer Slingso server (competitor intelligence on every plan).
+
+- Competitor intelligence on every plan: pinned brands' promotions, claims and retailers, and pinned products' prices at every seller, discounts, stock and rating. Weekly on Free and Starter, daily on Growth. The "comes with Starter / Growth" walls are gone; `next_update_at` is when the plan's reading next changes.
+
 ## 0.4.0 (2026-11-03)
 
 Needs the newer Slingso server: the Slingso app and the MCP server from this release (server run now and its progress, the server add-on in the session, the briefing's analysis, daily or weekly schedules).

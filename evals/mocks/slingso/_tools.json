@@ -448,7 +448,7 @@
   {
    "name": "products_get",
    "title": "Get product",
-   "description": "One tracked product. On Growth it carries competitor_intelligence: each pinned competitor product's latest price, sellers, rating and when the next update lands (otherwise available: false and the plan that unlocks it).",
+   "description": "One tracked product, with competitor_intelligence on every plan: each pinned competitor product's price, sellers and rating as of the plan's reading (weekly on Free and Starter, daily on Growth) and when that reading next changes.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -1000,7 +1000,7 @@
   {
    "name": "competitors_list",
    "title": "List competitors",
-   "description": "Pinned competitors: brand pins (up to 5) and product pins (up to 5 for each of your products), including suggested, pending (being read) and refused ones (refusal says why). Each row carries its latest intelligence (or null) where the plan includes it: brand promotions, claims and retailers on Starter and up; product prices and sellers on Growth.",
+   "description": "Pinned competitors: brand pins (up to 5) and product pins (up to 5 for each of your products), including suggested, pending (being read) and refused ones (refusal says why). Each row carries its intelligence (null until first read): brand promotions, claims and retailers; product prices and sellers; on every plan, weekly on Free and Starter, daily on Growth.",
    "inputSchema": {
     "type": "object",
     "properties": {

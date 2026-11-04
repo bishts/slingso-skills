@@ -12,15 +12,15 @@ One command for who the brand is up against: the pinned set and their intelligen
 
 1. `competitors_list`: the pins. Each row's `intelligence` is its latest snapshot where the plan includes it (null before the first capture).
 2. `get_performance_summary`: Shelf Share and Purchase Likelihood for pinned competitors.
-3. For one of your products: `products_get` → `competitor_intelligence` (Growth): each pinned competitor product's price, sellers and rating.
+3. For one of your products: `products_get` → `competitor_intelligence`: each pinned competitor product's price, sellers and rating.
 4. For "who else shows up": `observations_list` (recent, `limit` 50) and read the brands in the product rows.
 
 ### Tell the user
 
 - The pinned set with their numbers beside yours, one line each. A pending pin: "reading their site". A refused one: its reason, once, with the fix.
-- Brand intelligence (Starter weekly, Growth daily): promotions and retailers, only what changed.
-- Product intelligence (Growth, daily): price by seller, discounts, stock and rating for pinned competitor products, only what changed.
-- When asked how fresh it is: `captured_at`, and `next_update_at` for when the next one lands.
+- Brand intelligence: promotions and retailers, only what changed.
+- Product intelligence: price by seller, discounts, stock and rating for pinned competitor products, only what changed.
+- When asked how fresh it is: `captured_at`, and `next_update_at` for when it next changes (weekly on Free and Starter, daily on Growth).
 - Unpinned brands that keep appearing: name up to three and offer one pin, default yes: "Pin Brand X?"
 
 Never promise or describe numbers, scores or Narrative Accuracy for competitors as a result of pinning or reading their sites.
@@ -56,17 +56,11 @@ Unpin: `competitors_list`, find it, `competitors_unpin`.
 ### What each plan does with a pin
 
 - Every plan: Slingso places the link in the background (it reads the page once if it has to), merges it into the real brand or product, then pins it. The link wins: a site on another domain than the brand Slingso knows by that name is a different brand. Say "pending" plainly while it is pending; don't explain the mechanism unless asked.
-- Starter: a brand pin also gets brand intelligence, weekly: its story, its retailers and its promotions.
-- Growth: the same, daily; product pins also get daily competitor product intelligence (price at every seller, discounts, stock, rating).
+- Every plan, once read: a brand pin gets brand intelligence (its story, its retailers and its promotions), a product pin product intelligence (price at every seller, discounts, stock, rating). Weekly on Free and Starter, daily on Growth.
 
 Up to 5 brand pins per workspace and 5 product pins per product, on every plan. The error says so when a cap is hit.
 
 A brand pin needs the brand's own website. A link to a product page pins that product's brand. A site that isn't an online store is refused: "That doesn't look like an online store's site."
-
-## Walls
-
-- Brand intelligence on Free: "Competitor brand intelligence comes with Starter."
-- Product intelligence below Growth: "Competitor product intelligence (price, stock, sellers) comes with Growth."
 
 ## If it fails
 
