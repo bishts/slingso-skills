@@ -448,7 +448,7 @@
   {
    "name": "products_get",
    "title": "Get product",
-   "description": "One tracked product, with competitor_intelligence on every plan: each pinned competitor product's price, sellers and rating as of the plan's reading (weekly on Free and Starter, daily on Growth) and when that reading next changes.",
+   "description": "One tracked product, with competitor_intelligence: each pinned competitor product's price, sellers and rating as of the plan's reading (weekly on Starter, daily on Growth) and when that reading next changes. On Free it is {available: false, unlock}: say once that it comes with that plan.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -1000,7 +1000,7 @@
   {
    "name": "competitors_list",
    "title": "List competitors",
-   "description": "Pinned competitors: brand pins (up to 5) and product pins (up to 5 for each of your products), including suggested, pending (being read) and refused ones (refusal says why). Each row carries its intelligence (null until first read): brand promotions, claims, retailers and the ads it ran in AI answers in the last 30 days (where, what they said and offered, where they send the shopper); product prices and sellers; on every plan, weekly on Free and Starter, daily on Growth.",
+   "description": "Pinned competitors: brand pins (up to 5) and product pins (up to 5 for each of your products), including suggested, pending (being read) and refused ones (refusal says why). On Starter and Growth each row carries its intelligence (null until first read): brand promotions, claims and retailers; product prices and sellers; weekly on Starter, daily on Growth. On Growth a brand's intelligence also carries ads (beta): the ads it ran in AI answers in the last 30 days (where, what they said and offered, where they send the shopper). Free rows carry no intelligence.",
    "inputSchema": {
     "type": "object",
     "properties": {

@@ -3,6 +3,15 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.4.2 (2026-11-05)
+
+Needs the newer Slingso server (competitor intelligence by plan again; ads on Growth).
+
+- Competitor intelligence is Starter's (weekly) and Growth's (daily). Free sees its pinned rivals scored beside it; their brand and product intelligence come with Starter, and the skill says so once when a read is locked.
+- The ads pinned brands run in AI answers are Growth's, in beta. Without them in the reply, the skill doesn't bring ads up.
+- No reviews claimed: a pinned product's rating, not its reviews.
+- A refused pin no longer lists "wrong market" as a reason.
+
 ## 0.4.1 (2026-11-04)
 
 Needs the newer Slingso server (competitor intelligence on every plan).

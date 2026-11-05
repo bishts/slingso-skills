@@ -28,7 +28,7 @@ The commands as one short table, grouped, a few words each:
 
 Then one line: "Also: `status`, `switch`, `invite`, `help`." Say them as "slingso <command>"; in the Claude plugin each of the eleven is also its own slash command (`/slingso:monitor`).
 
-Then one line naming what the plan walls off, from `get_session`'s plan, only if anything: on Free, "Teammates and more products come with Starter." On Starter, "Persona simulation and daily intelligence come with Growth." Add, once, on any plan: "Slingso's servers can monitor and analyse for you on any plan, from a balance." Nothing more about plans.
+Then one line naming what the plan walls off, from `get_session`'s plan, only if anything: on Free, "Teammates, more products and intelligence on your pinned rivals come with Starter." On Starter, "Persona simulation and daily intelligence come with Growth." Add, once, on any plan: "Slingso's servers can monitor and analyse for you on any plan, from a balance." Nothing more about plans.
 
 End with one suggested next command, from `get_session` alone: onboarding unfinished → `init`; otherwise skip the suggestion (do not call anything else to find one).
 

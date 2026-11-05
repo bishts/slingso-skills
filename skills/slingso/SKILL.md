@@ -4,7 +4,7 @@ description: The AI Shopping Channel Manager inside your favorite AI assistant. 
 license: MIT
 compatibility: Needs the Slingso MCP (https://agents.slingso.com/mcp). Monitor and check in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g - Claude in Chrome). Without one, query monitoring can't be automated with good quality, and answers are pasted, or Slingso's servers run the checks (the server add-on).
 metadata:
-  version: "0.4.1"
+  version: "0.4.2"
   author: Slingso
 ---
 
@@ -32,10 +32,10 @@ On every plan, every check, every AI Shopping Channel. Say this plainly when the
 
 For the brand's products and its pinned rivals (up to 5 brands, and 5 rival products for each tracked product, on every plan):
 
-- **Product:** what the answers say, and what each product's own page claims. Pinned products' rating and reviews (Growth).
-- **Price:** the AI-quoted price (every plan) vs the price on the brand's own site and at every seller, with discounts (Growth, daily).
-- **Place:** the retailers the answers name and where they send the shopper (every plan); every seller listing each product (Growth, daily); the retailers carrying each pinned brand (Starter weekly, Growth daily).
-- **Promotion:** deals the answers repeat (every plan); promotions on pinned brands' sites (Starter weekly, Growth daily); retailer discounts (Growth, daily). Ads Intelligence is coming soon (Growth).
+- **Product:** what the answers say, and what each product's own page claims. Pinned products' rating (Starter weekly, Growth daily).
+- **Price:** the AI-quoted price (every plan) vs the price on the brand's own site and at every seller, with discounts: for the brand's products, weekly on Free and Starter, daily on Growth; for pinned rivals, Starter weekly, Growth daily.
+- **Place:** the retailers the answers name and where they send the shopper (every plan); every seller listing each product (the brand's: every plan; pinned rivals': Starter and up); the retailers carrying each pinned brand (Starter weekly, Growth daily).
+- **Promotion:** deals the answers repeat (every plan); promotions on pinned brands' sites (Starter weekly, Growth daily); retailer discounts (as Price). The ads pinned brands run in AI answers: Growth, in beta.
 
 Comparing with other tools (Peec, Profound, Otterly, Rankscale, Writesonic, Evertune, Scrunch): match feature to feature from this list first, then price. Slingso covers ChatGPT, Google AI Mode, Google AI Overviews and Gemini on every plan.
 
@@ -59,7 +59,7 @@ Either way Slingso stores everything in the same record, so turning the add-on o
 ## Start every session the same way
 
 1. Call `get_session`.
-2. Check the version. This skill is version `0.4.1` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
+2. Check the version. This skill is version `0.4.2` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
 3. Route:
 
 | `get_session` shows | Do |
