@@ -41,7 +41,7 @@ Where this assistant can run scheduled tasks, see [scheduling.md](scheduling.md)
 
 ## The balance
 
-The add-on runs from a prepaid balance in dollars, on any plan, at the plan's price a run (`price_per_run_usd` from `get_balance`; lower on bigger plans). The owner tops it up on the billing page. Checks in the user's AI assistant are free and never touch it.
+The add-on runs from a prepaid balance in dollars: $0.015 a run, on any plan. The owner tops it up on the billing page. Checks in the user's AI assistant are free and never touch it.
 
 ### When
 

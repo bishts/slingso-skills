@@ -11,7 +11,7 @@ Take the query from the user's words. If it is unclear, ask once: "Check '<your 
 When the workspace has the server add-on on (`workspace_get` → `schedule.server_checks`, or `get_monitor_plan` → `runs_on: server`):
 
 1. Find the query in `scenarios_list` (active, the same wording).
-2. **Tracked:** ask once, with the estimate (assistants × `price_per_run_usd` from `get_balance`): "Check it now on Slingso's servers? About $0.04 from the balance, recorded with your checks." On yes, `run_server_checks` with its `scenario_ids: [id]`, then follow and narrate it with `get_run_progress` exactly as [monitor.md](monitor.md) does (pass each `cursor` back as `since`), and end with the per-assistant summary below.
+2. **Tracked:** ask once, with the estimate (assistants × $0.015): "Check it now on Slingso's servers? About $0.06 from the balance, recorded with your checks." On yes, `run_server_checks` with its `scenario_ids: [id]`, then follow and narrate it with `get_run_progress` exactly as [monitor.md](monitor.md) does (pass each `cursor` back as `since`), and end with the per-assistant summary below.
 3. **Not tracked:** ask one question, default track: "Track this query (Slingso checks it now and on every run), or check it in your browser without recording?"
    - Track: `scenarios_create` with the query and its stage (ask the stage only if it is not obvious; default to your best reading), then `run_server_checks` with the new id, as above.
    - Browser: the steps below. Nothing is recorded.

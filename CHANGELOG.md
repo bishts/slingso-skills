@@ -3,12 +3,15 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.4.4 (2026-11-06)
+
+- Server checks are one price again: $0.015 a run on every plan (0.4.3's per-plan run prices are withdrawn).
+
 ## 0.4.3 (2026-11-06)
 
 Works with the previous Slingso server too; the prices and seller reads need the newer one.
 
 - Sellers: a product's price is read on its own site daily and at the 5 sellers the AI answers name most weekly, each seller page checked to sell that exact product first. Pinned rivals the same (Starter weekly; Growth daily on their site). No rating claimed.
-- Server checks cost the plan's price a run (`price_per_run_usd` from `get_balance` or `get_session`, lower on bigger plans); estimates use it instead of a fixed $0.015.
 - Plan prices in the eval mocks: Starter $24.99, Growth $49.99.
 
 ## 0.4.2 (2026-11-05)

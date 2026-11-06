@@ -10,7 +10,7 @@ Onboarding's first check runs on Slingso's servers, on every plan ([init.md](ini
 
 `get_monitor_plan`. If `runs_on` is `server`, the server add-on is on: Slingso monitors on its own servers, in the workspace's market. Do not open a browser.
 
-1. One line from `get_briefing`'s `monitor`: when Slingso last ran and when it runs next. Then offer an extra run now, with the estimate (queries × assistants × personas × `price_per_run_usd` from `get_balance`; counts from `scenarios_list` and `workspace_get`): "Run all 12 queries now on Slingso's servers? About $0.31 from the balance." If the user already asked to run now, that is the yes: skip the question. In a scheduled task, don't run; report and stop. If the user only wanted to know where things stand, add what moved (`get_performance_summary`) and stop.
+1. One line from `get_briefing`'s `monitor`: when Slingso last ran and when it runs next. Then offer an extra run now, with the estimate (queries × assistants × personas × $0.015; counts from `scenarios_list` and `workspace_get`): "Run all 12 queries now on Slingso's servers? About $0.36 from the balance." If the user already asked to run now, that is the yes: skip the question. In a scheduled task, don't run; report and stop. If the user only wanted to know where things stand, add what moved (`get_performance_summary`) and stop.
 2. On yes: `run_server_checks`, with no `scenario_ids` for every active query, or the `scenario_ids` of the tracked queries the user chose (`scenarios_list`).
    - `started`: "Started: 24 runs, $0.36 from the balance." (`planned`, `cost_usd`).
    - `running`: a server run is already going; nothing new started and nothing charged. Say so and follow that one.
