@@ -5,4 +5,4 @@ max_turns: 15
 allowed_tools: [Read, Glob, Grep, Skill]
 ---
 
-slingso: I'll take Starter, $19 a month is fine.
+slingso: I'll take Starter, $24.99 a month is fine.

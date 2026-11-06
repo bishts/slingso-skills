@@ -58,7 +58,7 @@ Unpin: `competitors_list`, find it, `competitors_unpin`.
 
 - Every plan: Slingso places the link in the background (it reads the page once if it has to), merges it into the real brand or product, then pins it. The link wins: a site on another domain than the brand Slingso knows by that name is a different brand. Say "pending" plainly while it is pending; don't explain the mechanism unless asked.
 - Every plan: each pin is scored beside you (Shelf Share and Purchase Likelihood).
-- Starter and Growth, once read: a brand pin gets brand intelligence (its story, its retailers and its promotions), a product pin product intelligence (price at every seller, discounts, stock, rating). Weekly on Starter, daily on Growth. Growth also gets the ads pinned brands run (beta).
+- Starter and Growth, once read: a brand pin gets brand intelligence (its story, its retailers and its promotions), a product pin product intelligence (price on its own site and at its top 5 sellers, discounts, stock). Weekly on Starter; on Growth its site daily, its sellers weekly. Growth also gets the ads pinned brands run (beta).
 
 Up to 5 brand pins per workspace and 5 product pins per product, on every plan. The error says so when a cap is hit.
 

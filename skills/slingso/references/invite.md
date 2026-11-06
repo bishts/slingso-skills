@@ -14,7 +14,7 @@ To see who is in: `members_list`.
 
 ## Walls
 
-- Free: "Free is one person. Teammates come with Starter ($19 a month per workspace)."
+- Free: "Free is one person. Teammates come with Starter ($24.99 a month per workspace)."
 - Not the owner: "Only the owner can invite. Ask <owner> to send it."
 
 ## If it fails
