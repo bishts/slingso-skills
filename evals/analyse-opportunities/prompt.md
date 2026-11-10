@@ -6,4 +6,4 @@ timeout_seconds: 900
 allowed_tools: [Read, Glob, Grep, Skill]
 ---
 
-slingso analyse
+slingso analyse. An early read is fine, go ahead.
