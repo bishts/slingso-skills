@@ -1,10 +1,10 @@
 ---
 name: check
-description: The Slingso check command. Ask one shopping query across ChatGPT, Google AI Mode, Google AI Overviews and Gemini right now and say who they recommend and where the brand stands. Use when the user says "slingso check <query>" or asks Slingso how the AI Shopping Channel answers one question today.
+description: The Slingso check command. Ask the AI Shopping Channel (ChatGPT, Google AI Mode, Google AI Overviews, Gemini) every question that's due and record the answers product by product, or one shopping question right now, in the user's browser or on Autopilot. Use when the user says "slingso check", "slingso check <question>", "slingso monitor", "run my Slingso checks", or the Slingso check is due.
 license: MIT
-compatibility: Needs the Slingso core skill (slingso) and the Slingso MCP (https://agents.slingso.com/mcp). Monitor and check in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g - Claude in Chrome). Without one, query monitoring can't be automated with good quality, and answers are pasted, or Slingso's servers run the checks (the server add-on).
+compatibility: Needs the Slingso core skill (slingso) and the Slingso MCP (https://agents.slingso.com/mcp). Checks in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g. Claude in Chrome). Without one, checks can't be automated with good quality: answers are pasted, or Autopilot (Slingso checking for the user, from a prepaid balance) does the checking.
 metadata:
-  version: "0.4.4"
+  version: "0.5.0"
   author: Slingso
 ---
 

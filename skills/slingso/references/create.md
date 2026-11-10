@@ -1,6 +1,6 @@
-# create: write or revise what an opportunity needs
+# create: draft from an opportunity's brief, or revise a draft
 
-Two asks, one command. Create always happens here, in this assistant, on every plan, with or without the server add-on. Slingso never drafts on its servers.
+Two asks, one command. Create always happens here, in this assistant, on every plan, with Autopilot on or off. Slingso's own work ends at the opportunity: it never drafts. Drafting here is optional help for the brand's team, who decide what to publish.
 
 - **Draft** (also `draft`): write what an open opportunity needs.
 - **Revise** (also `revise`): redo a posted draft with a note.

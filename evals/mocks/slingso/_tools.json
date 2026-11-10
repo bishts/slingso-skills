@@ -3,7 +3,7 @@
   {
    "name": "get_session",
    "title": "Get session",
-   "description": "Who you are (with your timezone as utc_offset, null until you give one), every workspace you belong to (role, plan, setup state), the default workspace, the markets Slingso serves, the plans (name, price, tagline, for = who it suits, includes = what it contains; checkout = paid through a Stripe link; present these as written), server_addon (Slingso's servers running Monitor and Analyse on any plan: price_per_run_usd, analyse_every_days, analyse_min_answers, includes; present as written), start_url (choosing a plan on the web, for when a workspace can't be created here), and the version contract (server_version, loader_min_version). Call this first.",
+   "description": "Who you are (with your timezone as utc_offset, null until you give one), every workspace you belong to (role, plan, setup state), the default workspace, the markets Slingso serves, the plans (name, price, tagline, for = who it suits, includes = what it contains; checkout = paid through a Stripe link; present these as written), server_addon (Autopilot, its customer name: Slingso checks and finds the opportunities on any plan; price_per_run_usd is the price of one check; analyse_every_days, analyse_min_answers, includes; present as written), start_url (choosing a plan on the web, for when a workspace can't be created here), and the version contract (server_version, loader_min_version). Call this first.",
    "inputSchema": {
     "type": "object",
     "properties": {},
@@ -176,7 +176,7 @@
   {
    "name": "set_schedule",
    "title": "Set schedule",
-   "description": "The monitor schedule: which AI Shopping Channels, how often (daily or weekly) and when (a weekday for weekly, and a time in the user's timezone), who runs the checks (the user's assistant, or Slingso's servers with server_checks, on any plan), and whether to email the owner a reminder at that time. With server checks on, the time is when Slingso runs them, and Slingso also analyses every 7 days once there are 100 new answers (no extra charge). Returns next_run_at in UTC and in the user's offset.",
+   "description": "The monitor schedule: which AI Shopping Channels, how often (daily or weekly) and when (a weekday for weekly, and a time in the user's timezone), who does the checking (the user's assistant, or Autopilot with server_checks, on any plan), and whether to email the owner a reminder at that time. With Autopilot on, the time is when Slingso checks, and Slingso also finds the opportunities every 7 days once there are 100 new answers (no extra charge). Returns next_run_at in UTC and in the user's offset.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -225,11 +225,11 @@
       "description": "The user's timezone as a fixed UTC offset, e.g. UTC+05:30 or UTC-04:00. Saved on the user."
      },
      "remind": {
-      "description": "true: email the workspace owner at the scheduled time to run the checks in their assistant. Refused while server checks are on: there's nothing to remind.",
+      "description": "true: email the workspace owner at the scheduled time to run the checks in their assistant. Refused while Autopilot is on: there's nothing to remind.",
       "type": "boolean"
      },
      "server_checks": {
-      "description": "true: Slingso's servers run the checks at the scheduled time and analyse every 7 days once there are 100 new answers, paid per run from the prepaid balance (any plan; refused until there is a balance, added on the billing page). false: the user's assistant runs them, free.",
+      "description": "Autopilot. true: Slingso checks at the scheduled time and finds the opportunities every 7 days once there are 100 new answers, paid per check from the prepaid balance (any plan; refused until there is a balance, added on the billing page). false: the user's assistant checks, free.",
       "type": "boolean"
      }
     },
@@ -300,7 +300,7 @@
   {
    "name": "complete_setup_step",
    "title": "Complete setup step",
-   "description": "Mark an onboarding step done once its records are written, so setup resumes at the next step. Steps: site; confirm (after the user confirms what Slingso drafted: the brand-level queries with no product_id and the hero's queries with its product_id written with scenarios_create, Brand Soul edits with set_brand_soul, competitor brands with competitors_pin; refused until the hero has queries, with drafting while Slingso drafts them; it doesn't wait for the Brand Soul); results. Completing confirm sets the default schedule (weekly, Monday 09:00 in the user's saved offset, email reminder) and starts the first check on Slingso's servers (every plan, all the setup queries on ChatGPT and Google AI Mode); follow it with setup_progress. Completing confirm again after a failed check tries it again. results completes only once that check has finished.",
+   "description": "Mark an onboarding step done once its records are written, so setup resumes at the next step. Steps: site; confirm (after the user confirms what Slingso drafted: the brand-level queries with no product_id and the hero's queries with its product_id written with scenarios_create, Brand Soul edits with set_brand_soul, competitor brands with competitors_pin; refused until the hero has queries, with drafting while Slingso drafts them; it doesn't wait for the Brand Soul); results. Completing confirm sets the default schedule (weekly, Monday 09:00 in the user's saved offset, email reminder) and starts the first check, which Slingso runs itself (every plan, all the setup queries on ChatGPT and Google AI Mode); follow it with setup_progress. Completing confirm again after a failed check tries it again. results completes only once that check has finished.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -640,7 +640,7 @@
   {
    "name": "personas_create",
    "title": "Create personas",
-   "description": "Add shopper personas: who the shopper is and how they decide. On Growth Slingso asks the queries as them on its servers (server checks, from the balance); on other plans they're context for analysis.",
+   "description": "Add shopper personas: who the shopper is and how they decide. On Growth, Autopilot asks the questions as them (from the balance); on other plans they're context for the opportunities.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -2225,7 +2225,7 @@
   {
    "name": "get_briefing",
    "title": "Get briefing",
-   "description": "What needs you (mentions first), new opportunities (each with found_by), the metric trend, Monitor due or overdue, house rules waiting for a person, the latest competitor intelligence with when it next updates, who ran what, and analysis: where it runs (server or your_assistant), the last one (when, found_by) and the server's next one (new answers of the 100 needed, enough, due_at; null without server checks).",
+   "description": "What needs you (mentions first), new opportunities (each with found_by), the metric trend, Monitor due or overdue, house rules waiting for a person, the latest competitor intelligence with when it next updates, who ran what, and analysis: where it runs (server or your_assistant), the last one (when, found_by) and the server's next one (new answers of the 100 needed, enough, due_at; null with Autopilot off).",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -2293,7 +2293,7 @@
   },
   {
    "name": "get_monitor_plan",
-   "title": "Get Monitor plan",
+   "title": "Get check plan",
    "description": "The query × assistant pairs due now, as bare queries; where Monitor runs (your assistant or the server); and key_attributes: the brand's and each product's key attributes. An extraction marks which of those an answer conveyed, and every observation echoes key_attributes.version.",
    "inputSchema": {
     "type": "object",
@@ -2310,7 +2310,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#"
    },
    "annotations": {
-    "title": "Get Monitor plan",
+    "title": "Get check plan",
     "readOnlyHint": true,
     "openWorldHint": false
    },
@@ -2320,7 +2320,7 @@
   },
   {
    "name": "claim_work",
-   "title": "Claim Monitor run",
+   "title": "Start a check",
    "description": "Open (or resume) this workspace's Monitor run. Returns the lease_token and the pairs already done.",
    "inputSchema": {
     "type": "object",
@@ -2337,7 +2337,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#"
    },
    "annotations": {
-    "title": "Claim Monitor run",
+    "title": "Start a check",
     "readOnlyHint": false,
     "destructiveHint": false,
     "idempotentHint": true,
@@ -2349,7 +2349,7 @@
   },
   {
    "name": "complete_run",
-   "title": "Complete Monitor run",
+   "title": "Finish a check",
    "description": "Close the Monitor run after the last observations batch is accepted.",
    "inputSchema": {
     "type": "object",
@@ -2371,7 +2371,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#"
    },
    "annotations": {
-    "title": "Complete Monitor run",
+    "title": "Finish a check",
     "readOnlyHint": false,
     "destructiveHint": false,
     "idempotentHint": false,
@@ -2383,8 +2383,8 @@
   },
   {
    "name": "run_server_checks",
-   "title": "Run server checks now",
-   "description": "Start an extra check on Slingso's servers now: only when the workspace has server checks on, charged per run from the balance, recorded like a scheduled run. Every active query, or only the given tracked queries (scenario_ids). Returns status (started, or running when a server run is already in progress and nothing new started), planned, assistants and cost_usd. Read its progress with get_run_progress.",
+   "title": "Check now on Autopilot",
+   "description": "Start an extra Autopilot check now: only when the workspace has Autopilot (server_checks) on, charged per check from the balance, recorded like a scheduled run. Every active query, or only the given tracked queries (scenario_ids). Returns status (started, or running when a server run is already in progress and nothing new started), planned, assistants and cost_usd. Read its progress with get_run_progress.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -2411,7 +2411,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#"
    },
    "annotations": {
-    "title": "Run server checks now",
+    "title": "Check now on Autopilot",
     "readOnlyHint": false,
     "destructiveHint": false,
     "idempotentHint": false,
@@ -2423,7 +2423,7 @@
   },
   {
    "name": "get_run_progress",
-   "title": "Server run progress",
+   "title": "Check progress",
    "description": "The latest server Monitor run (scheduled or run now): status (none, queued, running, completed, failed), source, planned and recorded, answers (each answer read since `since`: assistant, query, stage, picks = the top three products it recommended, you = whether the brand was recommended, its rank, top pick), tally (answers so far, with_you, leader = the brand recommended most) and cursor (pass it back as since next time to get only new answers).",
    "inputSchema": {
     "type": "object",
@@ -2444,7 +2444,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#"
    },
    "annotations": {
-    "title": "Server run progress",
+    "title": "Check progress",
     "readOnlyHint": true,
     "openWorldHint": false
    },
@@ -2454,8 +2454,8 @@
   },
   {
    "name": "get_analysis_window",
-   "title": "Open analysis",
-   "description": "Open (or resume) an analysis session and read its answers page by page: the session_token, observation_count, page and pages, and the page's answers as facts with their scenarios. Page 1 also carries memory (with pending evidence), readings (Slingso's numbers for this window), contract (what every opportunity and the Brand Memory write must meet) and sufficiency: the new answers since the last analysis against the 100 needed (responses, needed, enough, missing). When sufficiency.enough is false, tell the user before analysing (it's an early read) and ask whether to go ahead. With server checks on, an analysis here is a look: it reads the same answers as Slingso's next server analysis and doesn't move the server's clock. Refused with analysis_running while Slingso's server analysis is running. Read every page before reasoning.",
+   "title": "Find opportunities",
+   "description": "Open (or resume) an analysis session and read its answers page by page: the session_token, observation_count, page and pages, and the page's answers as facts with their scenarios. Page 1 also carries memory (with pending evidence), readings (Slingso's numbers for this window), contract (what every opportunity and the Brand Memory write must meet) and sufficiency: the new answers since the last analysis against the 100 needed (responses, needed, enough, missing). When sufficiency.enough is false, tell the user before analysing (it's an early read) and ask whether to go ahead. With Autopilot on, an analysis here is a look: it reads the same answers as Slingso's next one and doesn't move its clock. Refused with analysis_running while Slingso's server analysis is running. Read every page before reasoning.",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -2483,7 +2483,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#"
    },
    "annotations": {
-    "title": "Open analysis",
+    "title": "Find opportunities",
     "readOnlyHint": false,
     "destructiveHint": false,
     "idempotentHint": true,
@@ -2495,8 +2495,8 @@
   },
   {
    "name": "complete_analysis",
-   "title": "Complete analysis",
-   "description": "Close the analysis session and advance the window (with server checks on, the server's window stays where it is).",
+   "title": "Finish finding opportunities",
+   "description": "Close the analysis session and advance the window (with Autopilot on, Slingso's own window stays where it is).",
    "inputSchema": {
     "type": "object",
     "properties": {
@@ -2520,7 +2520,7 @@
     "$schema": "http://json-schema.org/draft-07/schema#"
    },
    "annotations": {
-    "title": "Complete analysis",
+    "title": "Finish finding opportunities",
     "readOnlyHint": false,
     "destructiveHint": false,
     "idempotentHint": false,
@@ -2533,7 +2533,7 @@
   {
    "name": "get_balance",
    "title": "Get balance",
-   "description": "The prepaid balance behind server checks (any plan), and top-up options. Owners only.",
+   "description": "The prepaid balance behind Autopilot (any plan), and top-up options. Owners only.",
    "inputSchema": {
     "type": "object",
     "properties": {

@@ -35,7 +35,7 @@ Never promise or describe numbers, scores or Narrative Accuracy for competitors 
 ### Calls, in order
 
 1. `competitors_list` (what's pinned) and `observations_list` (recent, `limit` 50): the brands the AI Shopping Channel puts forward that aren't pinned, most frequent first. Only brands the recorded answers name: never add one from your own knowledge.
-2. Name up to five, each with how often it showed up, and ask one question, default yes: "Pin Brooks and Hoka?" Nothing recorded yet: say so and offer to run the monitor.
+2. Name up to five, each with how often it showed up, and ask one question, default yes: "Pin Brooks and Hoka?" Nothing recorded yet: say so and offer to check now.
 3. On yes: pin them (below). To leave them for the team to decide on the dashboard instead, `competitors_suggest` with their names (and a `url` when you have one); a person pins or dismisses each.
 
 ## Pin and unpin

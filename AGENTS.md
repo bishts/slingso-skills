@@ -6,7 +6,7 @@ Instructions for coding agents (and people) changing this repo.
 
 The Slingso skill, its playbooks and how it ships. Three layers: this repo is public
 (the skill and the playbooks for the work the user's Claude does itself:
-`references/extract.md`, `references/analyse.md`); the connector serves contracts and
+`references/extract.md`, `references/opportunities.md`); the connector serves contracts and
 data (the extraction schema, the analysis contract, the workspace's records and
 numbers); Slingso's method (server prompts, guardrails, metric formulas, calibration)
 never leaves Slingso and never comes here.
@@ -16,7 +16,7 @@ never leaves Slingso and never comes here.
 - `skills/slingso/` is the one source: the core skill, with every command's full
   reference. Never copy it per assistant; add a manifest instead (`.claude-plugin/`,
   `openai/`).
-- Every other folder in `skills/` is a command skill (`skills/monitor/` …): frontmatter
+- Every other folder in `skills/` is a command skill (`skills/check/` …; `skills/monitor/` and `skills/analyse/` are aliases kept for one release): frontmatter
   `name` equal to the folder, a description that names Slingso and the command, and a
   thin body that points at the core skill and its reference, both as a relative link and
   as `skill://slingso/…` (the MCP server serves each folder as `skill://<name>/`, where a

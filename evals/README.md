@@ -58,7 +58,7 @@ Add `--trust-plugin` in CI. Results land in `evals/results/` (ignored by git). A
 - `cases/extraction/*.yml`, `cases/analysis/`: the parity cases Slingso grades its own extractor and analysis on; the `extraction-*` and `analyse-*` cases use their answers and window verbatim. Brand domains use `.example`.
 - `mocks/slingso/fixtures/extraction_schema.json`: a stand-in for the extraction schema. It keeps the field names and shapes the skill's playbook uses; the glossary, stage vocabulary and rules are placeholders. The real schema is served by `get_extraction_schema` at runtime.
 - `mocks/slingso/fixtures/analysis_window.json`: the window. Its `contract` is a stand-in: the version, required fields, `action_dimension` values and evidence shape are real; the rules are placeholders. The real contract comes with `get_analysis_window` at runtime.
-- No prompts or guardrails: Slingso never serves them. The skill's own playbooks (`references/extract.md`, `references/analyse.md`) are what the cases test.
+- No prompts or guardrails: Slingso never serves them. The skill's own playbooks (`references/extract.md`, `references/opportunities.md`) are what the cases test.
 - Case `mocks/` folders override the suite's mocks file by file. Never leave an empty `mocks/slingso/` folder in a case: it turns off every suite mock for that case.
 
 ## Writing graders

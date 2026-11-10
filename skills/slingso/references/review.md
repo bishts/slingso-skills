@@ -49,7 +49,7 @@ An opportunity is open, done or dismissed. There is no approve step: drafting it
    - Done without a URL (a price change, a retailer listing, outreach sent): a one-line `note`.
    - Already done, and now there is a URL: `artifacts_done` again with the `url`.
    - Decided against it: that is dismissing (above).
-3. "Recorded." Nothing else runs now. The next analysis reads it.
+3. "Recorded. Slingso will show what moved." Nothing else runs now. The next look reads it.
 
 Never mark something published that the user hasn't confirmed. Never guess a URL. Slingso never publishes for you: the brand publishes on its own site and records the URL here.
 

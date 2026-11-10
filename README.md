@@ -1,6 +1,6 @@
 # Slingso skill
 
-Your AI Shopping Channel Manager, inside your favorite AI assistant. See how ChatGPT, Google AI Mode, Google AI Overviews and Gemini sell your products, product by product, and what to change.
+The opinionated AI Shopping Channel Manager for e-commerce brands, in your favorite AI assistant. See what ChatGPT, Google AI Mode, Google AI Overviews and Gemini tell your shoppers. Get the opportunities that matter most, and see what improved after you act.
 
 ```text
 /plugin marketplace add bishts/slingso-skills
@@ -11,9 +11,9 @@ Then say **slingso init**.
 
 ## What it does
 
-Slingso is the AI Shopping Channel Manager that runs inside your favorite AI assistant. It shows how ChatGPT, Google AI Mode, Google AI Overviews and Gemini sell your products, product by product.
+Slingso is the opinionated AI Shopping Channel Manager for e-commerce brands. It shows how ChatGPT, Google AI Mode, Google AI Overviews and Gemini sell your products, product by product, and brings you the opportunities that matter most, each a brief with its evidence and reasoning.
 
-Your favorite AI assistant asks the queries shoppers ask, reads the answers and finds what to change. Slingso keeps the record: every product, price and seller in each answer, your Brand Soul and memory, your team's threads, and three numbers (Shelf Share, Narrative Accuracy, Purchase Likelihood).
+In your favorite AI assistant, the assistant asks the questions shoppers ask, reads the answers and finds the opportunities. Slingso's work ends at the opportunity: your team creates and publishes, and your assistant can draft from a brief if you ask. Slingso keeps the record: every product, price and seller in each answer, your Brand Soul and memory, your team's threads, and three numbers (Shelf Share, Narrative Accuracy, Purchase Likelihood).
 
 In every answer:
 
@@ -24,46 +24,40 @@ In every answer:
 - **Narrative Accuracy:** every claim about your product checked against your own site.
 - **Who took your spot:** every rival the answer puts forward instead.
 
-Who does the work is your choice, on any plan: your assistant (free), or Slingso's servers with the server add-on (Monitor on your schedule and Analyse every 7 days once there are 100 new answers, paid per run from a prepaid balance). Create always happens in your assistant.
+Who does the checking is your choice, on any plan: your assistant (free), or Autopilot (Slingso checks on your schedule, in your market, and finds your opportunities every 7 days once there are 100 new answers, paid per check from a prepaid balance). Drafting from a brief always happens in your assistant, when you ask.
 
 ## Commands
 
-Say `slingso` and a command (`slingso monitor`). In the Claude plugin each one is also its own slash command (`/slingso:monitor`). The core skill, [skills/slingso](skills/slingso/SKILL.md), holds them all, so a single-skill install works the same.
+Say `slingso` and a command (`slingso check`). In the Claude plugin each one is also its own slash command (`/slingso:check`). The old words `monitor` and `analyse` still work. The core skill, [skills/slingso](skills/slingso/SKILL.md), holds them all, so a single-skill install works the same.
 
-### Set up
+### Where you stand
+
+| Command | Does |
+|---|---|
+| `check` | Checks every question due, in your browser or now on Autopilot; `check <question>` asks one now. |
+| `brief` | The briefing, your Shelf Share and what the AI Shopping Channel says. |
+| `competitors` | Who you're up against: suggestions, pins and their intelligence. |
+
+### Your opportunities
+
+| Command | Does |
+|---|---|
+| `opportunities` | Finds the ones that matter most in the new answers, each a brief. |
+| `create` | Drafts from an opportunity's brief, in your assistant, or revises a draft. |
+| `teach` | Saves a house rule every opportunity and draft follows. |
+
+### What changed
+
+| Command | Does |
+|---|---|
+| `review` | Decides on opportunities and records what went live. |
+
+### How you use it
 
 | Command | Does |
 |---|---|
 | `init` | Sets up your brand: website, market and hero product, then the first check. |
-| `competitors` | Who you're up against: suggestions, pins and their intelligence. |
-| `teach` | Saves a house rule every analysis and draft follows. |
-
-### Monitor
-
-| Command | Does |
-|---|---|
-| `check` | Asks one query across the AI Shopping Channel, now. |
-| `monitor` | Runs every query due, in your browser or now on Slingso's servers. |
-| `brief` | The briefing, your Shelf Share and what the AI Shopping Channel says. |
-
-### Analyse
-
-| Command | Does |
-|---|---|
-| `analyse` | Finds the opportunities in the new answers. |
-
-### Create
-
-| Command | Does |
-|---|---|
-| `create` | Writes or revises what an opportunity needs. |
-| `review` | Decides on opportunities and records what went live. |
-
-### Settings
-
-| Command | Does |
-|---|---|
-| `schedule` | When the monitor runs, who does the work, and the balance. |
+| `schedule` | When Slingso checks, Autopilot on or off, and the balance. |
 | `export` | Every recorded answer, as CSV or JSON. |
 
 Also: `status`, `switch`, `invite` and `help` (`slingso help` lists them all).
@@ -79,11 +73,11 @@ Every install has two parts: the **MCP** (`https://agents.slingso.com/mcp`, wher
 /plugin install slingso@slingso
 ```
 
-Run `/mcp` and sign in to Slingso. The plugin also brings Playwright, the browser monitoring uses first (it needs Node.js). Without it, monitoring uses Claude in Chrome, or you paste the answers.
+Run `/mcp` and sign in to Slingso. The plugin also brings Playwright, the browser checks use first (it needs Node.js). Without it, checks use Claude in Chrome, or you paste the answers.
 
 ### Claude desktop (Cowork and chat)
 
-**Customize** → **Plugins** → **Add** → **Add marketplace**, enter `bishts/slingso-skills`, install "slingso", then connect it from the plugin's Connectors tab. Monitoring uses Playwright, which the plugin brings (it needs Node.js), else the built-in browser.
+**Customize** → **Plugins** → **Add** → **Add marketplace**, enter `bishts/slingso-skills`, install "slingso", then connect it from the plugin's Connectors tab. Checks use Playwright, which the plugin brings (it needs Node.js), else the built-in browser.
 
 ### Any other assistant
 
@@ -91,7 +85,7 @@ Paste [prompts/setup.md](prompts/setup.md) into your assistant. It installs what
 
 ## Tested in
 
-We mark an assistant ✓ once we've run the whole loop in it ourselves: connect, sign in, `slingso init`, a monitor run, the result on the Slingso dashboard. Detail per assistant: [docs/HARNESSES.md](docs/HARNESSES.md).
+We mark an assistant ✓ once we've run the whole loop in it ourselves: connect, sign in, `slingso init`, a check, the result on the Slingso dashboard. Detail per assistant: [docs/HARNESSES.md](docs/HARNESSES.md).
 
 Slingso works best in an assistant that runs on your own computer (a desktop app or a CLI), because the AI Shopping Channel's answers depend on where you ask from. We haven't tested the others, so their data may have gaps or errors. An assistant that browses from the cloud sees its server's location, not your market.
 
@@ -110,7 +104,7 @@ Slingso works best in an assistant that runs on your own computer (a desktop app
 ## What this plugin runs and sends
 
 - **The Slingso MCP** at `https://agents.slingso.com/mcp`. You sign in with your email (OAuth). It holds your workspace: your brand and products, the shopping questions you track, the answers your checks record, and the opportunities drawn from them. The assistant reads and writes these only through its tools.
-- **Playwright** (the `@playwright/mcp` server, pinned to version 0.0.83, in isolated mode), when a check runs in your assistant (not when Slingso's servers run it). It opens a fresh, signed-out browser on your computer and visits public AI assistant pages (chatgpt.com, google.com, gemini.google.com), types each tracked question and reads the answer. The facts it extracts go to the Slingso MCP. It never signs in to your accounts, buys anything or changes a setting.
+- **Playwright** (the `@playwright/mcp` server, pinned to version 0.0.83, in isolated mode), when a check runs in your assistant (not on Autopilot). It opens a fresh, signed-out browser on your computer and visits public AI assistant pages (chatgpt.com, google.com, gemini.google.com), types each tracked question and reads the answer. The facts it extracts go to the Slingso MCP. It never signs in to your accounts, buys anything or changes a setting.
 - **Nothing else.** The plugin reads no credentials or files from your computer and sends data nowhere besides the Slingso MCP.
 
 [Privacy policy](https://www.slingso.com/privacy) · [Terms](https://www.slingso.com/terms) · [Support](https://docs.slingso.com) · support@slingso.com

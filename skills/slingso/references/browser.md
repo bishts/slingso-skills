@@ -1,6 +1,6 @@
 # Browser: driving the assistants
 
-`monitor` and `check` ask real assistants in a real browser. This file is how.
+`check` asks real assistants in a real browser. This file is how.
 
 ## Which browser
 
@@ -10,9 +10,9 @@
 4. **A browser in the cloud** (an assistant that browses from its own servers): answers show the server's location, not the user's market. Say so once and offer the paste route.
 5. **None** (claude.ai on the web without the desktop app, mobile): use the paste route below.
 
-The first time a workspace's checks use a browser, before you open it, tell the user in two lines: "Slingso asks ChatGPT, Google and Gemini your queries in a browser on your computer: a fresh window, signed out, public pages only. It types each query, reads the answer, and never signs in, buys anything or changes a setting. Your app may ask whether to let me control the browser: allow it for this run. Rather not use your computer? Slingso can run them on its servers, from a prepaid balance (the server add-on)." Then go on; don't repeat it in later runs.
+The first time a workspace's checks use a browser, before you open it, tell the user in two lines: "Slingso asks ChatGPT, Google and Gemini your questions in a browser on your computer: a fresh window, signed out, public pages only. It types each question, reads the answer, and never signs in, buys anything or changes a setting. Your app may ask whether to let me control the browser: allow it for this run. Rather not use your computer? Turn on Autopilot and Slingso checks for you, from a prepaid balance." Then go on; don't repeat it in later runs.
 
-Before the first query, confirm the browser tools are there. If none are: "I can't open a browser here. I can give you the queries to paste, or Slingso can run them on its servers, from a prepaid balance. Paste them yourself?"
+Before the first query, confirm the browser tools are there. If none are: "I can't open a browser here. I can give you the questions to paste, or turn on Autopilot and Slingso checks for you, from a prepaid balance. Paste them yourself?"
 
 ## Rules for every query
 
@@ -41,11 +41,11 @@ Market: an answer shows what the browser's location sees. The plan's `geo` is th
 
 ## Capture
 
-For each answer keep: the full answer text, each citation (title, URL), and the time. For `monitor`, extract per [extract.md](extract.md) straight away (see [monitor.md](monitor.md)), then let the page go.
+For each answer keep: the full answer text, each citation (title, URL), and the time. For a full check, extract per [extract.md](extract.md) straight away (see [check.md](check.md)), then let the page go.
 
 ## The paste route (no browser)
 
-1. Give the user the queries in groups of five, each with its assistant: "Paste each into a new temporary chat on ChatGPT, then paste the full answers back here."
+1. Give the user the questions in groups of five, each with its assistant: "Paste each into a new temporary chat on ChatGPT, then paste the full answers back here."
 2. As answers arrive, treat each pasted answer exactly like a captured one: same extraction, same batches, same `complete_run` at the end. Use the time the user pasted it as `captured_at`.
 3. Never fill in an answer the user did not paste.
 

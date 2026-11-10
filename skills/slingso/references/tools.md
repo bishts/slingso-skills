@@ -15,7 +15,7 @@ Responses are `{ data, message?, noop? }`. `noop: true` means it was already don
 | `workspace_get` | workspace detail | name, website, geo, plan, `server_loops`, `schedule` (`assistants`, `cadence`, `day`, `time`, `utc_offset`, `remind`, `server_checks`, `next_run_at`, `next_run_at_local`), `skill_version`, `brand_soul`, `brand_soul_pending`, `setup_state` |
 | `workspace_update` | name, website (owner) | the workspace |
 | `set_brand_soul` | replace Brand Soul (editor) | the Brand Soul |
-| `set_schedule` | `assistants`, `cadence` (`daily`, `weekly`), `day` (a weekday, weekly only), `time` (`HH:MM`), `utc_offset` (`UTC+05:30`, saved on the user), `remind` (email the owner at that time; refused with server checks on), `server_checks` (the server add-on: Slingso's servers monitor at that time and analyse every 7 days once there are 100 new answers, from the prepaid balance, any plan; refused without a balance) | the workspace |
+| `set_schedule` | `assistants`, `cadence` (`daily`, `weekly`), `day` (a weekday, weekly only), `time` (`HH:MM`), `utc_offset` (`UTC+05:30`, saved on the user), `remind` (email the owner at that time; refused with server checks on), `server_checks` (Autopilot: Slingso checks at that time and finds the opportunities every 7 days once there are 100 new answers, from the prepaid balance, any plan; refused without a balance) | the workspace |
 | `workspace_start_site` | start the Site read: `url`, `geo` (the market the user chose), `product_url` (the hero product's page on the brand's own site); all required | `setup_state`; then poll `workspace_get` until `setup_state.site.status` is `ready` or `failed`; a site that isn't an online store deletes the workspace (`site_refused` on the next call) |
 | `complete_setup_step` | mark one onboarding step done: `site`, `confirm` (needs the hero's queries; sets the default schedule and starts the first check), `results` (once the first check has finished) | `setup_state` |
 | `setup_progress` | the wait while the first check runs, about every 20 seconds: `since?` (the `cursor` the last read returned) | `step`, `first_check` (`status`, `recorded`, `planned`, `progress`, `queued_ahead?`), `answers` (read since `since`: `assistant`, `query`, `stage`, `picks`, `you` (`recommended`, `rank?`, `top_pick`)), `tally` (`answers`, `with_you`, `leader` (`brand`, `answers`)), `cursor`, `analysis` (`waiting`, `running`, `done`, `failed`), and while it runs `lead_in`, `fact` (`text`, `source`, `url`), `shelf_index` (`text`, `url`) |
@@ -38,20 +38,20 @@ Plan names: `diy_free` (Free), `diy_paid` (Starter), `diy_paid_autopilot` (Growt
 | `competitors_suggest` (`url?` or `name`, `product_id?`, `brand?`) | proposals for a person to pin or dismiss, every plan |
 | `members_list`, `members_invite` (`email`, `role`) | invite is owner only, Starter and up |
 
-## Monitor
+## Check
 
 | Tool | Use | Returns |
 |---|---|---|
 | `get_monitor_plan` | what is due | `runs_on` (`your_assistant` or `server`), `assistants`, `cadence`, `next_run_at`, `schema_version`, `key_attributes` (`version`, `brand[]`, `products{id: []}`), `items[]` (`scenario_id`, `product_id`, `stage`, `assistant`, `geo`, `query`) |
 | `claim_work` | open or resume the run | `run_id`, `lease_token`, `resumed`, `lease_expires_at`, `done[]` (`scenario_id`, `assistant`) |
 | `observations_create` | `{ lease_token, items }`, up to 25; each item echoes `key_attributes_version` | `accepted[]`, `rejected[]` with reasons, `lease_expires_at` |
-| `run_server_checks` | with the server add-on on: an extra run on Slingso's servers now, charged per run. `scenario_ids?` (only these tracked queries; omit for every active query) | `status` (`started`, or `running` when a server run is already going and nothing new started), `planned`, `assistants`, `scenario_ids`, `cost_usd`, `started_at`. Refused when server checks are off, the balance doesn't cover it, or a query isn't tracked |
+| `run_server_checks` | with Autopilot on (the tool's name says server checks): an extra check now, charged per check. `scenario_ids?` (only these tracked queries; omit for every active query) | `status` (`started`, or `running` when a server run is already going and nothing new started), `planned`, `assistants`, `scenario_ids`, `cost_usd`, `started_at`. Refused when server checks are off, the balance doesn't cover it, or a query isn't tracked |
 | `get_run_progress` | the latest server run (scheduled or run now), about every 20 seconds: `since?` (the `cursor` the last read returned) | `status` (`none`, `queued`, `running`, `completed`, `failed`), `run_id`, `source` (`schedule`, `run_now`), `planned`, `recorded`, `answers` (read since `since`, the same shape as `setup_progress`'s), `tally`, `cursor` |
 | `complete_run` | `{ lease_token }`, after the last batch | the run (with `coverage`: `planned`, `recorded`, `partial`, `missing[]` when it closed short of the plan), observation count |
 | `observations_list` | filters: `type`, `run_id`, `scenario_id`, `assistant`, `since`, `until`, `limit`, `include_answer` | observations |
 | `observations_export` | `as`: `csv` or `json` | the export |
 
-## Analyse
+## Opportunities
 
 | Tool | Use | Returns |
 |---|---|---|
@@ -59,9 +59,9 @@ Plan names: `diy_free` (Free), `diy_paid` (Starter), `diy_paid_autopilot` (Growt
 | `memory_read` | memory without a session | the same `memory` block |
 | `artifacts_create` | `{ session_token, items }` opportunities, each with `evidence` (`[{ observation_id, quote }]`) | per-item results |
 | `memory_update` | `{ session_token, items }` | per-item results; HTTP 409 when Brand Memory is stale |
-| `complete_analysis` | `{ session_token, summary? }`; advances the window, except with the server add-on on, where Slingso's own window stays put | the run, artifact count |
+| `complete_analysis` | `{ session_token, summary? }`; advances the window, except with Autopilot on, where Slingso's own window stays put | the run, artifact count |
 
-`get_analysis_window` is refused with `analysis_running` while Slingso's own analysis is running: one analysis at a time per workspace. With the add-on on, an analysis here is a look: it reads the same answers as Slingso's next one.
+`get_analysis_window` is refused with `analysis_running` while Slingso's own analysis is running: one analysis at a time per workspace. With Autopilot on, an analysis here is a look: it reads the same answers as Slingso's next one.
 
 `memory` holds `brand_soul`, `brand_memory`, `brand_memory_lock_version` (0 before the first write), `beliefs`, `watchlist`, `feedback`, `outcomes`, `recurrence`, `channel_intel`, `recent_facts`, `brand_name`, `scenario_count`, `providers`, and `pending_evidence[]` (`at`, `section`, `line`).
 
@@ -100,7 +100,7 @@ Opportunity statuses: `open`, `done` (with `published_url` when it went live), `
 | `extraction_schema` (fields, glossary, stage vocabulary, rules) | `get_extraction_schema` |
 | `expertise` (the pin, the versions served, the contract versions) | `get_expertise` |
 
-The analysis contract comes with `get_analysis_window` (page 1, `contract`). The playbooks for meeting them are in this skill: [extract.md](extract.md) and [analyse.md](analyse.md).
+The analysis contract comes with `get_analysis_window` (page 1, `contract`). The playbooks for meeting them are in this skill: [extract.md](extract.md) and [opportunities.md](opportunities.md).
 
 `workspace_set_skill_version` (`version`) moves the workspace's pin: onto a new release, or back to an earlier one after a bad release. Only when the user asks; pick from `get_expertise`'s versions.
 

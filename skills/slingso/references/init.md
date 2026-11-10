@@ -5,7 +5,7 @@
 - `get_session` shows no workspace, or a workspace whose `setup_state.complete` is false.
 - The user says "set up Slingso", "slingso init", or asks to redo a step.
 
-Onboarding resumes. Never start over when `setup_state` shows steps done. A finished step can be edited later by naming it ("change my queries").
+Onboarding resumes. Never start over when `setup_state` shows steps done. A finished step can be edited later by naming it ("change my questions").
 
 ## Say once, at the start
 
@@ -38,7 +38,7 @@ Steps run in this order, on every plan: `site`, `confirm`, `results`. Nothing is
 
 1. If `setup_state.site` is absent or `failed`, ask all three in one message, with no default market, listing every label in `get_session`'s `markets`: "What's your brand's website, which market should Slingso watch (<the labels>), and what's your hero product? Send me its page on your site." Never guess the market from the site, the domain or where the user is. The hero is the one product tracked; its page link is enough.
 2. `workspace_start_site` with `url`, `geo` (the market's code) and `product_url`. A product page off the brand's own site is refused with the rule: relay it and ask for another.
-3. While `setup_state.site.status` is `running`: "Slingso is reading your site and drafting your queries. This takes a minute or two." Check again with `workspace_get`, at most every 30 seconds. When `setup_state.site.progress` is present (Slingso is busy and the read is waiting its turn), relay it as written instead, and keep waiting: a read in line is not stuck.
+3. While `setup_state.site.status` is `running`: "Slingso is reading your site and drafting your questions. This takes a minute or two." Check again with `workspace_get`, at most every 30 seconds. When `setup_state.site.progress` is present (Slingso is busy and the read is waiting its turn), relay it as written instead, and keep waiting: a read in line is not stuck.
 4. `ready`: `complete_setup_step` `site` if it is not done yet, then go to confirm.
 5. `failed`: relay `setup_state.site.error`. If `setup_state.site.retryable` is true, offer to try again; on yes, `workspace_start_site` with the same values. Otherwise offer to try another URL.
 6. If `workspace_get` refuses with `site_refused`, the site isn't an online store and Slingso deleted the empty workspace: relay its message, `workspace_create` a new one, and ask the three questions of step 1 again. If `workspace_start_site` refuses with `attempts_exhausted` (Free's site reads are used), relay its message as written and offer nothing else.
@@ -47,13 +47,13 @@ Never re-run a site read that is `ready`.
 
 ### confirm (everything Slingso drafted, in one message)
 
-1. If `setup_state.product_draft.status` is `running`, say Slingso is drafting the hero's queries and check `workspace_get` again, at most every 15 seconds. `failed` with no `setup_state.product`: relay its error and ask for the hero's page again (`products_create` with its `url`). `failed` with a product: relay the error and draft five yourself from the product's page, one per stage.
-2. Show, in one message, queries first:
+1. If `setup_state.product_draft.status` is `running`, say Slingso is drafting the hero's questions and check `workspace_get` again, at most every 15 seconds. `failed` with no `setup_state.product`: relay its error and ask for the hero's page again (`products_create` with its `url`). `failed` with a product: relay the error and draft five yourself from the product's page, one per stage.
+2. Show, in one message, questions first:
    - One line of what Slingso found, from `setup_state.site.summary` ("Slingso read amazinggrass.com: affordable organic greens.").
-   - **Queries about the brand** from `setup_state.proposal.brand_queries`, and **queries about the hero** (`setup_state.product`'s name) from `setup_state.proposal.product_queries`, numbered in one list with the stage beside each. Awareness and research queries never name the brand or the product: a shopper at that stage doesn't know them yet.
+   - **Questions about the brand** from `setup_state.proposal.brand_queries`, and **questions about the hero** (`setup_state.product`'s name) from `setup_state.proposal.product_queries`, numbered in one list with the stage beside each. Awareness and research queries never name the brand or the product: a shopper at that stage doesn't know them yet.
    - **Competitors** from `setup_state.proposal.competitors` (each a `name` with the `url` of its website from Google's answer), plus every brand a query names. Brand-level rivals; never a retailer, marketplace or publication. Don't add brands from your own knowledge. If `setup_state.competitor_discovery.status` is `running`, say Slingso is still asking Google and go on; `failed` or none: ask which brands they compete with.
    - **Brand Soul** (`workspace_get`) in one line: its first sentence, offering the rest. If `brand_soul_pending` is true, say it is still being drafted and can be edited later; it doesn't hold the step.
-3. Ask once: "Keep these, or change anything? Confirming runs your first check: ChatGPT and Google AI Mode answer all ten queries."
+3. Ask once: "Keep these, or change anything? Confirming runs your first check: ChatGPT and Google AI Mode answer all ten questions."
 4. Write:
    - Queries: `scenarios_create` for each kept query with its `stage`: the brand's with no `product_id`, the hero's with its `product_id`. `scenarios_update` to `inactive` for dropped or edited ones (append-only: an edit is deactivate plus create).
    - Competitors: `competitors_pin` once, with every kept brand and its `url` (no `product_id`): Google's website for a proposed brand, else the one the user gives. For a brand with no website, ask the user once. Never supply a website from memory. Never promise or describe numbers or scores for competitors as a result of pinning.
@@ -69,7 +69,7 @@ Never re-run a site read that is `ready`.
    - When `first_check.queued_ahead` is present, Slingso is busy and the check is waiting its turn: relay `first_check.progress` as written and keep waiting. A check in line is not stuck; never offer a retry for it.
    - Before the first answer arrives, share the `fact` after the `lead_in`, quoted as written with the source name, and once the `shelf_index` line with its link. Never repeat a fact; never add a statistic of your own.
    - The user can also watch it on the web: give `setup_state.web_url` once if it is present.
-2. `done`: present what it found, as [analyse.md](analyse.md) presents an analysis: the tally, the numbers from `get_performance_summary` (Shelf Share, Purchase Likelihood, Narrative Accuracy; never compute them), then the top opportunities from `artifacts_list` (`status: open`, `roots: true`), highest priority first. Say once that the same opportunities were emailed, and that a first check this small is a starting point.
+2. `done`: present what it found, as [opportunities.md](opportunities.md) presents them: the tally, the numbers from `get_performance_summary` (Shelf Share, Purchase Likelihood, Narrative Accuracy; never compute them), then the top opportunities from `artifacts_list` (`status: open`, `roots: true`), highest priority first. Say once that the same opportunities were emailed, and that a first check this small is a starting point.
 3. `failed`: relay `setup_state.first_run.error`. If `setup_state.first_run.retry_allowed` is true, offer to try again; on yes, `complete_setup_step` `confirm` restarts it; follow progress as in step 1. Otherwise say the next check runs on their schedule.
 4. `complete_setup_step` `results` once it is `done` or `failed`.
 
@@ -77,17 +77,17 @@ Never re-run a site read that is `ready`.
 
 "Setup done." Then, in a few lines (this is where the plans and the schedule come in):
 
-- **Create what an opportunity needs:** "Ask me to draft it ('draft the guide for the first opportunity'). I'll write it with Slingso's skill, your data and your Brand Soul; you review and approve, then tell me when it's live." ([create.md](create.md))
-- **Keep it running:** name the next check from `workspace_get`'s `schedule.next_run_at_local` ("Next check: Monday 09:00, with an email reminder."), and that it can change ([schedule.md](schedule.md)). No `next_run_at_local` (setup didn't know the user's timezone): ask when, as [schedule.md](schedule.md) says, weekly on Monday at 09:00 suggested, and `set_schedule`. If this assistant can run scheduled tasks, offer to set one up for it now ([scheduling.md](scheduling.md)); otherwise the email reminder brings them back. With server checks on: "Slingso runs your next check on schedule, and analyses once there are 100 new answers."
-- **Plans, if they ask or it fits:** `get_session.plans`, Free first, each plan's name, price, `for` and `includes` as written; help choose with the questions in SKILL.md's "Plans and the server add-on". The server add-on comes in here too, if they ask who does the work or it fits: `get_session.server_addon`, its `includes` and price per run as written. A paid plan: state the monthly fee, then `workspace_choose_plan` and hand over its `checkout_url` ("Pay here on Stripe; nothing was charged here."). Only the owner can choose a paid plan.
-- **Later, when you want them:** shopper personas (on Growth, Slingso's servers ask the queries as your shopper), competing products to pin (up to 5 per product), more queries and products.
-- **Change anything, any time:** name it ("change my queries", "add a competitor", "move my schedule").
+- **Act on your opportunities:** "Each one is a brief with the evidence and the reasoning. Your team acts on it; I can draft from a brief if you like ('draft the guide for the first opportunity'), with your data and your Brand Soul. Tell me when it's live and Slingso shows what moved." ([create.md](create.md))
+- **Keep it running:** name the next check from `workspace_get`'s `schedule.next_run_at_local` ("Next check: Monday 09:00, with an email reminder."), and that it can change ([schedule.md](schedule.md)). No `next_run_at_local` (setup didn't know the user's timezone): ask when, as [schedule.md](schedule.md) says, weekly on Monday at 09:00 suggested, and `set_schedule`. If this assistant can run scheduled tasks, offer to set one up for it now ([scheduling.md](scheduling.md)); otherwise the email reminder brings them back. With Autopilot on: "Slingso checks on schedule, and finds your opportunities once there are 100 new answers."
+- **Plans, if they ask or it fits:** `get_session.plans`, Free first, each plan's name, price, `for` and `includes` as written; help choose with the questions in SKILL.md's "Plans and Autopilot". Autopilot comes in here too, if they ask who does the checking or it fits: `get_session.server_addon`, its `includes` and price per run as written. A paid plan: state the monthly fee, then `workspace_choose_plan` and hand over its `checkout_url` ("Pay here on Stripe; nothing was charged here."). Only the owner can choose a paid plan.
+- **Later, when you want them:** shopper personas (on Growth, Autopilot asks the questions as your shopper), competing products to pin (up to 5 per product), more questions and products.
+- **Change anything, any time:** name it ("change my questions", "add a competitor", "move my schedule").
 
 
 ## Walls
 
 - A second product on Free: "Free tracks one product; swap it any time. Starter tracks as many as you like."
-- Re-running the site read: "The site read runs once. You can edit Brand Soul, the product and the queries any time."
+- Re-running the site read: "The site read runs once. You can edit Brand Soul, the product and the questions any time."
 
 ## If it fails
 

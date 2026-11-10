@@ -1,16 +1,18 @@
-# analyse: find opportunities
+# opportunities: find the ones that matter most
+
+`slingso opportunities` (it was `analyse`; `slingso analyse` still works). Slingso's work ends at the opportunity: each one is a brief (the evidence, the reasoning, what it should change) that the brand's team acts on.
 
 ## When
 
-- "slingso analyse", "what should we do", after a monitor run, or a scheduled task.
-- With the server add-on on, Slingso also analyses on its own servers every 7 days once there are 100 new answers. An analysis here is an extra look: it reads the same new answers as Slingso's next analysis and never moves its schedule. Say that once, in a line, before you start.
+- "slingso opportunities", "slingso analyse", "what should we do", after a check, or a scheduled task.
+- With Autopilot on, Slingso also finds the opportunities on its own every 7 days once there are 100 new answers. A look here is an extra one: it reads the same new answers as Slingso's next look and never moves its schedule. Say that once, in a line, before you start.
 
 ## Calls, in order
 
 1. `get_analysis_window` (page 1). Keep `session_token`, `contract`, `memory`, `readings` and `sufficiency`: only page 1 carries them. Each page also has answers as facts (`observations`: `id`, `scenario_id`, `provider`, what the answer said) and their queries (`scenarios`).
 2. Read every page (`page: 2` up to `pages`) before you reason.
-3. Nothing new (`observation_count` is 0 and `memory.pending_evidence` is empty): say "Nothing new since the last analysis.", `complete_analysis` with summary "nothing new", and offer `monitor` if it is due.
-3a. Too little to go on (`sufficiency.enough` is false: fewer than 100 new answers since the last analysis): before reasoning, tell the user in one line, from `sufficiency` (for example: "This would be an early read: 64 new answers since the last analysis; a full one needs 100."). Then ask: analyse now as an early read, or wait? Go ahead if they say so; a scheduled task goes ahead without asking. Below the bar, every opportunity's body opens with "Early read:", and its confidence stays low.
+3. Nothing new (`observation_count` is 0 and `memory.pending_evidence` is empty): say "Nothing new since the last look.", `complete_analysis` with summary "nothing new", and offer `check` if it is due.
+3a. Too little to go on (`sufficiency.enough` is false: fewer than 100 new answers since the last analysis): before reasoning, tell the user in one line, from `sufficiency` (for example: "This would be an early read: 64 new answers since the last look; a full one needs 100."). Then ask: look now as an early read, or wait? Go ahead if they say so; a scheduled task goes ahead without asking. Below the bar, every opportunity's body opens with "Early read:", and its confidence stays low.
 4. `artifacts_list` (`status: open`, `roots: true`): the open opportunities. Never propose one that is already open; if new evidence strengthens it, say so in your summary.
 5. Reason (the method below), then write the opportunities with `artifacts_create`, up to 25 per call:
 
@@ -22,7 +24,7 @@
 ```
 
 6. Fold memory with `memory_update` (below).
-7. `complete_analysis` with `session_token` and a one-paragraph `summary`. Without the add-on this advances the window; with it, Slingso's own analysis window stays where it is.
+7. `complete_analysis` with `session_token` and a one-paragraph `summary`. With Autopilot off this advances the window; with it on, Slingso's own window stays where it is.
 
 Opportunities written here are recorded as found in your assistant; Slingso's own are found by Slingso.
 
@@ -30,11 +32,11 @@ Opportunities written here are recorded as found in your assistant; Slingso's ow
 
 ## What each opportunity carries
 
-- **One move.** A title that says what to do. A body with what is happening, the evidence and the move.
-- **Its evidence.** One or more `observation_id`s from the window, each with a short line quoted from that answer. The body names the assistant and the query too.
+- **One move, as a brief.** A title that says what to do. A body with what is happening, the evidence, the reasoning (why the assistants answer this way) and the move. The brand's team creates from it, so make it complete enough to act on without you.
+- **Its evidence.** One or more `observation_id`s from the window, each with a short line quoted from that answer. The body names the assistant and the question too.
 - **Its kind** (`action_dimension`): something the brand publishes (`content`, `product`), a signal it earns (`reviews`, `editorial`, `community`, `creator`, `pr`), or a decision it makes (`price`, `distribution`, `promotion`).
 - **Its basis.** The body's last line names what it was drawn from, in `sufficiency`'s numbers: "Based on 10 answers from 1 check over 1 day." Slingso records the same basis on the opportunity itself.
-- **Its priority** (`metadata.priority`). `high`: a wrong claim or an absence on a decision query, on more than one assistant. `medium`: one assistant, or an early-funnel gap. `low`: a single answer; call it a lead.
+- **Its priority** (`metadata.priority`). `high`: a wrong claim or an absence on a decision question, on more than one assistant. `medium`: one assistant, or an early-funnel gap. `low`: a single answer; call it a lead.
 
 ## Grounding
 
@@ -46,7 +48,7 @@ Opportunities written here are recorded as found in your assistant; Slingso's ow
 
 ## Method
 
-1. **Where the brand stands**, per query and assistant: absent, listed low, the top pick, or dismissed. Absence on comparison, validation and purchase queries costs the most.
+1. **Where the brand stands**, per question and assistant: absent, listed low, the top pick, or dismissed. Absence on comparison, validation and purchase questions costs the most.
 2. **What is said wrong**: claims on the brand's rows marked `contradicted`, and `factual_errors`. One wrong claim repeated across assistants is usually the strongest opportunity.
 3. **What is said that the site doesn't say**: claims marked `unverified`. The move is to state the brand's own fact on its site, not to repeat the assistant's.
 4. **Who wins and why**: the top pick when it isn't the brand, and the reason the answer gives. The cited sources show where assistants learn it. `memory.competitors` says what each pinned rival tells on its own site; never score or rate a rival.
@@ -80,15 +82,15 @@ No request folds memory on the server; this session does.
 
 ## Tell the user
 
-One line per new opportunity, highest priority first: title and kind, found in your assistant. Then one question: "Draft the content ones now?" (only when `content` or `product` ones exist; default yes). With teammates (`members_list` shows more than one), ask instead: "Leave them for the team to review?"
+One line per new opportunity, highest priority first: title and kind, found in your assistant. Then one question: "Want me to draft the content ones from their briefs?" (only when `content` or `product` ones exist; default yes). With teammates (`members_list` shows more than one), ask instead: "Leave them for the team to review?"
 
 ## Walls
 
-None. Every plan can analyse in its own AI assistant.
+None. Every plan can find opportunities in its own AI assistant.
 
 ## If it fails
 
-- Slingso is analysing this workspace now (refused as already running): say "Slingso is analysing now. The opportunities will be in your inbox in a few minutes." and stop. Don't retry; offer to go through them once they land ([review.md](review.md)).
+- Slingso is already looking at this workspace (refused as already running): say "Slingso is finding your opportunities now. They'll be in your inbox in a few minutes." and stop. Don't retry; offer to go through them once they land ([review.md](review.md)).
 - The session expired: `get_analysis_window` again (it resumes when it can), then resend what wasn't accepted.
 - An opportunity refused: the message names what's missing. Fix that item and resend it.
-- Role: "Only an editor or the owner can run an analysis."
+- Role: "Only an editor or the owner can look for opportunities."

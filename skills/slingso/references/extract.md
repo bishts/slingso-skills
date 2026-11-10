@@ -1,6 +1,6 @@
 # Extracting an answer
 
-How to turn one assistant answer into the facts Slingso records. Used by [monitor.md](monitor.md) for every pair. The Slingso MCP serves the contract (`get_extraction_schema`: the fields, what each means, the stage vocabulary, the rules); this file is how to meet it.
+How to turn one assistant answer into the facts Slingso records. Used by [check.md](check.md) for every pair. The Slingso MCP serves the contract (`get_extraction_schema`: the fields, what each means, the stage vocabulary, the rules); this file is how to meet it.
 
 You are a careful reader, not a judge. Write down what the answer says, in the order it says it. Slingso computes every number from these facts, so a fact you invent or skip moves a number.
 

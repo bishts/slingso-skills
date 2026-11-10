@@ -23,16 +23,16 @@ One command, three asks:
 | Needs you | `needs_you[]` | mentions first: "@you on '<title>'". Then decisions waiting and unread comments, one line each |
 | New opportunities | `new_opportunities[]` | count, then the top three titles with dimension and who found them ("found by Slingso", "found in your assistant") |
 | The shelf | `metrics` | Shelf Share, Narrative Accuracy, Purchase Likelihood: value and change, one line |
-| Monitoring | `monitor` | due or overdue, last run (who ran it), next run |
-| Analysis | `analysis` | with the server add-on (`runs_on: server`), Slingso's next analysis in one line, from `next`: "Slingso's next analysis: <due_at, in the user's time>." when `enough`; otherwise "Slingso analyses once there are 100 new answers (64 so far)." Without the add-on: skip, unless asked when the last one ran |
+| Checks | `monitor` | due or overdue, last check (who did it: the user's assistant or Autopilot), next check |
+| Opportunities due | `analysis` | with Autopilot on (`runs_on: server`), when Slingso next looks for opportunities, in one line, from `next`: "Next opportunities: <due_at, in the user's time>." when `enough`; otherwise "Slingso looks once there are 100 new answers (64 so far)." With Autopilot off: skip, unless asked when the last look was |
 | House rules | `proposed_house_rules[]` | "The agent suggests N house rules." Offer to decide them ([teach.md](teach.md)) |
 | Competitors | `competitor_intelligence` | only when `available`; one line per change worth acting on; `next_update_at` only if asked |
 | Who ran what | `recent_runs[]` | only when a teammate or Slingso ran something since this person last looked |
 
 3. End with one question, the most useful next step, default yes:
    - opportunities waiting: "Go through them?" → [review.md](review.md)
-   - overdue monitor, run in the assistant: "Run the monitor now?" → [monitor.md](monitor.md)
-   - new monitor runs since the last analysis, without the add-on: "Find opportunities now?" → [analyse.md](analyse.md). With the add-on, Slingso analyses on its own; offer an analysis here only if the user asks.
+   - a check overdue, with Autopilot off: "Check now?" → [check.md](check.md)
+   - new checks since the last look, with Autopilot off: "Find your opportunities now?" → [opportunities.md](opportunities.md). With Autopilot on, Slingso finds them on its own; offer a look here only if the user asks.
 
 Keep the whole briefing under 12 lines. Details on request.
 
@@ -60,7 +60,7 @@ None. On Free there is no team, so "needs you" holds only decisions.
 
 Never explain how the numbers are computed; it is not available to you. If asked, say they are Slingso's measures, computed on its servers from what the assistants said.
 
-Never compute or estimate a number. No data yet: "No numbers yet. Run the monitor first?"
+Never compute or estimate a number. No data yet: "No numbers yet. Check first?"
 
 ### Walls
 
@@ -83,7 +83,7 @@ None. Every plan sees all three numbers.
 - Narrative Accuracy: value and change, one line.
 - What the assistants get wrong: up to three claims that contradict Brand Soul or the product page, each with the assistant and a short quote.
 - What they leave out: up to three key attributes rarely mentioned.
-- One question: "Find the fixes now?" → [analyse.md](analyse.md).
+- One question: "Find your opportunities now?" → [opportunities.md](opportunities.md).
 
 Quote; never paraphrase a claim into something stronger. Never invent a claim. Never explain how the score is computed.
 
@@ -94,6 +94,6 @@ None.
 ## If it fails
 
 - 404: the workspace changed or access was removed. Run [switch.md](switch.md).
-- Empty briefing on a new workspace: "Nothing yet. Finish setup (`slingso init`) or run the monitor?"
+- Empty briefing on a new workspace: "Nothing yet. Finish setup (`slingso init`) or check now?"
 - Unknown product: list the products and ask which one.
-- No observations: "Nothing recorded yet. Run the monitor first?"
+- No observations: "Nothing recorded yet. Check first?"

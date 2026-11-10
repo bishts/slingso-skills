@@ -3,6 +3,16 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.5.0 (2026-11-10)
+
+Works with the previous Slingso server; the new words in plan lists and messages come with the newer one.
+
+- The new messaging: Slingso is the opinionated AI Shopping Channel Manager (data first, every opportunity an experiment, agents do the grunt work and people make the calls). Its work ends at the opportunity, each a brief with its evidence and reasoning; the assistant drafts from a brief only when asked.
+- Commands grouped as on slingso.com: Where you stand (`check`, `brief`, `competitors`), Your opportunities (`opportunities`, `create`, `teach`), What changed (`review`), How you use it (`init`, `schedule`, `export`).
+- `check` now covers everything due (it was `monitor`) and one question now (`check <question>`). `analyse` is now `opportunities`. `slingso monitor`, `slingso analyse` and `/slingso:monitor`, `/slingso:analyse` still work, for this release.
+- The server add-on is called Autopilot everywhere the skill speaks (`schedule` also answers to `autopilot`). Say check, question and opportunity; never servers, runs, queries or fixes.
+- The setup and update prompts say questions and checks.
+
 ## 0.4.4 (2026-11-06)
 
 - Server checks are one price again: $0.015 a run on every plan (0.4.3's per-plan run prices are withdrawn).

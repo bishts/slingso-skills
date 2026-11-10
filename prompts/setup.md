@@ -1,7 +1,7 @@
 Set up Slingso in this assistant. Do what you can yourself, and walk me through anything that needs me. I'm not a developer, so give me one step at a time in plain words.
 
 1. Check first. Slingso is two parts: a connector (an MCP server called "slingso", https://agents.slingso.com/mcp) and a skill called "slingso". Look at the tools and skills you actually have now; don't go by what you assume about your app (a desktop app can describe itself as the web version). If both are there and signed in, skip to step 5. Slingso is tested and verified in Claude Code, the Claude desktop app (Cowork and chat), the ChatGPT desktop app, Codex CLI and the Grok desktop app; the Gemini desktop app works but follows the skill loosely. Anywhere else, tell me once, in a line, that it hasn't been tested here and its data may have gaps or errors, and, if you browse from the cloud rather than my computer, that answers may not show my market.
-   Also tell me once, in a line: Slingso asks the AI shopping assistants my queries in a browser on my computer (this app's built-in browser, or Microsoft Playwright), so this app will ask my permission to control a browser when checks run. If I'd rather not use my computer, Slingso can run the checks on its own servers from a prepaid balance.
+   Also tell me once, in a line: Slingso asks the AI shopping assistants my questions in a browser on my computer (this app's built-in browser, or Microsoft Playwright), so this app will ask my permission to control a browser when checks run. If I'd rather not use my computer, Slingso's Autopilot can do the checks for me from a prepaid balance.
 
 2. Install. Find my app below and follow its route. If you're not sure which app I'm using, ask me.
    - Claude Code (terminal, or the Code tab of the Claude desktop app): run `/plugin marketplace add bishts/slingso-skills`, then `/plugin install slingso@slingso`. The plugin brings the skill and the connector together. Then start a new session so it loads.
@@ -18,7 +18,7 @@ Set up Slingso in this assistant. Do what you can yourself, and walk me through 
 
 3. Sign in. Slingso signs in with my email in the browser (a one-time code); there are no API keys or passwords. Start the sign-in yourself (in Claude Code: `/mcp`, select slingso, Authenticate; in Codex or the ChatGPT desktop app: run `codex mcp login slingso`) and tell me to approve it in the browser window that opens. Adding the connector is not the same as signing in: until sign-in is done, its tools don't appear.
 
-4. Never ask me for a password, card or code in this chat, and don't start any monitoring, onboarding or paid step during setup. Never describe Slingso, its plans or its features from memory or the web: what Slingso is and does comes from the connector and the skill.
+4. Never ask me for a password, card or code in this chat, and don't start any checks, onboarding or paid step during setup. Never describe Slingso, its plans or its features from memory or the web: what Slingso is and does comes from the connector and the skill.
 
 5. Verify with one free, read-only call: `get_session`. Confirm it returns my email. In Codex or the ChatGPT desktop app, first check `codex mcp list` shows slingso as logged in, then tell me to start a new chat so the tools load, and make the call there. If the call isn't available or fails, tell me what failed and the one thing to try next (for example: start a new chat, or reconnect Slingso in your settings).
 

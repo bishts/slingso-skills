@@ -1,10 +1,10 @@
 ---
 name: schedule
-description: The Slingso schedule command. When the Slingso monitor runs (daily or weekly, which assistants, the time and timezone), who does the work (the user's assistant, or Slingso's servers with the server add-on), the reminder email, and the prepaid balance. Use when the user says "slingso schedule" or "slingso balance", or wants to change when or where Slingso checks run.
+description: The Slingso schedule command. When Slingso checks (daily or weekly, which assistants, the time and timezone), Autopilot on or off (Slingso checking for the user, from a prepaid balance, or the user's assistant), the reminder email, and the balance. Use when the user says "slingso schedule", "slingso autopilot" or "slingso balance", or wants to change when or how Slingso checks.
 license: MIT
-compatibility: Needs the Slingso core skill (slingso) and the Slingso MCP (https://agents.slingso.com/mcp). Monitor and check in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g - Claude in Chrome). Without one, query monitoring can't be automated with good quality, and answers are pasted, or Slingso's servers run the checks (the server add-on).
+compatibility: Needs the Slingso core skill (slingso) and the Slingso MCP (https://agents.slingso.com/mcp). Checks in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g. Claude in Chrome). Without one, checks can't be automated with good quality: answers are pasted, or Autopilot (Slingso checking for the user, from a prepaid balance) does the checking.
 metadata:
-  version: "0.4.4"
+  version: "0.5.0"
   author: Slingso
 ---
 

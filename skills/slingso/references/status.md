@@ -16,12 +16,12 @@ Five lines at most:
 - Workspace: name (code), your role.
 - Plan: `plan.display_name`.
 - Setup: done, or "Step N of M: <current step>".
-- Monitoring: AI Shopping Channels, cadence, next run, and who does the work: "Slingso monitors and analyses on its servers" when `schedule.server_checks` is on, else "your AI assistant runs them".
-- Versions: this skill `0.4.4`, the oldest Slingso accepts (`loader_min_version`), the contract version the workspace is pinned to (`skill_version`, or "current").
+- Checks: AI Shopping Channels, cadence, next check, and who checks: "Autopilot is on: Slingso checks and finds your opportunities" when `schedule.server_checks` is on, else "your AI assistant checks".
+- Versions: this skill `0.5.0`, the oldest Slingso accepts (`loader_min_version`), the contract version the workspace is pinned to (`skill_version`, or "current").
 
 ## Updating the skill
 
-When `loader_min_version` is newer than `0.4.4`, or a response says an update is required:
+When `loader_min_version` is newer than `0.5.0`, or a response says an update is required:
 
 The routes are the ones in [prompts/update.md](https://github.com/bishts/slingso-skills/blob/main/prompts/update.md):
 
@@ -29,7 +29,7 @@ The routes are the ones in [prompts/update.md](https://github.com/bishts/slingso
 |---|---|
 | Claude Code plugin (marketplace `slingso`) | `/plugin marketplace update slingso`, then update the slingso plugin from `/plugin` (Installed tab), then start a new session |
 | A plugin added in Customize (Cowork, claude.ai, the Claude desktop app) | Customize → Plugins, find the Slingso marketplace, Check for updates (or turn on Sync automatically) |
-| A skill folder (copied in by hand or from the release zip) | replace the `slingso` folder with `skills/slingso` from the latest release (https://github.com/bishts/slingso-skills/releases), and any Slingso command folders beside it (`init`, `monitor`, …) with theirs; ask before overwriting files the user edited |
+| A skill folder (copied in by hand or from the release zip) | replace the `slingso` folder with `skills/slingso` from the latest release (https://github.com/bishts/slingso-skills/releases), and any Slingso command folders beside it (`init`, `check`, …) with theirs; ask before overwriting files the user edited |
 
 Reconnecting the Slingso MCP refreshes its tools, not the skill's files: it is not an update.
 
