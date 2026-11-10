@@ -82,7 +82,7 @@ No request folds memory on the server; this session does.
 
 ## Tell the user
 
-One line per new opportunity, highest priority first: title and kind, found in your assistant. Then one question: "Want me to draft the content ones from their briefs?" (only when `content` or `product` ones exist; default yes). With teammates (`members_list` shows more than one), ask instead: "Leave them for the team to review?"
+One line per new opportunity, highest priority first: title and kind, found in your assistant. Then one line: the team acts on them, and you can draft from a brief when they ask. Don't offer a draft as a question. With teammates (`members_list` shows more than one), ask instead: "Leave them for the team to review?"
 
 ## Walls
 
@@ -90,7 +90,7 @@ None. Every plan can find opportunities in its own AI assistant.
 
 ## If it fails
 
-- Slingso is already looking at this workspace (refused as already running): say "Slingso is finding your opportunities now. They'll be in your inbox in a few minutes." and stop. Don't retry; offer to go through them once they land ([review.md](review.md)).
+- Slingso is already looking at this workspace (refused as already running): say "Slingso is finding your opportunities now. They'll be in your inbox in a few minutes." and stop: no numbers, no other news. Don't retry; offer once to go through them when they land ([review.md](review.md)).
 - The session expired: `get_analysis_window` again (it resumes when it can), then resend what wasn't accepted.
 - An opportunity refused: the message names what's missing. Fix that item and resend it.
 - Role: "Only an editor or the owner can look for opportunities."

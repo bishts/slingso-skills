@@ -4,7 +4,7 @@ description: The opinionated AI Shopping Channel Manager for e-commerce brands, 
 license: MIT
 compatibility: Needs the Slingso MCP (https://agents.slingso.com/mcp). Checks in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g. Claude in Chrome). Without one, checks can't be automated with good quality: answers are pasted, or Autopilot (Slingso checking for the user, from a prepaid balance) does the checking.
 metadata:
-  version: "0.5.0"
+  version: "0.5.1"
   author: Slingso
 ---
 
@@ -61,7 +61,7 @@ Either way Slingso stores everything in the same record, so turning Autopilot on
 ## Start every session the same way
 
 1. Call `get_session`.
-2. Check the version. This skill is version `0.5.0` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
+2. Check the version. This skill is version `0.5.1` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
 3. Route:
 
 | `get_session` shows | Do |
@@ -107,7 +107,7 @@ When the user's words match no command, answer from the briefing and the read to
 ## Rules for every turn
 
 - **Use this assistant's own interface.** Everything here says what to show and ask, never how it looks. Show it the way this assistant does best, following its own conventions: whatever it has for choices, tables, charts, documents, links and progress. Fall back to plain text only where it has nothing better.
-- **One question per turn.** Ask one thing, then wait.
+- **One question per turn.** When something needs the user's answer, ask one thing, last in the message, then wait. When nothing needs deciding, don't add a question.
 - **Every question has a default.** Phrase it so "yes" accepts it: "Keep these 10 questions?" not "Which questions do you want?"
 - **State progress.** "Step 2 of 3: confirm what Slingso drafted." "Batch 2 sent: 50 of 120 answers recorded."
 - **Errors carry the fix.** Slingso's error messages say what to do. Relay the message in one plain sentence, not the code. Never show raw JSON or status codes.

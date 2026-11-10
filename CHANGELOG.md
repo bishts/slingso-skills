@@ -3,6 +3,16 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.5.1 (2026-11-10)
+
+- Opportunities no longer end by offering to draft. The team acts on the briefs; the assistant drafts from one when asked (0.5.0 missed this one).
+- One question per turn, last in the message, and none when nothing needs deciding. The setup confirm and schedule messages end on their question.
+- Schedule: asks which assistants when the user doesn't say; saves the assistants and the time together, only after the user answers; the timezone it proposes can be changed in the same answer.
+- The first check: one line per answer with its picks, even when the answers come back together.
+- When Slingso is already finding opportunities: say so and stop, with no numbers or other news.
+- A paid plan: the monthly fee and the Stripe link in one message.
+- Evals: graders aligned with the skill (the resume line, a website still to ask for, Brand Soul beside a factual error, answers narrated in earlier messages).
+
 ## 0.5.0 (2026-11-10)
 
 Works with the previous Slingso server; the new words in plan lists and messages come with the newer one.

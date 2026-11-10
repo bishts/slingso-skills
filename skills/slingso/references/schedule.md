@@ -11,10 +11,10 @@ The one place for when Slingso checks (which AI Shopping Channels, daily or week
 ### Calls, in order
 
 1. `workspace_get` → `schedule` (`assistants`, `cadence`, `day`, `time`, `utc_offset`, `remind`, `server_checks`, `next_run_at_local`) and `plan.assistants_catalogue`. `get_session` → `user.utc_offset`.
-2. Show the schedule in the user's time, with every assistant on the plan and which are on: "Available: ChatGPT, Google AI Mode, Google AI Overviews, Gemini. On: ChatGPT and Gemini, every Monday at 09:00 (UTC+05:30), with a reminder email." Name the assistants; never count them (not "four assistants", not "all four"). Ask one question with the change as default. The user can switch assistants on or off any time.
+2. Show the schedule in the user's time, with every assistant on the plan and which are on: "Available: ChatGPT, Google AI Mode, Google AI Overviews, Gemini. On: ChatGPT and Gemini, every Monday at 09:00 (UTC+05:30), with a reminder email." Name the assistants; never count them (not "four assistants", not "all four"). Ask one question with the change as default; if the user didn't say what to change ("change which assistants you check"), ask which ones, with no default. End on the question.
    - No schedule yet (`cadence` null) or the user asks to change when: suggest weekly on Monday at 09:00, or daily, another day or time. Schedules are daily or weekly.
-   - Timezone: if `user.utc_offset` is null, propose the offset you can tell: in Claude Code, run `date +%z` (+0530 is UTC+05:30); elsewhere, the user's local time if you know it. Fold it into the question so the answer confirms it; the user can change it. If you can't tell, ask for it inside that question ("…at 09:00 your time? Which timezone, for example UTC+05:30?").
-3. `set_schedule` with what changed:
+   - Timezone: if `user.utc_offset` is null, propose the offset you can tell: in Claude Code, run `date +%z` (+0530 is UTC+05:30); elsewhere, the user's local time if you know it. Fold it into the question so the answer confirms it, and say they can give another day, time or timezone. If you can't tell, ask for it inside that question ("…at 09:00 your time? Which timezone, for example UTC+05:30?").
+3. Only after the user answers, `set_schedule` once with what changed (with no schedule yet, the assistants and the when together; never save part of it first):
    - `assistants` from the catalogue;
    - `cadence`: `daily` or `weekly`;
    - `day`: a weekday for weekly (`monday`); none for daily;
