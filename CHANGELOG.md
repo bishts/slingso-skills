@@ -12,6 +12,8 @@ Works with the previous Slingso server; the new words in plan lists and messages
 - `check` now covers everything due (it was `monitor`) and one question now (`check <question>`). `analyse` is now `opportunities`. `slingso monitor`, `slingso analyse` and `/slingso:monitor`, `/slingso:analyse` still work, for this release.
 - The server add-on is called Autopilot everywhere the skill speaks (`schedule` also answers to `autopilot`). Say check, question and opportunity; never servers, runs, queries or fixes.
 - The setup and update prompts say questions and checks.
+- Schedule never counts the assistants, not even "all four".
+- Evals caught up with the skill: three cases load again, the analyse cases accept an early read, a `set_schedule` mock.
 
 ## 0.4.4 (2026-11-06)
 
