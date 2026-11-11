@@ -2,9 +2,9 @@
 name: slingso
 description: The opinionated AI Shopping Channel Manager for e-commerce brands, in your favorite AI assistant. Use when the user mentions Slingso, the AI shelf, the AI Shopping Channel, how ChatGPT, Google AI Mode, Google AI Overviews or Gemini recommend or describe their products (top pick, the price the AI quotes, which seller gets the sale, shopping cards, citations), Shelf Share, Narrative Accuracy, Purchase Likelihood, competitors on the AI shelf, opportunities in the Slingso inbox, or says "slingso" and / or followed by a command (init, check, brief, competitors, opportunities, create, teach, review, schedule, export, the older monitor and analyse, and the rest).
 license: MIT
-compatibility: Needs the Slingso MCP (https://agents.slingso.com/mcp). Checks in the assistant need a browser on the user's computer, Playwright first (the plugin brings @playwright/mcp; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g. Claude in Chrome). Without one, checks can't be automated with good quality: answers are pasted, or Autopilot (Slingso checking for the user, from a prepaid balance) does the checking.
+compatibility: Needs the Slingso MCP (https://agents.slingso.com/mcp). Checks in the assistant need a browser on the user's computer, Playwright first (the @playwright/mcp server, when it is among the assistant's own MCP servers; it needs Node.js), else the user's AI assistant's desktop app's built-in browser or other possibilities for agentic browsing (e.g. Claude in Chrome). Without one, checks can't be automated with good quality: answers are pasted, or Autopilot (Slingso checking for the user, from a prepaid balance) does the checking.
 metadata:
-  version: "0.5.1"
+  version: "0.5.2"
   author: Slingso
 ---
 
@@ -61,7 +61,7 @@ Either way Slingso stores everything in the same record, so turning Autopilot on
 ## Start every session the same way
 
 1. Call `get_session`.
-2. Check the version. This skill is version `0.5.1` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
+2. Check the version. This skill is version `0.5.2` (the `metadata.version` above). If `loader_min_version` in the response is higher, or any response says a skill update is required, stop and tell the user: "Slingso needs a newer version of this skill. Update it, then ask again." Then point them to the right way for their surface (see [references/status.md](references/status.md)).
 3. Route:
 
 | `get_session` shows | Do |

@@ -17,11 +17,11 @@ Five lines at most:
 - Plan: `plan.display_name`.
 - Setup: done, or "Step N of M: <current step>".
 - Checks: AI Shopping Channels, cadence, next check, and who checks: "Autopilot is on: Slingso checks and finds your opportunities" when `schedule.server_checks` is on, else "your AI assistant checks".
-- Versions: this skill `0.5.1`, the oldest Slingso accepts (`loader_min_version`), the contract version the workspace is pinned to (`skill_version`, or "current").
+- Versions: this skill `0.5.2`, the oldest Slingso accepts (`loader_min_version`), the contract version the workspace is pinned to (`skill_version`, or "current").
 
 ## Updating the skill
 
-When `loader_min_version` is newer than `0.5.1`, or a response says an update is required:
+When `loader_min_version` is newer than `0.5.2`, or a response says an update is required:
 
 The routes are the ones in [prompts/update.md](https://github.com/bishts/slingso-skills/blob/main/prompts/update.md):
 

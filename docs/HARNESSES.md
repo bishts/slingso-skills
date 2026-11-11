@@ -11,8 +11,8 @@ skill tells the user an untested assistant's data may have gaps.
 
 | Assistant | MCP | Skill | Browser for `monitor` | Status | Last verified |
 |---|---|---|---|---|---|
-| Claude Code | bundled in the plugin (`.mcp.json`); `/mcp` to sign in | the plugin (`.claude-plugin/`) | Playwright (bundled), else Claude in Chrome | at launch, tested | 2026-10-15 |
-| Claude desktop (Cowork and chat) | bundled in the plugin | the plugin | Playwright (bundled), else the built-in browser | tested | 2026-10-19 |
+| Claude Code | bundled in the plugin (`.mcp.json`); `/mcp` to sign in | the plugin (`.claude-plugin/`) | Playwright when the user has added it, else Claude in Chrome | at launch, tested | 2026-10-15 |
+| Claude desktop (Cowork and chat) | bundled in the plugin | the plugin | the built-in browser, or Playwright when the user has added it | tested | 2026-10-19 |
 | ChatGPT desktop | runs on Codex: `codex mcp add slingso --url https://agents.slingso.com/mcp`, then `codex mcp login slingso` (adding alone leaves it "Not logged in", with no tools) | Codex skills folder, from the release zip | the desktop app's browser | tested: the setup prompt alone installs and signs in | 2026-10-22 |
 | Codex CLI | `codex mcp add slingso --url https://agents.slingso.com/mcp`, then `codex mcp login slingso` | Codex skills folder, from the release zip | Playwright (`npx -y @playwright/mcp@0.0.83 --isolated` in its MCP settings) | tested | 2026-10-19 |
 | Gemini desktop | custom connector in Settings → Connectors | upload in Settings → Skills | the desktop app's browser | works, follows the skill loosely | 2026-10-19 |
@@ -29,7 +29,7 @@ Without a browser, `check` falls back to asking you to paste an answer, and
 
 Assistants that can drive Playwright on the user's computer, in this order:
 
-1. Claude Code and Claude desktop, again, with the bundled Playwright as the monitor's browser
+1. Claude Code and Claude desktop, again, with the user's own Playwright as the check's browser
 2. Cursor
 3. Codex CLI
 4. Gemini CLI (or Antigravity CLI, which replaced it)
@@ -53,5 +53,4 @@ Cloud-browser assistants (ChatGPT, Gemini app, Perplexity) and claude.ai on its 
 | `skills/slingso/` | every assistant: the core skill, `SKILL.md` and `references/`; works on its own |
 | `skills/<command>/` | the plugins (Claude, OpenAI) and the MCP server's skill catalog: one thin skill per command (`/slingso:check` …), each pointing at the core |
 | `.claude-plugin/`, `.mcp.json` | Claude Code and Claude desktop: skill and MCP in one install |
-| `scripts/build-openai-plugin.sh` | the ChatGPT and Codex plugin package, from `openai/`, with every skill |
-| `scripts/build-zip.sh` | the claude.ai upload (the core skill only), attached to each release |
+| `scripts/skills/` in `bishts/slingso-mcp` (private) | `build-openai-plugin.sh`, the ChatGPT and Codex package from `openai/` with every skill; `build-zip.sh`, the claude.ai upload (the core skill only), attached to each release. This plugin ships no scripts: the Claude directory refuses them |

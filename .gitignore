@@ -2,5 +2,6 @@ dist/
 node_modules/
 .DS_Store
 
-# The browser-choice fixture links the real skill in at eval time (scripts/link-eval-fixture.sh).
+# The browser-choice fixture gets the real skill and its server list at eval time (evals/README.md).
 eval-fixtures/browser-choice/skills
+eval-fixtures/browser-choice/.mcp.json

@@ -30,14 +30,19 @@ never leaves Slingso and never comes here.
   cases as Slingso's own executors (`evals/cases/`).
 - Copy is short: the smallest thing that lets the user act. Rules belong in the error
   that fires, not up front.
+- Only Markdown, text, JSON, YAML and the icon, and only the HTTP server in
+  `.mcp.json`. The Claude directory refuses a script, a file that starts with `#!` or an
+  MCP server that runs on the user's computer from an organisation it hasn't Verified.
+  Release tooling lives in `bishts/slingso-mcp` (`scripts/skills/`); Playwright is the
+  user's own server, never declared here.
 
 ## Releasing
 
 1. Bump `metadata.version` in `skills/slingso/SKILL.md` (and the "This skill is
    version" line), every command skill's `metadata.version`, `references/status.md`,
    `version` in `.claude-plugin/plugin.json` and `openai/plugin.json` together.
-2. `scripts/build-zip.sh --check` (it refuses mismatched versions, a command skill
-   whose name isn't its folder, and broken links in the core skill).
+2. `../slingso-mcp/scripts/skills/build-zip.sh --check` (it refuses mismatched versions,
+   a command skill whose name isn't its folder, and broken links in the core skill).
 3. Run the evals: `claude plugin eval . --runs 1 --ablation none --no-publish`.
 4. Update `CHANGELOG.md`, tag `vX.Y.Z`, attach the zip to the GitHub release.
 

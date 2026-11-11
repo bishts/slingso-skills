@@ -73,11 +73,11 @@ Every install has two parts: the **MCP** (`https://agents.slingso.com/mcp`, wher
 /plugin install slingso@slingso
 ```
 
-Run `/mcp` and sign in to Slingso. The plugin also brings Playwright, the browser checks use first (it needs Node.js). Without it, checks use Claude in Chrome, or you paste the answers.
+Run `/mcp` and sign in to Slingso. Checks run in Playwright when it is one of your MCP servers (`claude mcp add playwright -- npx -y @playwright/mcp@0.0.83 --isolated`; it needs Node.js), else in Claude in Chrome, or you paste the answers.
 
 ### Claude desktop (Cowork and chat)
 
-**Customize** → **Plugins** → **Add** → **Add marketplace**, enter `bishts/slingso-skills`, install "slingso", then connect it from the plugin's Connectors tab. Checks use Playwright, which the plugin brings (it needs Node.js), else the built-in browser.
+**Customize** → **Plugins** → **Add** → **Add marketplace**, enter `bishts/slingso-skills`, install "slingso", then connect it from the plugin's Connectors tab. Checks run in the built-in browser, or in Playwright when it is one of your MCP servers.
 
 ### Any other assistant
 
@@ -104,8 +104,8 @@ Slingso works best in an assistant that runs on your own computer (a desktop app
 ## What this plugin runs and sends
 
 - **The Slingso MCP** at `https://agents.slingso.com/mcp`. You sign in with your email (OAuth). It holds your workspace: your brand and products, the shopping questions you track, the answers your checks record, and the opportunities drawn from them. The assistant reads and writes these only through its tools.
-- **Playwright** (the `@playwright/mcp` server, pinned to version 0.0.83, in isolated mode), when a check runs in your assistant (not on Autopilot). It opens a fresh, signed-out browser on your computer and visits public AI assistant pages (chatgpt.com, google.com, gemini.google.com), types each tracked question and reads the answer. The facts it extracts go to the Slingso MCP. It never signs in to your accounts, buys anything or changes a setting.
-- **Nothing else.** The plugin reads no credentials or files from your computer and sends data nowhere besides the Slingso MCP.
+- **Playwright** (the `@playwright/mcp` server), only when you have added it to your assistant yourself and a check runs there (not on Autopilot). The plugin doesn't install it. It opens a fresh, signed-out browser on your computer and visits public AI assistant pages (chatgpt.com, google.com, gemini.google.com), types each tracked question and reads the answer. The facts it extracts go to the Slingso MCP. It never signs in to your accounts, buys anything or changes a setting.
+- **Nothing else.** The plugin starts no program on your computer, reads no credentials or files from it, and sends data nowhere besides the Slingso MCP.
 
 [Privacy policy](https://www.slingso.com/privacy) · [Terms](https://www.slingso.com/terms) · [Support](https://docs.slingso.com) · support@slingso.com
 

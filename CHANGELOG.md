@@ -3,6 +3,11 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.5.2 (2026-11-11)
+
+- The plugin no longer carries Playwright: the Claude directory accepts an MCP server that runs on the user's computer only from a Verified organisation. Checks run in Playwright when the user has added `@playwright/mcp` to their assistant themselves (the skill says how, once per workspace), else in the desktop app's built-in browser or Claude in Chrome, else by paste or on Autopilot. `.mcp.json` declares the Slingso MCP only.
+- The release scripts moved to the private MCP repo; the plugin ships only Markdown, JSON, YAML and its icon. The browser-choice eval fixture's server list is `mcp.eval.json`, copied to `.mcp.json` at eval time.
+
 ## 0.5.1 (2026-11-10)
 
 - Opportunities no longer end by offering to draft. The team acts on the briefs; the assistant drafts from one when asked (0.5.0 missed this one).
