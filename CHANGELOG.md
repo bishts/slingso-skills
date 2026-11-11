@@ -3,6 +3,10 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.5.3 (2026-11-11)
+
+- The Playwright offer: on yes, the assistant writes the steps for its own environment and the user adds it; the assistant never installs it.
+
 ## 0.5.2 (2026-11-11)
 
 - The plugin no longer carries Playwright: the Claude directory accepts an MCP server that runs on the user's computer only from a Verified organisation. Checks run in Playwright when the user has added `@playwright/mcp` to their assistant themselves (the skill says how, once per workspace), else in the desktop app's built-in browser or Claude in Chrome, else by paste or on Autopilot. `.mcp.json` declares the Slingso MCP only.
