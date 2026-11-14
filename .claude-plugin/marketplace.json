@@ -1,10 +1,11 @@
 {
   "name": "slingso",
-  "description": "Slingso: the AI Shopping Channel Manager skill and MCP, inside your favorite AI assistant.",
   "owner": {
     "name": "Intelligent Motion, Inc.",
-    "url": "https://www.slingso.com",
     "email": "support@slingso.com"
+  },
+  "metadata": {
+    "description": "Slingso: the AI Shopping Channel Manager skill and MCP, inside your favorite AI assistant."
   },
   "plugins": [
     {

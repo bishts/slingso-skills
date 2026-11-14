@@ -5,3 +5,4 @@ node_modules/
 # The browser-choice fixture gets the real skill and its server list at eval time (evals/README.md).
 eval-fixtures/browser-choice/skills
 eval-fixtures/browser-choice/.mcp.json
+eval-fixtures/browser-choice/.claude-plugin/

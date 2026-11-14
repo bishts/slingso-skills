@@ -3,6 +3,11 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.5.5 (2026-11-14)
+
+- The browser-choice eval fixture's manifest is `plugin.eval.json`, copied into `.claude-plugin/` at eval time: the Claude directory refuses a second `.claude-plugin` folder in a plugin.
+- `marketplace.json` uses the documented fields only (its description moved under `metadata`).
+
 ## 0.5.4 (2026-11-14)
 
 - Every skill's front matter quotes its description and compatibility values, so the Claude directory's reader takes each as one value (a colon followed by a space, a URL or inner quotes stopped it there). The text is unchanged.
