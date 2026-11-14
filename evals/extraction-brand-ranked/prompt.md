@@ -1,9 +1,15 @@
 ---
 description: Extraction against the served schema (paste route). Given one answer, the skill records one v4 row set in answer order, claims on their rows, citations, the full answer, no scores, in one batch on the lease, then closes the run.
-tags: [extraction, monitor]
+tags:
+  - extraction
+  - monitor
 max_turns: 25
 timeout_seconds: 600
-allowed_tools: [Read, Glob, Grep, Skill]
+allowed_tools:
+  - Read
+  - Glob
+  - Grep
+  - Skill
 ---
 
 slingso monitor. There's no browser in this session, so I ran today's due query on ChatGPT myself, in a temporary chat. Here is the full answer. Record it.

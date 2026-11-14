@@ -3,6 +3,11 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.5.6 (2026-11-14)
+
+- No shipped file declares a server that runs on the user's computer: the browser-choice eval fixture's server list is written at eval time by the step in its README (`mcp.eval.json` is gone).
+- Every Markdown front matter is plain: lists one item per line, values with a colon, quote or bracket in double quotes. The eval cases read the same.
+
 ## 0.5.5 (2026-11-14)
 
 - The browser-choice eval fixture's manifest is `plugin.eval.json`, copied into `.claude-plugin/` at eval time: the Claude directory refuses a second `.claude-plugin` folder in a plugin.

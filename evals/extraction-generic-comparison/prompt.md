@@ -1,9 +1,16 @@
 ---
-description: Extraction when the answer compares our product with categories, not brands. Only the product with a maker's name is a row; "a standard stability shoe" and "generic insoles" are not.
-tags: [extraction, monitor, never-invent]
+description: "Extraction when the answer compares our product with categories, not brands. Only the product with a maker's name is a row; \"a standard stability shoe\" and \"generic insoles\" are not."
+tags:
+  - extraction
+  - monitor
+  - never-invent
 max_turns: 25
 timeout_seconds: 600
-allowed_tools: [Read, Glob, Grep, Skill]
+allowed_tools:
+  - Read
+  - Glob
+  - Grep
+  - Skill
 ---
 
 slingso monitor. No browser in this session. I asked today's due query on ChatGPT myself, in a temporary chat. Here's the full answer; record it.

@@ -70,11 +70,19 @@ Add `--trust-plugin` in CI. Results land in `evals/results/` (ignored by git). A
 
 ## Browser choice (a fixture plugin)
 
-Mocks only stand in for servers the plugin declares, and a user's own MCP servers never load in a run. `eval-fixtures/browser-choice/` is the same skill with Playwright and Claude in Chrome declared in `mcp.eval.json` and its manifest in `plugin.eval.json` (both copied into place at eval time and never committed there, since the directory refuses local servers and a second `.claude-plugin` folder; the servers are never started, every tool mocked), for one case: the user asks for Playwright, and the skill must not touch Claude in Chrome.
+Mocks only stand in for servers the plugin declares, and a user's own MCP servers never load in a run. `eval-fixtures/browser-choice/` is the same skill with Playwright and Claude in Chrome declared in a `.mcp.json` written at eval time (the block below) and its manifest in `plugin.eval.json`, copied into place then (neither is committed in place, since the directory refuses local servers and a second `.claude-plugin` folder; the servers are never started, every tool mocked), for one case: the user asks for Playwright, and the skill must not touch Claude in Chrome.
 
 ```bash
 ln -sfn ../../skills eval-fixtures/browser-choice/skills
-cp eval-fixtures/browser-choice/mcp.eval.json eval-fixtures/browser-choice/.mcp.json
+cat > eval-fixtures/browser-choice/.mcp.json <<'JSON'
+{
+  "mcpServers": {
+    "slingso": { "type": "http", "url": "https://agents.slingso.com/mcp" },
+    "playwright": { "command": "npx", "args": ["-y", "@playwright/mcp@0.0.83", "--isolated"] },
+    "claude-in-chrome": { "command": "npx", "args": ["--yes", "claude-in-chrome-placeholder"] }
+  }
+}
+JSON
 mkdir -p eval-fixtures/browser-choice/.claude-plugin && cp eval-fixtures/browser-choice/plugin.eval.json eval-fixtures/browser-choice/.claude-plugin/plugin.json
 claude plugin eval eval-fixtures/browser-choice --runs 1 --ablation none --no-publish --trust-plugin
 ```
