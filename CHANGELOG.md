@@ -3,6 +3,10 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.5.4 (2026-11-14)
+
+- Every skill's front matter quotes its description and compatibility values, so the Claude directory's reader takes each as one value (a colon followed by a space, a URL or inner quotes stopped it there). The text is unchanged.
+
 ## 0.5.3 (2026-11-11)
 
 - The Playwright offer: on yes, the assistant writes the steps for its own environment and the user adds it; the assistant never installs it.
