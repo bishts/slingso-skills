@@ -1319,7 +1319,7 @@
           "type": "string"
          },
          "additionalProperties": {},
-         "description": "Facts per the extraction contract (get_extraction_schema): products in answer order, claims, flags."
+         "description": "Facts per the extraction contract (get_extraction_schema): products in answer order (what an ad shown with the answer adds comes after, marked by source), claims, flags."
         },
         "citations": {
          "type": "array",

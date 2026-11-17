@@ -3,6 +3,11 @@
 Versions match `metadata.version` in `skills/slingso/SKILL.md`, the plugin's `version`
 and the release tag.
 
+## 0.5.7 (2026-11-17)
+
+- Extraction reads ads. An answer's sponsored placement is part of the shelf: what it shows is a row after the answer's own, marked `source: "ad"` (a product the answer also recommends is one row, `source: "both"`), never the top pick; stores named only in the ad go in `ad_retailers`; the ad stays in the recorded answer. The served schema carries the field and the rule, and a row without `source` still records.
+- New eval `extraction-ranked-with-ad`, mirrored from Slingso's extraction cases.
+
 ## 0.5.6 (2026-11-14)
 
 - No shipped file declares a server that runs on the user's computer: the browser-choice eval fixture's server list is written at eval time by the step in its README (`mcp.eval.json` is gone).
