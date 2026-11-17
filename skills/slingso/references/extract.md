@@ -23,6 +23,19 @@ A row is a product someone can buy by its maker's name. Not rows: stores and mar
 - `price`, `offer`, `buy_path`: as the answer states them, word for word. Nothing stated, null.
 - `claims`: each thing the answer says about that product, one short fact per claim, on that product's row. A claim about the brand in general sits on the brand's first row.
 
+## Ads shown with the answer
+
+Some answers end with a paid placement, labelled "Sponsored" or "Ad". The shopper sees it, so it is on the shelf, and Slingso needs to know it was paid for.
+
+- Keep the ad in `answer`: record the whole page text, the ad included.
+- What the ad shows is a row after the answer's own rows, with `source: "ad"`. Never `top_pick`; `sentiment` neutral; `price` and `offer` as the ad states them.
+- A product the answer recommends and the ad also shows stays one row, at its place in the answer, with `source: "both"`.
+- Every other row is `source: "answer"`.
+- A store named only inside the ad also goes in `ad_retailers`.
+- The ad's small print ("About this ad", "Sponsored by") names nobody new.
+
+An ad never makes the brand recommended: `brand_recommended` and `stage_bucket` are about the assistant's own words.
+
 ## Verdicts, on our rows only
 
 For a claim on an `ours` row, set `verdict` by checking it against the Brand Soul and the key attributes:

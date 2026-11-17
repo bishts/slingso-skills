@@ -13,6 +13,7 @@
       "list": [
         "products",
         "retailers",
+        "ad_retailers",
         "competitors",
         "citation_urls",
         "destination_urls",
@@ -66,7 +67,12 @@
             "contradicted",
             "unsupported"
           ]
-        }
+        },
+        "source": [
+          "answer",
+          "ad",
+          "both"
+        ]
       },
       "stage_buckets": {
         "awareness": [
@@ -114,7 +120,8 @@
         "factual_claims": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
         "factual_errors": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
         "brand_key_attributes_conveyed": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
-        "target_product_attributes_cited": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime"
+        "target_product_attributes_cited": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "ad_retailers": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime"
       },
       "row_glossary": {
         "rank": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
@@ -126,7 +133,8 @@
         "offer": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
         "buy_path": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
         "url": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
-        "claims": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime"
+        "claims": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",
+        "source": "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime"
       },
       "rules": [
         "EVAL STAND-IN: the real schema is served by get_extraction_schema at runtime",

@@ -44,6 +44,7 @@ Add `--trust-plugin` in CI. Results land in `evals/results/` (ignored by git). A
 | `monitor-server-run-now` | server checks on, the user asks to run now: `run_server_checks` once, never a browser run; `get_run_progress` followed with each `cursor` passed back as `since`, each answer and the tally narrated |
 | `check-unframed` | no browser: the paste route, the query exactly as written, nothing recorded, no invented answers |
 | `extraction-brand-ranked` | extraction against the served schema: rows in answer order, top pick, ours, claims on the right row, citations, the full answer, no scores; `claim_work` before the batch, `complete_run` once, after it |
+| `extraction-ranked-with-ad` | the same answer with a sponsored placement under it: the advertiser is a row after the answer's own, `source: "ad"`, never the top pick; the answer's picks are not marked paid; the ad stays in the recorded answer |
 | `extraction-brand-absent` | an answer with no products records an empty shelf; nothing invented |
 | `analyse-opportunities` | opportunities carry `action_dimension` and their `evidence` (observation ids with quoted lines), respect the rejection feedback in memory, use the server's numbers; Brand Memory written with the read `lock_version` and `distilled_through`; the session closed last |
 | `analyse-grounded-dose` | grounding: a dose only an assistant stated is a finding, never a pitch; assistants quoted as assistants; no comparison without the rival's site; evidence on every opportunity |
